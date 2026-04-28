@@ -11,7 +11,6 @@ User interface systems for Minecraft Bedrock using forms and custom menus.
 - Clean structure
 - Reusable systems
 - Easy customization
-- Bedrock compatible
 
 ## Status
 
