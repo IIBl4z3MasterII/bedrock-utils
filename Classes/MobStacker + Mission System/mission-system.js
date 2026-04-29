@@ -8,8 +8,6 @@
 ╚═════╝ ╚══════╝╚═╝╚══════╝╚═════╝     ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
                                                                                            
           Mission System  •  By: @bl4z3master
-
-
 */
 
 import { system, world, Player, ItemStack } from "@minecraft/server";
