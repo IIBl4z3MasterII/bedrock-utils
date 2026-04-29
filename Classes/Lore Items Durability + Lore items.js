@@ -8,8 +8,6 @@
 ╚═════╝ ╚══════╝╚═╝╚══════╝╚═════╝     ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
                                                                                            
           Lore Items Durability + Lore items  •  By: @bl4z3master
-
-
 */
 
 import { world, system } from "@minecraft/server";
