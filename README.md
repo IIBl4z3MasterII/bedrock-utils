@@ -1,9 +1,9 @@
 # 🪨 Bedrock Utils
 
-[![Build](https://img.shields.io/github/actions/workflow/status/IIBl4z3MasterII/bedrock-utils/ci.yml?branch=main&label=build&style=flat-square)](https://github.com/IIBl4z3MasterII/bedrock-utils/actions)
-[![Version](https://img.shields.io/github/package-json/v/IIBl4z3MasterII/bedrock-utils?label=version&style=flat-square)](https://github.com/IIBl4z3MasterII/bedrock-utils/releases)
-[![License](https://img.shields.io/github/license/IIBl4z3MasterII/bedrock-utils?style=flat-square)](./LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/IIBl4z3MasterII/bedrock-utils?style=flat-square)](https://github.com/IIBl4z3MasterII/bedrock-utils/commits/main)
+![Static Badge](https://img.shields.io/badge/version-1.0.0-blue?style=flat-square)
+![Static Badge](https://img.shields.io/badge/license-MIT-green?style=flat-square)
+![Static Badge](https://img.shields.io/badge/platform-Bedrock%20Edition-orange?style=flat-square)
+![Static Badge](https://img.shields.io/badge/language-JavaScript-yellow?style=flat-square)
 
 > Utilidades, scripts y recursos para desarrollar add-ons en **Minecraft Bedrock Edition** con JavaScript.
 
