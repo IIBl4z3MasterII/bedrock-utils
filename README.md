@@ -1,14 +1,38 @@
 # 🪨 Bedrock Utils
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/tu_usuario/bedrock-utils/ci.yml?branch=main&label=build)](https://github.com/tu_usuario/bedrock-utils/actions)
-[![Version](https://img.shields.io/github/package-json/v/tu_usuario/bedrock-utils?label=version)](https://github.com/tu_usuario/bedrock-utils/releases)
-[![License](https://img.shields.io/github/license/tu_usuario/bedrock-utils)](./LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/tu_usuario/bedrock-utils)](https://github.com/tu_usuario/bedrock-utils/commits/main)
+[![Build](https://img.shields.io/github/actions/workflow/status/IIBl4z3MasterII/bedrock-utils/ci.yml?branch=main&label=build&style=flat-square)](https://github.com/IIBl4z3MasterII/bedrock-utils/actions)
+[![Version](https://img.shields.io/github/package-json/v/IIBl4z3MasterII/bedrock-utils?label=version&style=flat-square)](https://github.com/IIBl4z3MasterII/bedrock-utils/releases)
+[![License](https://img.shields.io/github/license/IIBl4z3MasterII/bedrock-utils?style=flat-square)](./LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/IIBl4z3MasterII/bedrock-utils?style=flat-square)](https://github.com/IIBl4z3MasterII/bedrock-utils/commits/main)
 
-> 🧩 **Utilidades, scripts y recursos para Minecraft Bedrock Edition en JavaScript.**
+> Utilidades, scripts y recursos para desarrollar add-ons en **Minecraft Bedrock Edition** con JavaScript.
 
 ---
 
-![Bedrock Meme](https://i.ytimg.com/vi/-zdK268heKI/sddefault.jpg)
+## ¿Qué es esto?
 
-> ⚠️ **Si usas cualquier contenido de este repositorio, por favor menciona y acredita al creador original.**
+Una colección de herramientas y scripts que uso en mis proyectos de Bedrock. Si desarrollas add-ons, scripts de servidor o UIs personalizadas, algo de aquí probablemente te va a ahorrar tiempo.
+
+## Contenido
+
+- 🧩 **Scripts utilitarios** — helpers reutilizables para el Scripting API
+- 🖼️ **UI JSON** — fragmentos y estructuras para interfaces personalizadas
+- ⚙️ **Herramientas de build** — scripts para empaquetar y probar add-ons más rápido
+
+## Uso
+
+Clona el repositorio y revisa cada carpeta. Cada utilidad tiene su propio comentario o `README` interno explicando para qué sirve.
+
+```bash
+git clone https://github.com/IIBl4z3MasterII/bedrock-utils.git
+```
+
+## Créditos
+
+Si usas cualquier cosa de este repositorio en tus proyectos, por favor **menciona al creador original**. No es obligatorio, pero se agradece un montón.
+
+Hecho por **IIBl4z3MasterII**.
+
+---
+
+<sub>Proyecto personal • No afiliado con Mojang ni Microsoft</sub>
