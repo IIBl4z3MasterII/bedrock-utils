@@ -4,34 +4,49 @@
 ![Static Badge](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Static Badge](https://img.shields.io/badge/platform-Bedrock%20Edition-orange?style=flat-square)
 ![Static Badge](https://img.shields.io/badge/language-JavaScript-yellow?style=flat-square)
+![Static Badge](https://img.shields.io/badge/@minecraft%2Fserver-2.6.0-purple?style=flat-square)
 
-> Utilidades, scripts y recursos para desarrollar add-ons en **Minecraft Bedrock Edition** con JavaScript.
+> Colección de scripts, sistemas y recursos para desarrollar add-ons en **Minecraft Bedrock Edition** con JavaScript.  
+> Cada sistema es autocontenido, documentado y listo para integrar en tu proyecto.
 
 ---
 
-## ¿Qué es esto?
+## 🗂️ Estructura
 
-Una colección de herramientas y scripts que uso en mis proyectos de Bedrock. Si desarrollas add-ons, scripts de servidor o UIs personalizadas, algo de aquí probablemente te va a ahorrar tiempo.
+```
+bedrock-utils/
+├── Classes/       # Sistemas JS orientados a objetos → ver Classes/README.md
+├── ui/            # Interfaces de usuario             → ver ui/README.md
+└── scoreboard/    # Sistemas de scoreboard            → ver scoreboard/README.md
+```
 
-## Contenido
+Cada carpeta tiene su propio `README.md` con el detalle de lo que contiene.
 
-- 🧩 **Scripts utilitarios** — helpers reutilizables para el Scripting API
-- 🖼️ **UI JSON** — fragmentos y estructuras para interfaces personalizadas
-- ⚙️ **Herramientas de build** — scripts para empaquetar y probar add-ons más rápido
+---
 
-## Uso
+## ⚙️ Requisitos
 
-Clona el repositorio y revisa cada carpeta. Cada utilidad tiene su propio comentario o `README` interno explicando para qué sirve.
+- Minecraft Bedrock Edition `1.20.70+`
+- `@minecraft/server` `2.6.0`
+- `@minecraft/server-ui` `2.0.0`
+
+---
+
+## 🚀 Uso
 
 ```bash
 git clone https://github.com/IIBl4z3MasterII/bedrock-utils.git
 ```
 
-## Créditos
+Entra a la carpeta del sistema que necesites y sigue su `README.md`.
 
-Si usas cualquier cosa de este repositorio en tus proyectos, por favor **menciona al creador original**. No es obligatorio, pero se agradece un montón.
+---
 
-Hecho por **IIBl4z3MasterII**.
+## 📋 Créditos
+
+Si usas cualquier cosa de este repo en tu proyecto, por favor **menciona al creador original**.
+
+Hecho por **IIBl4z3MasterII**
 
 ---
 
