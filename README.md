@@ -42,11 +42,19 @@ Entra a la carpeta del sistema que necesites y sigue su `README.md`.
 
 ---
 
-## 📋 Créditos
+## 👤 Autor
+
+**IIBl4z3MasterII** — Desarrollador de Script API y JSON UI para Minecraft Bedrock.
+
+| | |
+|---|---|
+| 🌐 Sitio | [bl4z3community.neocities.org](https://bl4z3community.neocities.org/) |
+| 📁 Portafolio | [Ver portafolio](https://bl4z3community.neocities.org/Manifest/portafolio) |
+| 📦 CurseForge | [iibl4z3masterii](https://www.curseforge.com/members/iibl4z3masterii/projects) |
+| ▶️ YouTube | [@bl4z3master](https://www.youtube.com/@bl4z3master) |
+| 💬 Discord | [Unirse](https://discord.gg/kBNHNxXbMM) |
 
 Si usas cualquier cosa de este repo en tu proyecto, por favor **menciona al creador original**.
-
-Hecho por **IIBl4z3MasterII**
 
 ---
 
