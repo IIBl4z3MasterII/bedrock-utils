@@ -20,16 +20,13 @@ bedrock-utils/
 │   ├── Death Custom Msg/
 │   ├── Drops In Inventory/
 │   ├── MobStacker + Mission System/
-│   ├── Dynamic Pros Template.js
-│   └── Lore Items Durability + Lore items.js
+│   ├── Dynamic Pros Template/
+│   └── Lore Items Durability + Lore items/
 ├── scoreboard/                 # Sistemas de scoreboard y glyphs
 │   └── Glyphs/
-├── ui/                         # Interfaces de usuario (JSON UI + Script API)
-│   └── ShopUI ( Multitab UI )/
-└── docs/                       # 📚 Documentación modular
-    ├── classes/                # Docs por archivo de Classes/
-    ├── scoreboard/             # Docs de Scoreboard
-    └── ui/                     # Docs de UI
+└── ui/                         # Interfaces de usuario (JSON UI + Script API)
+    ├── ShopUI ( Multitab UI )/
+    └── TemplateUI/
 ```
 
 ---
@@ -38,9 +35,9 @@ bedrock-utils/
 
 | Módulo | Descripción | Docs |
 |---|---|---|
-| 📦 **Classes** | Managers y sistemas JS | [→ docs/classes](docs/classes/README.md) |
-| 📊 **Scoreboard** | Glyphs y sistemas de ranking | [→ docs/scoreboard](docs/scoreboard/README.md) |
-| 🖼️ **UI** | Interfaces con JSON UI + Script API | [→ docs/ui](docs/ui/README.md) |
+| 📦 **Classes** | Managers y sistemas JS | [→ Classes](Classes/README.md) |
+| 📊 **Scoreboard** | Glyphs y sistemas de ranking | [→ scoreboard](scoreboard/README.md) |
+| 🖼️ **UI** | Interfaces con JSON UI + Script API | [→ ui](ui/README.md) |
 
 ---
 
@@ -78,7 +75,7 @@ Cada sistema escucha sus propios eventos y es independiente. No hay acoplamiento
 git clone https://github.com/IIBl4z3MasterII/bedrock-utils.git
 ```
 
-Entra a la carpeta del sistema que necesites, lee su doc en `docs/` e importa el archivo `.js` en tu `main.js`.
+Entra a la carpeta del sistema que necesites, lee su `README.md` e importa el archivo `.js` en tu `main.js`.
 
 ---
 
