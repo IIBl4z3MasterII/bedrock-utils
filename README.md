@@ -15,13 +15,21 @@
 
 ```
 bedrock-utils/
-├── Classes/                    # Sistemas JS orientados a objetos
+├── Classes/                    # Sistemas y clases con métodos, orientados a objetos
 │   ├── Ban System/
 │   ├── Death Custom Msg/
 │   ├── Drops In Inventory/
 │   ├── MobStacker + Mission System/
 │   ├── Dynamic Pros Template/
-│   └── Lore Items Durability + Lore items/
+│   ├── Lore Items Durability + Lore items/
+│   ├── Coordinates/
+│   ├── Cooldown/
+│   ├── Region/
+│   ├── Timer/
+│   ├── InventoryHelper/
+│   ├── EnchantHelper/
+│   ├── ChatModeration/
+│   └── Raycaster/
 ├── scoreboard/                 # Sistemas de scoreboard y glyphs
 │   └── Glyphs/
 └── ui/                         # Interfaces de usuario (JSON UI + Script API)
@@ -35,7 +43,7 @@ bedrock-utils/
 
 | Módulo | Descripción | Docs |
 |---|---|---|
-| 📦 **Classes** | Managers y sistemas JS | [→ Classes](Classes/README.md) |
+| 📦 **Classes** | Sistemas y clases con métodos | [→ Classes](Classes/README.md) |
 | 📊 **Scoreboard** | Glyphs y sistemas de ranking | [→ scoreboard](scoreboard/README.md) |
 | 🖼️ **UI** | Interfaces con JSON UI + Script API | [→ ui](ui/README.md) |
 

@@ -1,0 +1,63 @@
+{
+    "format_version": 2,
+    "metadata": {
+        "authors": [
+            "IIBl4z3MasterII"
+        ]
+    },
+    "header": {
+        "name": "[ BP ] ShopUI Template",
+        "description": "ShopUI by @bl4z3master, UI creator \"drag0nd\"",
+        "min_engine_version": [
+            1,
+            20,
+            70
+        ],
+        "uuid": "8ba7e389-b0b4-48f9-8ad7-1c7ef489e056",
+        "version": [
+            1,
+            0,
+            0
+        ]
+    },
+    "modules": [
+        {
+            "type": "data",
+            "uuid": "05353328-7375-4dd1-95f1-19f2bcb4c010",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        },
+        {
+            "type": "script",
+            "language": "javascript",
+            "uuid": "9c801939-b45f-4b6c-a2cf-80d27e37beb8",
+            "entry": "scripts/main.js",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "30917943-62cf-44f3-9bda-9738f4a8e188",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        },
+        {
+            "module_name": "@minecraft/server",
+            "version": "2.6.0"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
+            "version": "2.0.0"
+        }
+    ]
+}
