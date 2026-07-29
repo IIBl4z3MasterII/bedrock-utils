@@ -59,7 +59,8 @@ revisar el README de cada uno).
 |---|---|---|
 | 🧩 **helpers** | Clases atómicas y reusables | [→ helpers](helpers/README.md) |
 | ⚙️ **systems** | Sistemas completos de gameplay | [→ systems](systems/README.md) |
-| 📦 **addons/shop-ui** | Addon de tienda instalable (BP+RP) | [→ shop-ui](addons/shop-ui/README.md) |
+| 📦 **addons** | Addons completos e instalables (BP+RP) | [→ addons](addons/README.md) |
+| 🖼️ **assets** | Recursos estáticos (texturas, glyphs) | [→ assets](assets/README.md) |
 
 ---
 
