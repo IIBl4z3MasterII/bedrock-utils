@@ -1,13 +1,13 @@
 # 🪨 Bedrock Utils
 
-![version](https://img.shields.io/badge/version-1.0.0-blue?style=flat-square)
+![version](https://img.shields.io/badge/version-2.0.0-blue?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![platform](https://img.shields.io/badge/platform-Bedrock%20Edition-orange?style=flat-square)
 ![language](https://img.shields.io/badge/language-JavaScript-yellow?style=flat-square)
 ![api](https://img.shields.io/badge/@minecraft%2Fserver-2.6.0-purple?style=flat-square)
 
-> Colección de scripts, sistemas y recursos para desarrollar add-ons en **Minecraft Bedrock Edition** con JavaScript (Script API Stable).  
-> Cada sistema es autocontenido, documentado y listo para integrar en tu proyecto.
+> Colección de scripts, sistemas y recursos para desarrollar add-ons en **Minecraft Bedrock Edition** con JavaScript (Script API Stable).
+> Cada módulo es autocontenido, documentado y listo para integrar en tu proyecto.
 
 ---
 
@@ -15,27 +15,41 @@
 
 ```
 bedrock-utils/
-├── Classes/                    # Sistemas y clases con métodos, orientados a objetos
-│   ├── Ban System/
-│   ├── Death Custom Msg/
-│   ├── Drops In Inventory/
-│   ├── MobStacker + Mission System/
-│   ├── Dynamic Pros Template/
-│   ├── Lore Items Durability + Lore items/
-│   ├── Coordinates/
-│   ├── Cooldown/
-│   ├── Region/
-│   ├── Timer/
-│   ├── InventoryHelper/
-│   ├── EnchantHelper/
-│   ├── ChatModeration/
-│   └── Raycaster/
-├── scoreboard/                 # Sistemas de scoreboard y glyphs
-│   └── Glyphs/
-└── ui/                         # Interfaces de usuario (JSON UI + Script API)
-    ├── ShopUI ( Multitab UI )/
-    └── TemplateUI/
+├── helpers/                    # Clases atómicas y reusables (sin lógica de negocio propia)
+│   ├── chat-moderation/
+│   ├── cooldown/
+│   ├── coordinates/
+│   ├── enchant-helper/
+│   ├── inventory-helper/
+│   ├── lore-durability/
+│   ├── particle-helper/
+│   ├── raycaster/
+│   ├── region/
+│   ├── rtp-helper/
+│   ├── template-ui/
+│   ├── timer/
+│   └── index.js                # Re-exporta todo lo de arriba en un solo import
+├── systems/                    # Sistemas completos: event listeners + persistencia + lógica de gameplay
+│   ├── ban-system/
+│   ├── death-custom-msg/
+│   ├── drops-in-inventory/
+│   ├── mob-stacker/
+│   ├── world-manager/
+│   └── index.js                # Re-exporta la API pública de cada sistema
+├── addons/                     # Addons completos e instalables (BP + RP), no solo código fuente
+│   └── shop-ui/
+│       ├── bp/
+│       └── rp/
+└── assets/                     # Recursos estáticos (texturas de glyphs, etc)
+    └── glyphs/
 ```
+
+**`helpers/` vs `systems/`:** un helper es una clase con métodos que vos
+llamás cuando la necesitás (sin opinión sobre tu lógica de juego); un
+system escucha eventos del mundo por su cuenta y tiene una lógica de
+gameplay completa (algunos se autoregistran al importarlos, otros
+exponen una función `inicializar...()` para arrancar explícitamente —
+revisar el README de cada uno).
 
 ---
 
@@ -43,9 +57,9 @@ bedrock-utils/
 
 | Módulo | Descripción | Docs |
 |---|---|---|
-| 📦 **Classes** | Sistemas y clases con métodos | [→ Classes](Classes/README.md) |
-| 📊 **Scoreboard** | Glyphs y sistemas de ranking | [→ scoreboard](scoreboard/README.md) |
-| 🖼️ **UI** | Interfaces con JSON UI + Script API | [→ ui](ui/README.md) |
+| 🧩 **helpers** | Clases atómicas y reusables | [→ helpers](helpers/README.md) |
+| ⚙️ **systems** | Sistemas completos de gameplay | [→ systems](systems/README.md) |
+| 📦 **addons/shop-ui** | Addon de tienda instalable (BP+RP) | [→ shop-ui](addons/shop-ui/README.md) |
 
 ---
 
@@ -60,20 +74,22 @@ bedrock-utils/
 
 ---
 
-## 🔄 Flujo general del addon
+## 🔄 Flujo general
 
 ```
 Evento de Minecraft (playerSpawn, entityDie, blockBreak...)
         │
         ▼
-   Sistema correspondiente (BanSystem / MobStacker / DropManager...)
+   Sistema correspondiente (systems/ban-system, systems/mob-stacker...)
         │
-        ├──► Dynamic Properties  (persistencia entre sesiones)
-        ├──► Scoreboards         (economía / stats visibles)
-        └──► UI Forms            (ActionFormData / ModalFormData / JSON UI)
+        ├──► helpers/ (Region, Cooldown, InventoryHelper...) como piezas reusables
+        ├──► Dynamic Properties / VaultDB / WorldManager (persistencia)
+        └──► UI Forms (ActionFormData / ModalFormData / TemplateUI / JSON UI)
 ```
 
-Cada sistema escucha sus propios eventos y es independiente. No hay acoplamiento forzado entre módulos: pueden integrarse de forma opcional.
+Cada `system` escucha sus propios eventos y es independiente entre sí.
+Los `helpers` no dependen de ningún `system` — podés usarlos sueltos en
+cualquier proyecto sin arrastrar el resto del repo.
 
 ---
 
@@ -83,7 +99,23 @@ Cada sistema escucha sus propios eventos y es independiente. No hay acoplamiento
 git clone https://github.com/IIBl4z3MasterII/bedrock-utils.git
 ```
 
-Entra a la carpeta del sistema que necesites, lee su `README.md` e importa el archivo `.js` en tu `main.js`.
+Importar un módulo puntual:
+
+```js
+import { Region } from "./helpers/region/index.js";
+import { CooldownManager } from "./helpers/cooldown/index.js";
+```
+
+O todo un grupo de una vez, usando el índice agregador:
+
+```js
+import { Region, CooldownManager, Timer } from "./helpers/index.js";
+import { worldManager, missionSystem } from "./systems/index.js";
+```
+
+Para el addon de tienda (`addons/shop-ui`), no se importa — se instala
+como behavior pack + resource pack. Ver su
+[README](addons/shop-ui/README.md).
 
 ---
 
