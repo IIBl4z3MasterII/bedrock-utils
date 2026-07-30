@@ -3,6 +3,22 @@
 Todos los cambios notables de este repo se documentan acá.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/), versionado [SemVer](https://semver.org/).
 
+## [2.1.0] - 2026-07-29
+
+### Changed — breaking
+- `systems/mob-stacker/` reescrito por completo: clase `MobStackerManager` basada en dynamic properties, reemplaza el manejo anterior por `Map`s en memoria + fusión de HP/escala visual. Ahora también maneja creepers apilados que explotan.
+- **Eliminado `mission-system.js`** — `systems/index.js` ya no exporta `missionSystem`, exporta `MobStackerManager`/`mobStackerManager`.
+- `InventoryHelper.giveItem`: ahora rellena slots parciales del mismo item antes de usar slots vacíos, en vez de delegar todo a `container.addItem`.
+- `RtpHelper.rtp`: `targetDimension` acepta un id de dimensión (`string`) además de una instancia `Dimension`.
+- `TemplateUI`: nuevo `forceShow(form, player, maximumRetries)` que reintenta el `.show()` si se cancela por `FormCancelationReason.UserBusy`; `buildAndShow`/`mostrarMenu`/`mostrarModal` lo usan internamente y las dos últimas pasaron a `async`.
+- `ParticleHelper`: filtro de distancia (`maxDistance` + `player`) ahora usa un default de `18` bloques si se pasa `player` sin `maxDistance` explícito, y el chequeo de rango pasó a ser 3D (antes solo X/Z).
+
+### Added
+- `example.js` agregado a cada módulo de `helpers/` (salvo `lore-durability`).
+
+### Fixed
+- Import roto en `systems/index.js` y en el README principal, que seguían referenciando `missionSystem` tras el reescritura de `mob-stacker`.
+
 ## [2.0.0] - 2026-07-29
 
 ### Changed — restructure completo (breaking)

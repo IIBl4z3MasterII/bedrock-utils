@@ -111,7 +111,7 @@ O todo un grupo de una vez, usando el índice agregador:
 
 ```js
 import { Region, CooldownManager, Timer } from "./helpers/index.js";
-import { worldManager, missionSystem } from "./systems/index.js";
+import { worldManager, mobStackerManager } from "./systems/index.js";
 ```
 
 Para el addon de tienda (`addons/shop-ui`), no se importa — se instala
