@@ -1,38 +1,38 @@
-# 💬 ChatModeration
+# 💬ChatModeration
 
-Clase con métodos estáticos de moderación de texto. Por ahora cubre
-detección de mayúsculas excesivas (anti-caps), pensada para engancharse
-al evento de chat y limpiar/filtrar mensajes antes de que lleguen al
-resto del mundo.
+Class with static text moderation methods. For now it covers
+detection of excessive capital letters (anti-caps), designed to catch
+to the chat event and clean/filter messages before they reach the
+rest of the world.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `ChatModeration` |
+| `index.js` | Class `ChatModeration` |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Escribir "¿cuántas mayúsculas tiene este string?" a mano cada vez que
-querés un anti-spam de caps es repetitivo. Esta clase lo resuelve en dos
-métodos sin estado (no hay que instanciar nada).
+Write "how many capital letters does this string have?" by hand every time
+You want an anti-spam caps it is repetitive. This class solves it in two
+stateless methods (nothing needs to be instantiated).
 
 ---
 
-## API pública
+## Public API
 
-| Método | Parámetros | Devuelve | Descripción |
+| Method | Parameters | Returns | Description |
 |---|---|---|---|
-| `countUppercase(text)` | `text: string` | `number` | Cuenta letras A-Z mayúsculas en el string |
+| `countUppercase(text)` | `text: string` | `number` | Counts uppercase letters A-Z in the string |
 | `isExcessiveCaps(text, threshold?)` | `text: string`, `threshold: number = 5` | `boolean` | `true` si `countUppercase(text) > threshold` |
 
 ---
 
-## Ejemplo de uso
+## Usage example
 
 ```js
 import { ChatModeration } from "./helpers/chat-moderation/index.js";
@@ -48,14 +48,14 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
 ---
 
-## Notas
+## Grades
 
-- No detecta ni filtra insultos, spam de caracteres repetidos ni links —
-  solo mayúsculas. Para moderación más completa, combinar con otra
-  lógica propia.
-- `threshold` por defecto es `5`; en mensajes cortos (ej. "OK") puede dar
-  falso positivo si se baja demasiado el umbral.
+- Does not detect or filter insults, spam with repeated characters or links —
+only capital letters. For more complete moderation, combine with another
+own logic.
+- `threshold` defaults to `5`; in short messages (e.g. "OK") can give
+false positive if the threshold is lowered too much.
 
 ---
 
-<sub>ChatModeration por **IIBl4z3MasterII**</sub>
+<sub>ChatModerationby **IIBl4z3MasterII**</sub>

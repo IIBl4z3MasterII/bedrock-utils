@@ -1,42 +1,42 @@
 # 🧭 Coordinates
 
-Clase estática con métodos para resolver coordenadas de forma equivalente
-a la notación vanilla de `/execute`: local (`^ ^ ^`), relativa (`~ ~ ~`) y
+Static class with methods to solve coordinates equivalently
+to vanilla `/execute` notation: local (`^ ^ ^`), relative (`~ ~ ~`) and
 absoluta.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `Coordinates` |
+| `index.js` | Class `Coordinates` |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Cuando necesitás posicionar algo relativo a la vista/orientación de una
-entidad (ej: spawnear un proyectil "adelante" del jugador, un efecto "a
-la izquierda", una partícula "arriba de la cabeza mirando hacia donde
-mira"), replicar esa matemática de vectores a mano es repetitivo y fácil
-de romper. `Coordinates` encapsula esa lógica una sola vez, igual que
-`/execute anchored ... run ... ^ ^ ^` lo hace en comandos.
+When you need to position something relative to the view/orientation of a
+entity (e.g. spawning a projectile "in front" of the player, an effect "ahead"
+the left", a particle "above the head looking where
+look"), replicating that vector math by hand is repetitive and easy
+to break `Coordinates` encapsulates that logic just once, just like
+`/execute anchored ... run ... ^ ^ ^` does this in commands.
 
 ---
 
-## API pública
+## Public API
 
 ### `Coordinates.local(entity, x, y, z, anchor)`
 
-Equivalente a `^X ^Y ^Z`. Usa la dirección de vista de la entidad como
-eje: `+x` = izquierda, `+y` = arriba, `+z` = adelante.
+Equivalent to `^X ^Y ^Z`. Use the view direction of the entity as
+axis: `+x` = left, `+y` = up, `+z` = forward.
 
-| Parámetro | Tipo | Default | Descripción |
+| Parameter | Type | Default | Description |
 |---|---|---|---|
-| `entity` | `Entity` | — | Entidad de referencia |
+| `entity` | `Entity` | — | Reference entity |
 | `x, y, z` | `number` | `0` | Offsets locales |
-| `anchor` | `"feet" \| "eyes"` | `"feet"` | Desde dónde se calcula el origen |
+| `anchor` | `"feet" \| "eyes"` | `"feet"` | Where is the origin calculated from |
 
 ```js
 import { Coordinates } from "./helpers/coordinates/index.js";
@@ -48,39 +48,39 @@ player.dimension.spawnEntity("minecraft:arrow", spawnPoint);
 
 ### `Coordinates.relative(entity, x, y, z, anchor)`
 
-Equivalente a `~X ~Y ~Z`. Suma el offset directo a los ejes del mundo,
-sin rotar según hacia dónde mira la entidad.
+Equivalent to `~X ~Y ~Z`. Add the direct offset to the world axes,
+without rotating depending on where the entity is facing.
 
 ```js
-// 3 bloques arriba de la posición actual, sin importar hacia dónde mira
+// 3 blocks above the current position, regardless of facing direction
 const above = Coordinates.relative(player, 0, 3, 0);
 ```
 
 ### `Coordinates.absolute(x, y, z)`
 
-Devuelve `{ x, y, z }` tal cual — solo por consistencia de API con los
-otros dos métodos (para no mezclar objetos armados a mano con los que
-genera esta clase).
+Returns `{ x, y, z }` as is — just for API consistency with the
+two other methods (so as not to mix hand-assembled objects with those
+generates this class).
 
 ---
 
-## Cómo funciona por dentro
+## How it works inside
 
-`local()` arma una base ortonormal (`forward`, `right`, `up`) a partir de
-la dirección de vista de la entidad usando producto cruz (`#cross`) y
-normalización (`#normalize`) — ambos métodos privados, no forman parte de
-la API pública.
-
----
-
-## Notas
-
-- `local()` con `y` distinto de 0 puede dar resultados poco intuitivos si
-  la entidad mira muy hacia arriba/abajo (el "up" calculado se vuelve
-  inestable cerca de los polos — problema clásico de bases ortonormales
-  desde un solo vector). Para la mayoría de casos de juego (spawnear
-  cosas frente al jugador) no es un problema perceptible.
+`local()` builds an orthonormal base (`forward`, `right`, `up`) from
+the view direction of the entity using cross product (`#cross`) and
+normalization (`#normalize`) — both methods are private, not part of
+the public API.
 
 ---
 
-<sub>Coordinates por **IIBl4z3MasterII**</sub>
+## Grades
+
+- `local()` with `y` other than 0 can give unintuitive results if
+the entity looks very up/down (the calculated "up" becomes
+unstable near the poles — classic problem of orthonormal bases
+from a single vector). For most game cases (spawning
+things in front of the player) is not a noticeable problem.
+
+---
+
+<sub>Coordinates by **IIBl4z3MasterII**</sub>

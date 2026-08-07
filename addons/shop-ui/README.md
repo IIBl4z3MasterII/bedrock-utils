@@ -1,13 +1,13 @@
-# 🛒 Shop UI (addon completo)
+# 🛒 Shop UI (full addon)
 
-A diferencia de `helpers/` y `systems/` (código para copiar/pegar dentro
-de tu propio addon), esto es un **addon instalable completo**: behavior
-pack + resource pack con su propio `manifest.json`, listo para cargar en
-Minecraft tal cual.
+Unlike `helpers/` and `systems/` (code to copy/paste into
+from your own addon), this is a **complete installable addon**: behavior
+pack + resource pack with your own `manifest.json`, ready to load into
+Minecraft as is.
 
 ---
 
-## Estructura
+## Structure
 
 ```
 shop-ui/
@@ -15,8 +15,8 @@ shop-ui/
 │   ├── manifest.json
 │   ├── pack_icon.png
 │   └── scripts/
-│       ├── main.js              # Lógica de la tienda (UI, compra, stock, economía)
-│       └── shop-config.js       # Configuración: items, precios, materiales, mensajes
+│       ├── main.js              # Shop logic (UI, purchase, stock, economy)
+│       └── shop-config.js       # Config: items, prices, materials, messages
 └── rp/                          # Resource Pack
     ├── manifest.json
     ├── pack_icon.png
@@ -30,64 +30,64 @@ shop-ui/
 
 ---
 
-## Cómo instalar
+## How to install
 
-1. Copiar `bp/` a `com.mojang/development_behavior_packs/` (o
-   empaquetar como `.mcpack`).
-2. Copiar `rp/` a `com.mojang/development_resource_packs/`.
-3. Activar ambos packs en el mundo, en ese orden (BP y RP).
+1. Copy `bp/` to `com.mojang/development_behavior_packs/` (o
+package as `.mcpack`).
+2. Copy `rp/` to `com.mojang/development_resource_packs/`.
+3. Activate both packs in the world, in that order (BP and RP).
 
 ---
 
-## `shop-config.js` — qué se configura
+## `shop-config.js` — what is configured
 
-| Export | Contenido |
+| Export | Content |
 |---|---|
-| `PROPERTY_KEYS` | Nombres de las Dynamic Properties usadas para persistir stock/economía |
-| `ECONOMY_CONFIG` | Parámetros de precios/economía |
-| `STOCK_CONFIG` | Límites y reposición de stock |
-| `MATERIALS` | Catálogo de materiales/items disponibles en la tienda |
-| `ITEM_TYPES` | Categorías de items |
-| `UI_CONFIG` | Textos/ajustes de la interfaz |
-| `MESSAGES` | Strings mostrados al jugador |
-| `SOUNDS` | Sonidos reproducidos en distintas acciones |
-| `SHOP_ITEM` | Item que abre la tienda al usarlo (`"minecraft:stick"` por defecto) |
+| `PROPERTY_KEYS` | Names of the Dynamic Properties used to persist stock/economy |
+| `ECONOMY_CONFIG` | Price/economic parameters |
+| `STOCK_CONFIG` | Limits and stock replenishment |
+| `MATERIALS` | Catalog of materials/items available in the store |
+| `ITEM_TYPES` | Item categories |
+| `UI_CONFIG` | Texts/interface settings |
+| `MESSAGES` | Strings shown to the player |
+| `SOUNDS` | Sounds played in different actions |
+| `SHOP_ITEM` | Item that opens the store when used (`"minecraft:stick"` by default) |
 
-Para personalizar la tienda (precios, catálogo, textos), editar
-**solo `shop-config.js`** — `main.js` no debería necesitar cambios para
-un uso normal.
+To customize the store (prices, catalog, texts), edit
+**only `shop-config.js`** — `main.js` should not need changes to
+normal use.
 
 ---
 
 ## `main.js`
 
-Módulo de ~1200 líneas, sin exports (se autoregistra al cargar el pack).
-Usa `world.setDynamicProperty`/`getDynamicProperty` directo (con helpers
-propios `saveObjectData`/`loadObjectData`) para persistir stock y
-economía — no usa `WorldManager`/`DynamicStore` de `systems/world-manager/`.
+Module of ~1200 lines, without exports (it registers itself when loading the pack).
+Usa `world.setDynamicProperty`/`getDynamicProperty` direct (with helpers
+own `saveObjectData`/`loadObjectData`) to persist stock and
+economy — does not use `WorldManager`/`DynamicStore` de `systems/world-manager/`.
 
 ---
 
 ## `rp/ui/`
 
-JSON UI custom (`_ui_defs.json`, `server_form.json`,
+JSONUI custom (`_ui_defs.json`, `server_form.json`,
 `center/forms/gallery_form.json`) para el estilo visual de la tienda
-(multi-tab, galería de items) en vez de usar el `ActionFormData` genérico
-de la Forms API.
+(multi-tab, item gallery) instead of using the `ActionFormData` generic
+of the Forms API.
 
 ---
 
-## Notas
+## Grades
 
-- **Fix aplicado:** `main.js` importaba `./shop_config.js` (guión bajo)
-  pero el archivo real se llama `shop-config.js` (guión medio) — el
-  import no resolvía y el script fallaba al cargar. Corregido a
-  `./shop-config.js`.
-- Es el único módulo del repo que se distribuye como addon completo en
-  vez de código fuente para integrar a mano — tenerlo en cuenta si estás
-  buscando "la versión copiar/pegar" de un sistema de tienda (no existe
-  acá; esto reemplaza esa necesidad con un pack listo para usar).
+- **Fix applied:** `main.js` imported `./shop_config.js` (underscore)
+but the actual file is called `shop-config.js` (middle dash) — the
+import did not resolve and the script failed to load. Corrected to
+`./shop-config.js`.
+- It is the only module in the repo that is distributed as a complete addon in
+instead of source code to integrate by hand — keep this in mind if you are
+looking for "copy/paste version" of a store system (does not exist
+here; This replaces that need with a ready-to-use pack).
 
 ---
 
-<sub>Shop UI por **IIBl4z3MasterII**</sub>, UI por **drag0nd**
+<sub>Shop UI by **IIBl4z3MasterII**</sub>, UI by **drag0nd**

@@ -11,7 +11,7 @@ export async function forceShow(form, player, maximumRetries = 300) {
     response = await form.show(player);
     retries++;
     if (retries >= maximumRetries) {
-      console.warn(`[forceShow] ${player.name} no respondió después de ${maximumRetries} intentos`);
+      console.warn(`[forceShow] ${player.name}did not respond after${maximumRetries} intentos`);
       break;
     }
   } while (response.canceled && response.cancelationReason === FormCancelationReason.UserBusy && retries < maximumRetries);
@@ -66,7 +66,7 @@ export function buildForm(tpl, ctx = {}) {
       if (tpl.button2) form.button2(resolve(tpl.button2, ctx));
       return form;
     }
-    default: throw new Error(`Unknown form type: ${tpl.type}`);
+    default: throw new Error(`Unknown form type:${tpl.type}`);
   }
 }
 
@@ -81,7 +81,7 @@ const MODAL_STRUCTURE = {};
 export function registerActionMenu(id, config) { MENU_STRUCTURE[id] = config; }
 export function registerModalForm(id, config) { MODAL_STRUCTURE[id] = config; }
 
-export async function mostrarMenu(player, menuId, onBack) {
+export async function showMenu(player, menuId, onBack) {
   const menu = MENU_STRUCTURE[menuId];
   if (!menu) return;
   const form = buildForm({
@@ -95,13 +95,13 @@ export async function mostrarMenu(player, menuId, onBack) {
     if (canceled) return onBack?.();
     const btn = menu.buttons[selection];
     if (!btn) return;
-    if (btn.action) mostrarMenu(player, btn.action, onBack);
-    else if (btn.modal) mostrarModal(player, btn.modal, onBack);
-    else if (btn.callback) btn.callback(player, () => mostrarMenu(player, menuId, onBack));
+    if (btn.action) showMenu(player, btn.action, onBack);
+    else if (btn.modal) showModal(player, btn.modal, onBack);
+    else if (btn.callback) btn.callback(player, () => showMenu(player, menuId, onBack));
   } catch {}
 }
 
-export async function mostrarModal(player, formId, onBack) {
+export async function showModal(player, formId, onBack) {
   const config = MODAL_STRUCTURE[formId];
   if (!config) return;
   const form = buildForm({

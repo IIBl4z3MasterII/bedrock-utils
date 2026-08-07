@@ -1,7 +1,7 @@
 {
   "name": "bedrock-utils",
-  "version": "2.0.0",
-  "description": "Colección de scripts, sistemas y utils para Minecraft Bedrock Edition (Script API).",
+  "version": "0.0.1",
+  "description": "Collection of scripts, systems and utils for Minecraft Bedrock Edition (Script API).",
   "type": "module",
   "author": "IIBl4z3MasterII",
   "license": "MIT",

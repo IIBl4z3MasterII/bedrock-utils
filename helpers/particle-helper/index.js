@@ -133,7 +133,7 @@ export class ParticleHelper {
             }
         }, interval);
         const timeoutId = system.runTimeout(() => {
-            if (player.isValid) player.sendMessage("Borders desactivados automaticamente.");
+            if (player.isValid) player.sendMessage("Borders automatically disabled.");
             this.#stopBorder(player.id);
         }, interval * autoStopSeconds);
         this.#borderData.set(player.id, { intervalId, timeoutId });

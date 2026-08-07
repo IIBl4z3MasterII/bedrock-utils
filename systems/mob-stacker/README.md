@@ -1,27 +1,27 @@
-# 🐾 MobStacker
+#🐾MobStacker
 
-Apilador visual de mobs hostiles: agrupa mobs del mismo tipo cercanos
-entre sí en un solo "stack" (nametag con conteo `x{n}`), guardando el
-tamaño del stack como dynamic property en la entidad que queda visible.
-No mata/fusiona vida como antes — ahora remueve los excedentes y deja
-una sola entidad representando al grupo.
+Visual Hostile Mob Stacker: Group nearby mobs of the same type
+each other in a single "stack" (nametag with count `x{n}`), saving the
+stack size as a dynamic property on the entity that remains visible.
+Doesn't kill/fuse life like before — now removes excess and leaves
+a single entity representing the group.
 
-> ⚠️ El sistema de misiones (`mission-system.js`) que antes vivía acá
-> **fue eliminado** en esta actualización. `systems/index.js` ya no
-> exporta `missionSystem` — exporta `MobStackerManager` y la instancia
+> ⚠️ The mission system (`mission-system.js`) that used to live here
+> **was removed** in this update. `systems/index.js` no longer
+> export `missionSystem` — export `MobStackerManager` and the instance
 > `mobStackerManager`.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `MobStackerManager` + instancia autoinicializada `mobStackerManager` |
+| `index.js` | Class `MobStackerManager` + self-initialized instance `mobStackerManager` |
 
 ---
 
-## Cómo se activa
+## How to activate
 
 ```js
 import "./systems/mob-stacker/index.js";
@@ -29,7 +29,7 @@ import "./systems/mob-stacker/index.js";
 // — se autoregistra, no hace falta llamar nada.
 ```
 
-Para controlarlo en runtime:
+To control it in runtime:
 
 ```js
 import { mobStackerManager } from "./systems/index.js";
@@ -41,7 +41,7 @@ mobStackerManager.shutdown();       // detiene el runInterval interno
 
 ---
 
-## Categorías de mobs apilables
+##Stackable Mob Categories
 
 ```js
 const HOSTILE_MOBS = {
@@ -54,9 +54,9 @@ const HOSTILE_MOBS = {
 };
 ```
 
-> Nota: `zombified_piglin` pasó a `zombie_pigman`, y `breeze` fue
-> reemplazado por `creeper` + `slime` en `OVERWORLD` respecto a la
-> versión anterior.
+> Note: `zombified_piglin` became `zombie_pigman`, and `breeze` was
+> replaced by `creeper` + `slime` in `OVERWORLD` regarding the
+> previous version.
 
 ---
 
@@ -73,95 +73,95 @@ const MOB_STACKER_CONFIG = {
 };
 ```
 
-`CUSTOM_NAME_FORMAT` es nuevo: se usa para mobs que ya tenían un
-`nameTag` propio (puesto por otro sistema/spawn egg nombrado) y no
-forman parte de un stack — conservan su nombre pero con vida agregada
-al formato.
+`CUSTOM_NAME_FORMAT` is new: used for mobs that already had a
+`nameTag` own (put by another named system/spawn egg) and not
+They are part of a stack — they keep their name but with added life
+to the format.
 
 ---
 
-## API pública
+## Public API
 
-| Método | Descripción |
+| Method | Description |
 |---|---|
-| `initialize()` | Arranca los listeners si `isEnabled()`; no-op si ya se inicializó |
-| `toggleSystem()` | Invierte el flag de habilitado (dynamic property del mundo `mobstacker_enabled`) y lo devuelve |
-| `isEnabled()` / `setEnabled(value)` | Lee/escribe ese flag |
-| `getStats()` | `{ enabled, maxStackSize, supportedMobs, updateInterval }` |
-| `shutdown()` | Cancela el `runInterval` interno y resetea `_initialized` |
+| `initialize()` | Starts listeners if `isEnabled()`; no-op if already initialized |
+| `toggleSystem()` | Inverts the enabled flag (dynamic property of the world `mobstacker_enabled`) and returns it |
+| `isEnabled()` / `setEnabled(value)` | Read/write that flag |
+| `getStats()` | `{ enabled,maxStackSize, supportedMobs, updateInterval}` |
+| `shutdown()` | Cancel the `runInterval` internal and reset `_initialized` |
 
 ---
 
-## Flujo interno
+## Internal flow
 
 ```
-system.runInterval (cada UPDATE_INTERVAL ticks)
+system.runInterval (every UPDATE_INTERVAL ticks)
   └── updateStacks()
-        ├── obtiene entidades familia "monster"/"undead" del overworld
-        ├── filtra por this.mobTypes (union de HOSTILE_MOBS)
-        ├── agrupa por typeId, y dentro de cada tipo por processEntities()
-        │     ├── separateEntities(): distingue mobs con nombre propio
-        │     │     (customNamedEntities) de mobs apilables (stackableEntities)
-        │     ├── checkForNamedStacks(): re-aplica nametag si un mob con
-        │     │     stack_size > 1 perdió el formato de stack
-        │     └── groupEntitiesByLocation() + mergeStack() por cada grupo
-        │           cercano (bucket por STACK_RADIUS)
+        ├── gets "monster"/"undead" family entities from the overworld
+        ├── filters by this.mobTypes (union of HOSTILE_MOBS)
+        ├── groups by typeId, and within each type by processEntities()
+        │     ├── separateEntities(): distinguishes mobs with a custom name
+        │     │     (customNamedEntities) from stackable mobs (stackableEntities)
+        │     ├── checkForNamedStacks(): re-applies the nametag if a mob with
+        │     │     stack_size > 1 lost its stack formatting
+        │     └── groupEntitiesByLocation() + mergeStack() for each
+        │           nearby group (bucketed by STACK_RADIUS)
 
-entityHurt (mob apilable)
-  └── handleEntityHurt(): resta daño manualmente vía EntityHealthComponent,
-        actualiza nametag, y si currentHealth llega a 0 → handleEntityDeath()
+entityHurt (stackable mob)
+  └── handleEntityHurt(): subtracts damage manually via EntityHealthComponent,
+        updates the nametag, and if currentHealth reaches 0 → handleEntityDeath()
 
 handleEntityDeath(deadEntity)
-  ├── si stack_size > 1 → spawnRemainingStack() crea un reemplazo con
-  │     stack_size - 1 en la misma posición/rotación
-  └── mata la entidad original (nameTag "§c[ §7DEAD §c]" + kill())
+  ├── if stack_size > 1 → spawnRemainingStack() creates a replacement with
+  │     stack_size - 1 at the same position/rotation
+  └── kills the original entity (nameTag "§c[ §7DEAD §c]" + kill())
 
-explosion (creeper apilado)
-  └── handleCreeperExplosion(): si el creeper que explota tenía
-        stack_size > 1, respawnea uno nuevo con stack_size - 1 tras 5 ticks
+explosion (stacked creeper)
+  └── handleCreeperExplosion(): if the exploding creeper had
+        stack_size > 1, respawns a new one with stack_size - 1 after 5 ticks
 ```
 
 ---
 
-## Persistencia por entidad (dynamic properties, prefijo `mobstacker_`)
+## Persistence per entity (dynamic properties, prefix `mobstacker_`)
 
-| Key | Descripción |
+| Key | Description |
 |---|---|
-| `stack_size` | Cantidad de mobs representados por esta entidad |
-| `current_health` / `max_health` | Snapshot de vida usado al recalcular el nametag |
-| `custom_named` | `true` si la entidad tenía un `nameTag` propio antes de ser detectada (no se trata como stack) |
+| `stack_size` | Number of mobs represented by this entity |
+| `current_health`/`max_health` | Life Snapshot used when recalculating nametag |
+| `custom_named` | `true` if the entity had a `nameTag` own before being detected (not treated as stack) |
 
-Flag global en el mundo: `mobstacker_enabled` (controlado por
+Global flag in the world: `mobstacker_enabled` (controlled by
 `isEnabled()`/`setEnabled()`/`toggleSystem()`).
 
 ---
 
-## Diferencias vs. la versión anterior
+## Differences vs. the previous version
 
-- **Se eliminó `MissionSystem` por completo** (`mission-system.js` ya
-  no existe en este módulo) — el stacker ya no notifica kills a ningún
-  sistema de misiones.
-- El daño ahora se resta manualmente en `handleEntityHurt` (no depende
-  del daño real aplicado por el juego al tick siguiente).
-- Reemplaza el manejo por HP-sumado-y-visual-scale anterior por
-  conteo puro (`stack_size`) + remoción de las entidades excedentes.
-- Agrega manejo explícito de creepers que explotan estando apilados
-  (`handleCreeperExplosion`), inexistente antes.
-- Todo el estado vive en dynamic properties (persiste si el chunk se
-  descarga/recarga), no en `Map`s en memoria como antes.
-- `bossStackMap`/`stackVisuals` (código muerto de la versión previa)
-  ya no existen.
-
----
-
-## Posibles mejoras
-
-- Actualmente solo escanea `world.getDimension("overworld")` en
-  `updateStacks()` — mobs apilables en Nether/End no se agrupan.
-- No hay reemplazo del sistema de misiones eliminado; si tu addon
-  dependía de `missionSystem`/`trackKill`, hay que reimplementarlo
-  aparte o restaurar `mission-system.js` de una versión previa.
+- **` was removedMissionSystem` by complete** ( `mission-system.js` already
+does not exist in this module) — the stacker no longer notifies kills to anyone
+mission system.
+- Damage is now manually subtracted from `handleEntityHurt` (does not depend
+of the actual damage applied by the game to the next tick).
+- Replaces the previous HP-summed-and-visual-scale handling with
+pure counting (`stack_size`) + removal of excess entities.
+- Adds explicit handling of creepers that explode while stacked
+  (`handleCreeperExplosion`), non-existent before.
+- All state lives in dynamic properties (persists if the chunk is
+download/reload), not in `Map`s in memory as before.
+-`bossStackMap`/`stackVisuals` (dead code from previous version)
+They no longer exist.
 
 ---
 
-<sub>MobStacker por **IIBl4z3MasterII**</sub>
+## Possible improvements
+
+- Currently only scans `world.getDimension("overworld")` and
+  `updateStacks()` — stackable mobs in Nether/End do not group.
+- No replacement for the removed quest system; yes your addon
+depended on `missionSystem`/`trackKill`, we have to reimplement it
+separate or restore `mission-system.js` from a previous version.
+
+---
+
+<sub>MobStackerby **IIBl4z3MasterII**</sub>

@@ -1,29 +1,29 @@
-# 💾 WorldManager
+#💾WorldManager
 
-Sistema propio para centralizar el acceso a las Dynamic Properties: en vez
-de tenerlas repartidas por todo el addon con lecturas/escrituras sueltas,
-todo pasa por acá — un solo punto de entrada que resuelve el parseo de
-tipos, el manejo de errores, la distribución (mundo vs. entidad) y el
-ciclo de vida de carga del mundo. Dos clases: `DynamicStore` (el wrapper
-de bajo nivel) y `WorldManager` (singleton que gestiona el ciclo de vida +
-fábrica de stores).
+Own system to centralize access to Dynamic Properties: instead
+to have them distributed throughout the addon with loose reads/writes,
+everything happens here — a single entry point that resolves the parsing of
+types, error handling, distribution (world vs. entity), and
+world cargo life cycle. Two classes: `DynamicStore` (el wrapper
+low level) and `WorldManager` (singleton that manages the life cycle +
+store factory).
 
 ---
 
-## Archivos
+## Files
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clases `DynamicStore` y `WorldManager` (export default: instancia única) |
-| `logger.js` | Logger de consola con niveles (`debug`/`info`/`warn`/`error`), usado internamente por `WorldManager` |
+| `index.js` | Classes `DynamicStore` and `WorldManager` (export default: single instance) |
+| `logger.js` | Console logger with levels (`debug`/`info`/`warn`/`error`), used internally by `WorldManager` |
 
 ---
 
-## `DynamicStore`
+##`DynamicStore`
 
-Wrapper agnóstico de target — funciona igual sobre `world` o sobre un
-`Entity`/`Player`. Auto-detecta tipo (bool/número/JSON/string) al leer, y
-serializa objetos a JSON al escribir. Opcionalmente cachea en memoria.
+Target agnostic wrapper — works the same on `world` or on a
+`Entity`/`Player`. Auto-detect type (bool/number/JSON/string) al leer, y
+serializes objects toJSONin writing. Optionally cache in memory.
 
 ```js
 import worldManager from "./systems/world-manager/index.js";
@@ -43,47 +43,47 @@ configStore.keys();                     // todas las keys bajo el namespace "myA
 
 ### Payloads grandes (> 8 KB)
 
-Bedrock corta las Dynamic Properties en ~32 KB por string. `setLarge`/`getLarge`
-parten el valor en chunks automáticamente si hace falta:
+Bedrock cuts Dynamic Properties at ~32 KB per string. `setLarge`/`getLarge`
+They split the value into chunks automatically if necessary:
 
 ```js
 configStore.setLarge("bigPayload", hugeArrayOrObject);
 const data = configStore.getLarge("bigPayload");
 ```
 
-### Store por entidad (sin cache — cada jugador tiene su propio storage)
+### Store per entity (no cache — each player has their own storage)
 
 ```js
 const playerStore = worldManager.entityStore(player, "stats");
 playerStore.set("kills", 10);
 ```
 
-| Método | Descripción |
+| Method | Description |
 |---|---|
-| `get(name, defaultValue?)` | Lee y parsea el valor (bool/número/JSON/string) |
-| `set(name, value)` | Guarda (serializa objetos a JSON) |
-| `has(name)` | `true` si existe |
-| `delete(name)` | Borra (y sus chunks, si los tenía) |
-| `keys()` | Todas las keys del namespace (requiere namespace no vacío) |
-| `setLarge(name, value, chunkSize?)` / `getLarge(name, default?)` | Para payloads > 8 KB |
-| `invalidateCache(name?)` | Limpia la cache en memoria (una key o todas) |
+| `get(name,defaultValue?)` | Read and parse the value (bool/number/JSON/string) |
+| `set(name, value)` | Save (serializes objects toJSON) |
+| `has(name)` | `true` if exists |
+| `delete(name)` | Delete (and its chunks, if any) |
+| `keys()` | All namespace keys (requires non-empty namespace) |
+| `setLarge(name, value,chunkSize?)` / `getLarge(name, default?)` | Para payloads > 8 KB |
+| `invalidateCache(name?)` | Clear the cache in memory (one key or all) |
 
 ---
 
-## `WorldManager`
+##`WorldManager`
 
-Singleton (`export default`) que resuelve el problema de "el mundo todavía
-no cargó" y centraliza la creación de `DynamicStore`s.
+Singleton (`export default`) that solves the problem of "the world is still
+did not load" and centralizes the creation of `DynamicStore`s.
 
 ```js
 import worldManager, { onWorldReady } from "./systems/world-manager/index.js";
 
-// Corre apenas el mundo está listo (o inmediato si ya lo está)
+// Runs as soon as the world is ready (or immediately if it already is)
 onWorldReady(() => {
     console.log("Mundo listo, arrancando sistemas...");
 });
 
-// Alternativa: registrar una función de init que corre una sola vez
+// Alternative: register an init function that runs only once
 worldManager.registerInitFunction(() => {
     // setup que necesita el mundo cargado
 }, "Sistema X inicializado");
@@ -91,17 +91,17 @@ worldManager.registerInitFunction(() => {
 const store = worldManager.store("myApp");
 ```
 
-| Método | Descripción |
+| Method | Description |
 |---|---|
-| `store(namespace)` | Devuelve (o crea) un `DynamicStore` cacheado sobre `world` |
-| `entityStore(entity, namespace)` | `DynamicStore` sin cache sobre una entidad/jugador |
-| `onReady(callback)` | Corre el callback cuando el mundo cargó (o ya mismo si ya cargó) |
-| `registerInitFunction(fn, message?)` | Encola (o corre) una función de inicialización, una sola vez |
+| `store(namespace)` | Returns (or creates) a `DynamicStore`curly about `world` |
+| `entityStore(entity, namespace)` | `DynamicStore` no cache on an entity/player |
+| `onReady(callback)` | Run the callback when the world loaded (or right now if it already loaded) |
+| `registerInitFunction(fn, message?)` | Queue (or run) an initialization function, just once |
 | `isWorldLoaded()` | `true`/`false` |
-| `setDebugMode(enabled)` | Activa logs de debug vía `logger` |
-| `rawScan(predicate)` / `rawGet(id)` / `rawDelete(id)` | Acceso directo a `getDynamicPropertyIds()` sin pasar por un store |
-| `registerProperty` / `getProperty` / `setProperty` | API legacy plana (sin namespaces de `DynamicStore`), por compatibilidad hacia atrás |
+| `setDebugMode(enabled)` | Activate debug logs via `logger` |
+| `rawScan(predicate)` / `rawGet(id)` / `rawDelete(id)` | Shortcut to `getDynamicPropertyIds()` without going through a store |
+| `registerProperty`/`getProperty`/`setProperty` | Flat legacy API (no ` namespacesDynamicStore`), for backward compatibility |
 
 ---
 
-<sub>WorldManager por **IIBl4z3MasterII**</sub>
+<sub>WorldManagerby **IIBl4z3MasterII**</sub>

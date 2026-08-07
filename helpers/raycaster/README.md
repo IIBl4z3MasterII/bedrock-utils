@@ -1,47 +1,47 @@
 # 🎯 Raycaster
 
-Clase con métodos estáticos para saber a qué entidad o bloque está
-mirando un jugador, sin repetir la configuración de
-`getEntitiesFromViewDirection`/`getBlockFromViewDirection` en cada
+Class with static methods to know which entity or block it is
+watching a player, without repeating the settings
+`getEntitiesFromViewDirection`/`getBlockFromViewDirection` in each
 script.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `Raycaster` |
+| `index.js` | `Raycaster` class |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Ambos métodos nativos devuelven arrays/objetos con más info de la que
-casi siempre necesitás (distancia, cara del bloque golpeada, etc). Para
-el caso común — "¿a qué está mirando este jugador ahora mismo?" — esta
-clase devuelve directamente la entidad o el bloque, o `undefined` si no
-hay nada en rango.
+Both native methods return arrays/objects with more information than they
+you almost always need (distance, face of the block hit, etc.). For
+the common case — "what is this player looking at right now?" - this
+class directly returns the entity or block, or `undefined` if not
+there is nothing in range.
 
 ---
 
-## API pública
+## Public API
 
-| Método | Parámetros | Devuelve | Descripción |
+| Method | Parameters | Returns | Description |
 |---|---|---|---|
-| `getEntityLookingAt(player, maxDistance?)` | `player: Player`, `maxDistance: number = 10` | `Entity \| undefined` | Primera entidad en la línea de vista, dentro del rango |
-| `getBlockLookingAt(player, maxDistance?)` | `player: Player`, `maxDistance: number = 10` | `Block \| undefined` | Bloque en la línea de vista, dentro del rango |
+| `getEntityLookingAt(player,maxDistance?)` | `player: Player`, `maxDistance:number = 10` | `Entity \| undefined` | First entity in line of sight, within range |
+| `getBlockLookingAt(player,maxDistance?)` | `player: Player`, `maxDistance:number = 10` | `Block \| undefined` | Block in line of sight, within range |
 
 ---
 
-## Ejemplo de uso
+## Usage example
 
 ```js
 import { Raycaster } from "./helpers/raycaster/index.js";
 
 const entity = Raycaster.getEntityLookingAt(player, 10);
 if (entity) {
-    player.sendMessage(`§a¡Estás mirando a un ${entity.typeId.split(":").pop()}!`);
+    player.sendMessage(`§aYou're looking at a ${entity.typeId.split(":").pop()}!`);
 }
 
 const block = Raycaster.getBlockLookingAt(player);
@@ -52,15 +52,15 @@ if (block?.typeId === "minecraft:chest") {
 
 ---
 
-## Notas
+## Grades
 
-- Si hay varias entidades en la línea de vista, `getEntityLookingAt`
-  devuelve la primera del array que retorna la API nativa (normalmente
-  la más cercana, pero no está garantizado en todos los casos —
-  verificar si el orden importa para tu caso de uso).
-- `maxDistance` por defecto es 10 bloques en ambos métodos — subirlo
-  tiene costo de rendimiento marginal, no es un raycast pesado.
+- If there are multiple entities in the line of sight, `getEntityLookingAt`
+returns the first of the array returned by the native API (usually
+the closest, but it is not guaranteed in all cases —
+check if the order matters for your use case).
+-`maxDistance` defaults to 10 blocks in both methods — upload it
+It has marginal performance cost, it is not a heavy raycast.
 
 ---
 
-<sub>Raycaster por **IIBl4z3MasterII**</sub>
+<sub>Raycaster by **IIBl4z3MasterII**</sub>

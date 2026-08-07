@@ -41,7 +41,7 @@ class DynamicStore {
   set(name, value) {
     const key = this.#key(name);
     const stored = typeof value === "object" && value !== null ? JSON.stringify(value) : typeof value === "boolean" ? value : value;
-    try { this.#target.setDynamicProperty(key, stored); } catch (error) { this.log(`Error setting dynamic property ${key}: ${error}`, true); }
+    try { this.#target.setDynamicProperty(key, stored); } catch (error) { this.log(`Error setting dynamic property${key}: ${error}`, true); }
     if (this.#useCache) this.#cache.set(key, value);
   }
 
@@ -53,16 +53,16 @@ class DynamicStore {
     if (typeof meta === "number" && meta > 0 && this.#target.getDynamicProperty(`${key}_chunk0`) !== undefined) {
       for (let i = 0; i < meta; i++) {
         const chunkKey = this.#key(`${name}_chunk${i}`);
-        try { this.#target.setDynamicProperty(chunkKey, undefined); } catch (error) { this.log(`Error clearing chunk ${chunkKey}: ${error}`, true); }
+        try { this.#target.setDynamicProperty(chunkKey, undefined); } catch (error) { this.log(`Error clearing chunk${chunkKey}: ${error}`, true); }
         if (this.#useCache) this.#cache.delete(chunkKey);
       }
     }
-    try { this.#target.setDynamicProperty(key, undefined); } catch (error) { this.log(`Error deleting dynamic property ${key}: ${error}`, true); }
+    try { this.#target.setDynamicProperty(key, undefined); } catch (error) { this.log(`Error deleting dynamic property${key}: ${error}`, true); }
     if (this.#useCache) this.#cache.delete(key);
   }
 
   keys() {
-    if (!this.#ns) throw new Error("keys() requiere un namespace no vacío");
+    if (!this.#ns) throw new Error("keys() requires a non-empty namespace");
     const prefix = `${this.#ns}_`;
     if (typeof this.#target.getDynamicPropertyIds !== "function") return [];
     return this.#target.getDynamicPropertyIds().filter(id => id.startsWith(prefix)).map(id => id.slice(prefix.length));
@@ -119,7 +119,7 @@ class WorldManager {
       this.log("World loaded successfully! Initializing systems...");
       this.#initLegacyDefaults();
       this.runInitFunctions();
-      for (const cb of this.#readyQueue) { try { cb(); } catch (error) { this.log(`Error in onReady callback: ${error}`, true); } }
+      for (const cb of this.#readyQueue) { try { cb(); } catch (error) { this.log(`Error inonReadycallback:${error}`, true); } }
       this.#readyQueue.length = 0;
     };
 
@@ -141,14 +141,14 @@ class WorldManager {
   onReady(callback) { if (this.worldLoaded) callback(); else this.#readyQueue.push(callback); }
 
   registerInitFunction(func, message) {
-    if (this.worldLoaded) { try { func(); if (message && this.debugMode) this.log(message); } catch (error) { this.log(`Error in init function: ${error}`, true); } return; }
+    if (this.worldLoaded) { try { func(); if (message && this.debugMode) this.log(message); } catch (error) { this.log(`Error in init function:${error}`, true); } return; }
     this.initFunctions.push(func);
   }
 
   runInitFunctions() {
     for (const fn of this.initFunctions) {
       if (fn.__wmRan) continue;
-      try { fn(); fn.__wmRan = true; } catch (error) { this.log(`Error running init: ${error}`, true); }
+      try { fn(); fn.__wmRan = true; } catch (error) { this.log(`Error running init:${error}`, true); }
     }
     this.log("All systems initialized successfully");
   }
@@ -170,7 +170,7 @@ class WorldManager {
         if (world.getDynamicProperty(propertyName) === undefined) {
           world.setDynamicProperty(propertyName, typeof defaultValue === "object" ? JSON.stringify(defaultValue) : String(defaultValue));
         }
-      } catch (error) { this.log(`Error init legacy prop ${propertyName}: ${error}`, true); }
+      } catch (error) { this.log(`Error init legacy prop${propertyName}: ${error}`, true); }
     });
   }
 
@@ -182,7 +182,7 @@ class WorldManager {
         if (world.getDynamicProperty(fullName) === undefined) {
           world.setDynamicProperty(fullName, typeof defaultValue === "object" ? JSON.stringify(defaultValue) : String(defaultValue));
         }
-      } catch (error) { this.log(`Error init prop ${fullName}: ${error}`, true); }
+      } catch (error) { this.log(`Error init prop${fullName}: ${error}`, true); }
     }
   }
 
@@ -210,7 +210,7 @@ class WorldManager {
       world.setDynamicProperty(fullName, toStore);
       this.#legacyCache.delete(fullName);
       return true;
-    } catch (error) { this.log(`Error setting ${propertyName}: ${error}`, true); return false; }
+    } catch (error) { this.log(`Error setting${propertyName}: ${error}`, true); return false; }
   }
 }
 

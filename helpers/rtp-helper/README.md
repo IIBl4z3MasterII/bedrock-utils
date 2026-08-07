@@ -1,28 +1,28 @@
-# 🌀 RtpHelper
+# 🌀RtpHelper
 
-Sistema de Random Teleport (RTP) autocontenido: fase de "quedate quieto",
-búsqueda de ubicación segura en múltiples dimensiones, cooldown,
-cancelación si el jugador se mueve, efectos de teletransporte y limpieza
-automática de estado al desconectarse o al apagar el servidor.
+Self-contained Random Teleport (RTP) system: "stay still" phase,
+secure location search in multiple dimensions, cooldown,
+cancellation if player moves, teleportation and clearing effects
+automatic status when disconnecting or shutting down the server.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `RtpHelper` |
+| `index.js` | Class `RtpHelper` |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Un RTP "bien hecho" no es solo `player.teleport(random)` — hay que evitar
-teletransportar a alguien a lava, a media pared, o a un punto ya ocupado;
-dar feedback visual mientras busca; permitir cancelar si el jugador se
-mueve durante la cuenta regresiva; y limpiar todo si el jugador se
-desconecta a mitad del proceso. Esta clase resuelve las cuatro fases
-(espera → búsqueda → teletransporte → cooldown) como una sola unidad
+A "well-made" RTP is not just `player.teleport(random)` — it should be avoided
+teleport someone to lava, to the middle of a wall, or to an already occupied point;
+give visual feedback while searching; allow cancel if the player
+moves during countdown; and clean everything if the player
+Disconnect halfway through the process. This class solves the four phases
+(wait → search → teleport → cooldown) as a single unit
 configurable.
 
 ---
@@ -31,14 +31,14 @@ configurable.
 
 ```js
 const rtp = new RtpHelper({
-    cooldownMs: 60000,        // tiempo entre usos por jugador
-    stillTimeMs: 5000,        // segundos que hay que quedarse quieto antes de buscar
-    searchRadius: 2000,       // radio de búsqueda alrededor de startX/startZ
+    cooldownMs: 60000,        // time between uses per player
+    stillTimeMs: 5000,        // seconds the player must stay still before searching
+    searchRadius: 2000,       // search radius around startX/startZ
     startX: 0,
     startZ: 0,
-    maxSearchTicks: 6000,     // límite de ticks buscando antes de cancelar
-    safeBlockIds: [ /* bloques donde SÍ puede aparecer */ ],
-    unsafeBlockIds: [ /* bloques donde NUNCA debe aparecer */ ],
+    maxSearchTicks: 6000,     // tick limit while searching before canceling
+    safeBlockIds: [ /* blocks where the player CAN appear */ ],
+    unsafeBlockIds: [ /* blocks where the player must NEVER appear */ ],
     dimensionConfigs: {
         "minecraft:overworld": { minY: -60, maxY: 319, name: "Overworld" },
         "minecraft:nether":    { minY: 0,   maxY: 127, name: "Nether" },
@@ -48,59 +48,59 @@ const rtp = new RtpHelper({
 });
 ```
 
-Todos los campos son opcionales — los valores de arriba son los
-defaults. `onNotify` es lo que te permite cambiar el idioma/formato de
-los mensajes sin tocar el código interno de la clase.
+All fields are optional — the values ​​above are the
+defaults. `onNotify` is what allows you to change the language/format of
+messages without touching the internal code of the class.
 
 ---
 
-## API pública
+## Public API
 
-| Método | Parámetros | Devuelve | Descripción |
+| Method | Parameters | Returns | Description |
 |---|---|---|---|
-| `rtp(player, targetDimension?)` | `player: Player`, `targetDimension?: Dimension \| string` | `boolean` | Inicia el RTP. `targetDimension` acepta ahora una instancia `Dimension` **o** un id (`"minecraft:the_end"`) — se resuelve con `world.getDimension()`. `false` si está en cooldown o ya hay un RTP en curso para ese jugador |
-| `cancel(player)` | `player: Player` | `void` | Cancela manualmente un RTP en curso (fase de espera o de búsqueda) |
+| `rtp(player,targetDimension?)` | `player: Player`, `targetDimension?: Dimension \| string` | `boolean` | Start the RTP. `targetDimension` now accepts a `Dimension` instance **or** an id (`"minecraft:the_end"`) — resolves to `world.getDimension()`. `false` if on cooldown or there is already an RTP in progress for that player |
+| `cancel(player)` | `player:Player` | `void` | Manually cancel an RTP in progress (wait or search phase) |
 
 ---
 
-## Fases internas
+## Internal phases
 
 ```
 rtp(player)
-  ├── ¿en cooldown? → onNotify("Cooldown", ...) y aborta
-  ├── fase de espera (stillTimeMs)
-  │     tag "rtp_waiting" · si se mueve → cancela con "movimiento detectado"
-  ├── fase de búsqueda (system.runJob, generador)
-  │     tag "rtp" · cámara libre mirando hacia abajo mientras busca
-  │     cada 100 ticks reintenta un nuevo punto aleatorio si no encontró nada
-  │     si supera maxSearchTicks → cancela con "no se encontró ubicación segura"
-  └── teletransporte final
-        limpia cámara · teleport · partículas + sonido · onNotify("RTP exitoso", ...)
-        arranca cooldown
+  ├── on cooldown? → onNotify("Cooldown", ...) and aborts
+  ├── wait phase (stillTimeMs)
+  │     tag "rtp_waiting" · if the player moves → cancels with "movement detected"
+  ├── search phase (system.runJob, generator)
+  │     tag "rtp" · free camera looking down while searching
+  │     every 100 ticks retries a new random point if nothing was found
+  │     if it exceeds maxSearchTicks → cancels with "no safe location found"
+  └── final teleport
+        clears camera · teleport · particles + sound · onNotify("Successful RTP", ...)
+        starts cooldown
 ```
 
-La búsqueda de "ubicación segura" (`#isLocationSafe`/`#findSafeLocation`)
-exige: bloque sólido debajo, dos bloques de aire libres arriba, que el
-bloque no esté en `unsafeBlockIds`, y que sí esté en `safeBlockIds`. En
-el Nether escanea de `minY` a `maxY`; en el resto, intenta primero
-`getTopmostBlock` y si no es seguro escanea de arriba hacia abajo.
+Searching for "safe location" (`#isLocationSafe`/`#findSafeLocation`)
+requires: solid block below, two free air blocks above, that the
+block is not in `unsafeBlockIds`, and that it is in `safeBlockIds`. In
+the Nether scans of `minY` a `maxY`; for the rest, try first
+`getTopmostBlock` and if it is not safe scan from top to bottom.
 
 ---
 
-## Limpieza automática
+## Automatic cleaning
 
-Se registra sola en el constructor (`#initCleanup`), no hace falta
-llamarla:
+It registers itself in the constructor (`#initCleanup`), no need
+call her:
 
-| Evento | Acción |
+| Event | Action |
 |---|---|
-| `playerSpawn` (spawn inicial) | Limpia estado previo y tags residuales |
-| `playerLeave` | Limpia estado y cancela cualquier timer/job activo |
-| `system.beforeEvents.shutdown` | Cancela todos los jobs/intervals activos de todos los jugadores |
+| `playerSpawn` (initial spawn) | Clean previous state and residual tags |
+| `playerLeave` | Clear status and cancel any active timer/job |
+| `system.beforeEvents.shutdown` | Cancels all active jobs/intervals for all players |
 
 ---
 
-## Ejemplo de uso
+## Usage example
 
 ```js
 import { RtpHelper } from "./helpers/rtp-helper/index.js";
@@ -113,26 +113,26 @@ world.afterEvents.itemUse.subscribe((event) => {
     }
 });
 
-// Cancelar manualmente (ej. desde un botón de UI)
+// Cancel manually (e.g. from a UI button)
 rtp.cancel(player);
 ```
 
 ---
 
-## Notas
+## Grades
 
-- Una sola instancia de `RtpHelper` puede manejar a todos los jugadores
-  del servidor a la vez (el estado se guarda por `player.id` en un `Map`
-  interno) — no hace falta una instancia por jugador.
-- Durante la búsqueda, el jugador es teletransportado internamente en
-  cada tick de escaneo, pero con la cámara en modo libre (`minecraft:free`)
-  mirando hacia abajo, para que no sienta el movimiento — es un efecto
-  visual de "cámara buscando desde el cielo", no el jugador viendo su
-  propio personaje temblar.
-- Los mensajes de `onNotify` están hardcodeados en español dentro de la
-  clase (`"Preparando RTP"`, `"Buscando ubicación"`, etc.) — si necesitás
-  otro idioma, se resuelve pasando tu propio `onNotify` en la config.
+- A single instance of `RtpHelper` can handle all players
+of the server at a time (the state is saved by `player.id` in a `Map`
+internal) — there is no need for one instance per player.
+- During the quest, the player is teleported internally in
+every scan tick, but with the camera in free mode (`minecraft:free`)
+looking down, so you don't feel the movement — it's an effect
+"camera looking from the sky" visual, not the player watching his
+own character tremble.
+- `onNotify` messages are hardcoded in English within the
+class (`"Preparing RTP"`, `"Finding location"`, etc.) — if you need
+another language, this is solved by passing your own `onNotify` in config.
 
 ---
 
-<sub>RtpHelper por **IIBl4z3MasterII**</sub>
+<sub>RtpHelperby **IIBl4z3MasterII**</sub>

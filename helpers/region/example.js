@@ -75,14 +75,14 @@ world.beforeEvents.chatSend.subscribe((ev) => {
     system.run(() => {
       const buf = posBuffer.get(pid);
       if (!buf?.pos1 || !buf?.pos2) {
-        player.sendMessage("§7Marca !r pos1 y !r pos2 primero");
+        player.sendMessage("§7Check !r pos1 and !r pos2 first");
         return;
       }
       const region = getColumnRegion(buf.pos1, buf.pos2, buf.dimId, buf.dim);
       if (region.contains(player.location, player.dimension.id)) {
-        player.sendMessage(`§aEstás dentro de la selección §8(${region.getVolume()} bloques)`);
+        player.sendMessage(`§aYou are in the selection§8(${region.getVolume()}blocks)`);
       } else {
-        player.sendMessage("§cEstás fuera de la selección");
+        player.sendMessage("§cYou are out of the selection");
       }
     });
   }
@@ -92,16 +92,16 @@ world.beforeEvents.chatSend.subscribe((ev) => {
     system.run(() => {
       const buf = posBuffer.get(pid);
       if (!buf?.pos1 || !buf?.pos2) {
-        player.sendMessage("§7Marca !r pos1 y !r pos2 primero");
+        player.sendMessage("§7Check !r pos1 and !r pos2 first");
         return;
       }
       const region = getColumnRegion(buf.pos1, buf.pos2, buf.dimId, buf.dim);
       const c = region.getCenter();
       player.sendMessage([
-        `§6╔═══ Selección ╗`,
-        `§7Esquinas: §e${region.getCorners().map(p => `(${p.x.toFixed(0)} ${p.y.toFixed(0)} ${p.z.toFixed(0)})`).join(" ")}`,
-        `§7Centro: §e${c.x.toFixed(1)} ${c.y.toFixed(1)} ${c.z.toFixed(1)}`,
-        `§7Volumen: §e${region.getVolume()}`,
+        `§6╔═══ Selection ╗`,
+        `§7Corners:§e${region.getCorners().map(p => `(${p.x.toFixed(0)} ${p.y.toFixed(0)} ${p.z.toFixed(0)})`).join(" ")}`,
+        `§7Center:§e${c.x.toFixed(1)} ${c.y.toFixed(1)} ${c.z.toFixed(1)}`,
+        `§7Volume:§e${region.getVolume()}`,
         `§6╚═══════════════╝`,
       ].join("\n"));
     });
@@ -111,6 +111,6 @@ world.beforeEvents.chatSend.subscribe((ev) => {
     ev.cancel = true;
     stopPreview(pid);
     posBuffer.delete(pid);
-    system.run(() => player.sendMessage("§7Selección eliminada"));
+    system.run(() => player.sendMessage("§7Deleted selection"));
   }
 });

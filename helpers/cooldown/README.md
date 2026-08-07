@@ -1,52 +1,52 @@
 # ⏱️ Cooldown
 
-Clase `CooldownManager` para limitar habilidades, comandos o items con
-"usar cada X segundos", sin repetir la lógica de `Map` + timestamps en
-cada sistema que la necesite.
+Class `CooldownManager` to limit skills, commands or items with
+"use every X seconds", without repeating the logic of `Map` + timestamps in
+every system that needs it.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `CooldownManager` |
+| `index.js` | Class `CooldownManager` |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Cualquier sistema con una acción limitada por tiempo (espada especial,
-comando `/kit`, botón de teletransporte) termina reimplementando el mismo
-patrón: guardar un timestamp, compararlo con el tick actual, limpiarlo si
-ya venció. `CooldownManager` centraliza eso en una sola clase reusable en
-memoria, con cooldowns independientes por `id` + `action`.
-
----
-
-## Cómo funciona por dentro
-
-Guarda cada cooldown activo en un `Map` interno con clave `` `${id}:${action}` ``
-y valor = tick de expiración (`system.currentTick + duración`). Vive
-mientras el servidor sigue corriendo — no persiste entre reinicios (para
-eso, combinar con `WorldManager`/`DynamicStore`).
+Any system with a time-limited action (special sword,
+`/kit` command, teleport button) ends up reimplementing the same
+pattern: save a timestamp, compare it with the current tick, clear it if
+already won. `CooldownManager` centralize that into a single reusable class in
+memory, with independent cooldowns by `id` + `action`.
 
 ---
 
-## API pública
+## How it works inside
 
-| Método | Parámetros | Devuelve | Descripción |
+Saves each active cooldown in an internal `Map` with key `` `${id}:${action}` ``
+and value = expiration tick (`system.currentTick+ duration`). Lives
+while the server is still running — does not persist between reboots (for
+that, combine with `WorldManager`/`DynamicStore`).
+
+---
+
+## Public API
+
+| Method | Parameters | Returns | Description |
 |---|---|---|---|
-| `start(id, action, durationTicks)` | `id: string`, `action: string`, `durationTicks: number` | `void` | Inicia (o reinicia) el cooldown |
-| `isOnCooldown(id, action)` | `id, action: string` | `boolean` | `true` si sigue activo; limpia la entrada sola si ya expiró |
-| `getRemaining(id, action)` | `id, action: string` | `number` | Ticks restantes (`0` si no está en cooldown) |
-| `clear(id, action)` | `id, action: string` | `void` | Cancela el cooldown manualmente antes de que expire |
+| `start(id, action,durationTicks)` | `id: string`, `action: string`, `durationTicks:number` | `void` | Start (or restart) the cooldown |
+| `isOnCooldown(id, action)` | `id, action: string` | `boolean` | `true` if still active; clean entry alone if it has already expired |
+| `getRemaining(id, action)` | `id, action: string` | `number` | Remaining ticks (`0` if not on cooldown) |
+| `clear(id, action)` | `id, action: string` | `void` | Cancel the cooldown manually before it expires |
 
-`20 ticks = 1 segundo`.
+`20 ticks = 1 second`.
 
 ---
 
-## Ejemplo de uso
+## Usage example
 
 ```js
 import { CooldownManager } from "./helpers/cooldown/index.js";
@@ -70,13 +70,13 @@ world.afterEvents.itemUse.subscribe((event) => {
 
 ---
 
-## Notas
+## Grades
 
-- Un `id` puede tener varios cooldowns simultáneos siempre que usen
-  `action` distinto (ej. `"fireball"` y `"heal"` para el mismo jugador).
-- No es thread-safe ni pensado para multi-servidor — es memoria local a
-  la instancia del script.
+- An `id` can have several simultaneous cooldowns as long as they use
+different `action` (e.g. `"fireball"` and `"heal"` for the same player).
+- It is not thread-safe nor intended for multi-server — it is local memory to
+the script instance.
 
 ---
 
-<sub>Cooldown por **IIBl4z3MasterII**</sub>
+<sub>Cooldown by **IIBl4z3MasterII**</sub>

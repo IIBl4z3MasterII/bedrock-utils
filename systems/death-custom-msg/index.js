@@ -15,7 +15,7 @@ const playerLastMessages = new Map();
 
 const Logger = {
   log: CONFIG.DEBUG ? (msg) => console.warn(`§7[DeathMsg] ${msg}`) : () => {},
-  error: (msg, err) => console.error(`§c[DeathMsg Error] ${msg}${err ? `: ${err.message}` : ""}`),
+  error: (msg, err) => console.error(`§c[DeathMsgError]${msg}${err ? `: ${err.message}` : ""}`),
 };
 
 const identifyTool = (itemId) => {
@@ -76,12 +76,12 @@ const isKnownDeathCause = (cause) => DEATH_CAUSES.has(cause);
 const EnhancedLogger = {
   ...Logger,
   logUnknownEntity: (entityId, playerName) => {
-    console.warn(`§e[DeathMsg] Entidad desconocida detectada: ${entityId} (mató a ${playerName})`);
-    if (CONFIG.DEBUG) console.warn(`§e[DeathMsg] Considera agregar mensajes para: ${entityId}`);
+    console.warn(`§e[DeathMsg] Unknown entity detected:${entityId}(killed${playerName})`);
+    if (CONFIG.DEBUG) console.warn(`§e[DeathMsg] Consider adding messages for:${entityId}`);
   },
   logUnknownCause: (cause, playerName) => {
-    console.warn(`§e[DeathMsg] Causa de muerte desconocida: ${cause} (jugador: ${playerName})`);
-    if (CONFIG.DEBUG) console.warn(`§e[DeathMsg] Considera agregar mensajes para la causa: ${cause}`);
+    console.warn(`§e[DeathMsg] Unknown cause of death:${cause}(player:${playerName})`);
+    if (CONFIG.DEBUG) console.warn(`§e[DeathMsg] Consider adding messages for the cause:${cause}`);
   },
 };
 
@@ -106,17 +106,17 @@ export const getVerificationStats = () => ({
 });
 
 export const addNewEntity = (entityId, messages) => {
-  if (!Array.isArray(messages)) { console.error("Los mensajes deben ser un array"); return false; }
+  if (!Array.isArray(messages)) { console.error("Messages must be an array"); return false; }
   DEATH_MESSAGES.mob[entityId.replace("minecraft:", "")] = messages;
-  console.warn(`§a[DeathMsg] Nueva entidad agregada: ${entityId}`);
+  console.warn(`§a[DeathMsg] New entity added:${entityId}`);
   return true;
 };
 
 export const addNewDeathCause = (cause, mappedName, messages) => {
-  if (!Array.isArray(messages)) { console.error("Los mensajes deben ser un array"); return false; }
+  if (!Array.isArray(messages)) { console.error("Messages must be an array"); return false; }
   DEATH_CAUSES.set(cause, mappedName);
   DEATH_MESSAGES[mappedName] = messages;
-  console.warn(`§a[DeathMsg] Nueva causa de muerte agregada: ${cause} -> ${mappedName}`);
+  console.warn(`§a[DeathMsg] New cause of death added:${cause} -> ${mappedName}`);
   return true;
 };
 
@@ -125,7 +125,7 @@ world.afterEvents.entityDie.subscribe((event) => {
     const entity = event.deadEntity;
     if (entity.typeId !== "minecraft:player") return;
     const playerName = entity.name;
-    if (!shouldShowDeathMessage(playerName)) { Logger.log(`Mensaje en cooldown para ${playerName}`); return; }
+    if (!shouldShowDeathMessage(playerName)) { Logger.log(`Cooldown message for${playerName}`); return; }
     const damageSource = event.damageSource;
     const { damagingEntity } = damageSource;
     let message = "";
@@ -145,12 +145,12 @@ world.afterEvents.entityDie.subscribe((event) => {
       if (deathType === "unknown") message = replacePlaceholders(getVerifiedMessage(playerName, "environmental", null, null, null, deathCause), playerName);
       else message = replacePlaceholders(getVerifiedMessage(playerName, deathType), playerName);
     }
-    if (!message) { Logger.log("Usando mensaje de respaldo final"); message = `§c${playerName} encontró una forma muy creativa de morir`; }
+    if (!message) { Logger.log("Using final backup message"); message = `§c${playerName}found a very creative way to die`; }
     world.sendMessage(message);
-    Logger.log(`Mensaje enviado para ${playerName}: ${message}`);
+    Logger.log(`Message sent to${playerName}: ${message}`);
   } catch (error) {
-    Logger.error("Error en el evento de muerte", error);
-    if (event.deadEntity?.name) world.sendMessage(`§c${event.deadEntity.name} ha muerto de forma misteriosa`);
+    Logger.error("Death event error", error);
+    if (event.deadEntity?.name) world.sendMessage(`§c${event.deadEntity.name}has died mysteriously`);
   }
 });
 
@@ -172,7 +172,7 @@ const getStats = () => ({
   totalMobTypes: Object.keys(DEATH_MESSAGES.mob).length,
 });
 
-export const clearCache = () => { messageCache.clear(); messageCooldowns.clear(); playerLastMessages.clear(); Logger.log("Cache limpiado manualmente"); };
+export const clearCache = () => { messageCache.clear(); messageCooldowns.clear(); playerLastMessages.clear(); Logger.log("Manually cleared cache"); };
 
 if (CONFIG.DEBUG) {
   globalThis.deathMessages = { ...globalThis.deathMessages, getVerificationStats, addNewEntity, addNewDeathCause, isKnownEntity, isKnownDeathCause, EnhancedLogger };

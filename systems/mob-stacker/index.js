@@ -33,7 +33,7 @@ const HOSTILE_MOBS = Object.freeze({
 
 const MOB_STACKER_CONFIG = Object.freeze({
   MAX_STACK_SIZE: 50,
-  NAME_TAG_FORMAT: "§c[ §7x{count} {name} §c]\n§a{health}§7/§a{maxHealth}",
+  NAME_TAG_FORMAT: "§c[ §7x{count} {name}§c]\\n§a{health}§7/§a{maxHealth}",
   CUSTOM_NAME_FORMAT: "§6{name}\n§a{health}§7/§a{maxHealth}",
   STACK_RADIUS: 5,
   UPDATE_INTERVAL: 15,
@@ -67,7 +67,7 @@ class MobStackerManager {
     try {
       entity.setDynamicProperty(`${NS}${key}`, value);
     } catch (error) {
-      this.log(`Error setting ${key}: ${error}`, true);
+      this.log(`Error setting${key}: ${error}`, true);
     }
   }
 
@@ -84,7 +84,7 @@ class MobStackerManager {
     try {
       world.setDynamicProperty(WORLD_ENABLED_KEY, value);
     } catch (error) {
-      this.log(`Error setting enabled flag: ${error}`, true);
+      this.log(`Error setting enabled flag:${error}`, true);
     }
   }
 
@@ -93,7 +93,7 @@ class MobStackerManager {
     this._initialized = true;
     if (this.isEnabled()) {
       this.setupEventListeners();
-      this.log("MobStacker system loaded successfully");
+      this.log("MobStackersystem loaded successfully");
     }
   }
 
@@ -128,7 +128,7 @@ class MobStackerManager {
         }
       }
     } catch (error) {
-      this.log(`Error en updateStacks: ${error}`, true);
+      this.log(`Error inupdateStacks: ${error}`, true);
     }
   }
 
@@ -218,7 +218,7 @@ class MobStackerManager {
       try {
         entity.remove();
       } catch (error) {
-        this.log(`Error removing entity in merge: ${error}`, true);
+        this.log(`Error removing entity in merge:${error}`, true);
       }
     }
 
@@ -259,7 +259,7 @@ class MobStackerManager {
     try {
       entity.nameTag = nameTag;
     } catch (error) {
-      this.log(`Error setting nameTag: ${error}`, true);
+      this.log(`Error settingnameTag: ${error}`, true);
     }
   }
 
@@ -332,7 +332,7 @@ class MobStackerManager {
 
       if (currentHealth <= 0) this.handleEntityDeath(hurtEntity);
     } catch (error) {
-      this.log(`Error in handleEntityHurt: ${error}`, true);
+      this.log(`Error inhandleEntityHurt: ${error}`, true);
     }
   }
 
@@ -356,10 +356,10 @@ class MobStackerManager {
         deadEntity.nameTag = "§c[ §7DEAD §c]";
         deadEntity.kill();
       } catch (error) {
-        this.log(`Error killing entity: ${error}`, true);
+        this.log(`Error killing entity:${error}`, true);
       }
     } catch (error) {
-      this.log(`Error in handleEntityDeath: ${error}`, true);
+      this.log(`Error inhandleEntityDeath: ${error}`, true);
     }
   }
 
@@ -388,14 +388,14 @@ class MobStackerManager {
             }
           } catch (error) {
             this.log(
-              `Error spawning creeper after explosion: ${error}`,
+              `Error spawning creeper after explosion:${error}`,
               true,
             );
           }
         }, 5);
       }
     } catch (error) {
-      this.log(`Error in handleCreeperExplosion: ${error}`, true);
+      this.log(`Error inhandleCreeperExplosion: ${error}`, true);
     }
   }
 
@@ -414,7 +414,7 @@ class MobStackerManager {
         this.updateEntityStack(newEntity, newStackSize, mobType);
       }
     } catch (error) {
-      this.log(`Error spawning remaining stack: ${error}`, true);
+      this.log(`Error spawning remaining stack:${error}`, true);
     }
   }
 

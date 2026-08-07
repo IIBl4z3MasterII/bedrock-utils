@@ -13,20 +13,20 @@ world.beforeEvents.chatSend.subscribe((ev) => {
     system.run(() => {
       const entity = Raycaster.getEntityLookingAt(player, 20);
       if (entity) {
-        player.sendMessage(`§aEntidad: §e${entity.typeId} §7(${entity.id})`);
+        player.sendMessage(`§aEntity:§e${entity.typeId} §7(${entity.id})`);
         const dist = Math.round(Math.sqrt(
           (entity.location.x - player.location.x) ** 2 +
           (entity.location.y - player.location.y) ** 2 +
           (entity.location.z - player.location.z) ** 2
         ));
-        player.sendMessage(`§7Distancia: §e${dist}§7m`);
+        player.sendMessage(`§7Distance:§e${dist}§7m`);
       } else {
-        player.sendMessage("§cNo miras a ninguna entidad");
+        player.sendMessage("§cYou don\'t look at any entity");
       }
 
       const block = Raycaster.getBlockLookingAt(player, 30);
       if (block) {
-        player.sendMessage(`§aBloque: §e${block.typeId} §aen §e${Math.floor(block.x)} ${Math.floor(block.y)} ${Math.floor(block.z)}`);
+        player.sendMessage(`§aBlock:§e${block.typeId} §aen §e${Math.floor(block.x)} ${Math.floor(block.y)} ${Math.floor(block.z)}`);
       }
     });
   }
@@ -37,9 +37,9 @@ world.beforeEvents.chatSend.subscribe((ev) => {
       const entity = Raycaster.getEntityLookingAt(player, 20);
       if (entity) {
         const hp = Math.round(entity.getComponent("minecraft:health")?.currentValue ?? 0);
-        player.sendMessage(`§e${entity.typeId} §7- Health: §e${hp}`);
+        player.sendMessage(`§e${entity.typeId} §7- Health:§e${hp}`);
       } else {
-        player.sendMessage("§cNo miras a ninguna entidad");
+        player.sendMessage("§cYou don\'t look at any entity");
       }
     });
   }
@@ -51,7 +51,7 @@ world.beforeEvents.chatSend.subscribe((ev) => {
       if (block) {
         player.sendMessage(`§e${block.typeId} §aen §e${Math.floor(block.x)} ${Math.floor(block.y)} ${Math.floor(block.z)}`);
       } else {
-        player.sendMessage("§cNo miras a ningún bloque");
+        player.sendMessage("§cYou don\'t look at any block");
       }
     });
   }
@@ -60,7 +60,7 @@ world.beforeEvents.chatSend.subscribe((ev) => {
     ev.cancel = true;
     system.run(() => {
       if (lookTrackers.has(pid)) {
-        player.sendMessage("§cYa hay un tracker activo, usa !stoplook");
+        player.sendMessage("§cThere is already an active tracker, use !stoplook");
         return;
       }
       const intervalId = system.runInterval(() => {
@@ -80,11 +80,11 @@ world.beforeEvents.chatSend.subscribe((ev) => {
           if (text) text += " §8| ";
           text += `§a${block.typeId.replace("minecraft:", "")} §7${Math.floor(block.x)} ${Math.floor(block.y)} ${Math.floor(block.z)}`;
         }
-        if (!text) text = "§7No miras a nada";
+        if (!text) text = "§7You don\'t look at anything";
         player.onScreenDisplay.setActionBar(text);
       }, 5);
       lookTrackers.set(pid, intervalId);
-      player.sendMessage("§aTracker activado, escribe !stoplook para detener");
+      player.sendMessage("§aTracker activated, type !stoplook to stop");
     });
   }
 
@@ -96,9 +96,9 @@ world.beforeEvents.chatSend.subscribe((ev) => {
         try { system.clearRun(id); } catch {}
         lookTrackers.delete(pid);
         player.onScreenDisplay.setActionBar("");
-        player.sendMessage("§7Tracker detenido");
+        player.sendMessage("§7Tracker stopped");
       } else {
-        player.sendMessage("§cNo hay tracker activo");
+        player.sendMessage("§cThere is no active tracker");
       }
     });
   }

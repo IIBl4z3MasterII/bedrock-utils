@@ -1,38 +1,38 @@
-# ✨ EnchantHelper
+# ✨EnchantHelper
 
-Clase con un método estático para encantar un `ItemStack` validando que
-el encantamiento exista, en vez de fallar silenciosamente o tirar un
-error críptico de la API nativa.
+Class with a static method to enchant a `ItemStack` validating that
+the enchantment exists, instead of silently failing or rolling a
+cryptic native API error.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `EnchantHelper` |
+| `index.js` | Class `EnchantHelper` |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-`ItemStack.getComponent("enchantable").addEnchantment(...)` no valida que
-el `enchantId` que le pasás realmente exista en `EnchantmentTypes` — si
-te equivocás de string, falla de forma poco clara. `EnchantHelper` valida
-ambas cosas (encantamiento válido + item encantable) antes de aplicar, y
-tira un `Error` con mensaje explícito si algo está mal.
+`ItemStack.getComponent("enchantable").addEnchantment(...)` does not validate that
+the `enchantId`what happened to him really exists in `EnchantmentTypes` — yes
+You have the wrong string, it fails in an unclear way. `EnchantHelper` to choose
+both (valid enchantment + enchantable item) before applying, and
+throws an `Error` with explicit message if something is wrong.
 
 ---
 
-## API pública
+## Public API
 
-| Método | Parámetros | Devuelve | Excepciones |
+| Method | Parameters | Returns | Exceptions |
 |---|---|---|---|
-| `enchant(itemStack, enchantId, level)` | `itemStack: ItemStack`, `enchantId: string`, `level: number` | El mismo `itemStack`, ya encantado | `Error` si `enchantId` no existe o el item no es encantable |
+| `enchant(itemStack, enchantId, level)` | `itemStack: ItemStack`, `enchantId: string`, `level: number` | The same 'itemStack`, already enchanted | `Error` if `enchantId` does not exist or the item is not enchantable |
 
 ---
 
-## Ejemplo de uso
+## Usage example
 
 ```js
 import { EnchantHelper } from "./helpers/enchant-helper/index.js";
@@ -49,14 +49,14 @@ try {
 
 ---
 
-## Notas
+## Grades
 
-- No valida el nivel máximo permitido por encantamiento (ej. Sharpness
-  tope vanilla es 5, pero si le pasás 10 la API puede aceptarlo sin
-  aviso según la versión) — si tu addon depende de topes exactos,
-  validalo antes de llamar a `enchant()`.
-- `level` acepta cualquier número entero; no hay clamp automático.
+- Does not validate the maximum level allowed per enchantment (e.g. Sharpness
+vanilla limit is 5, but if you pass it 10 the API can accept it without
+notice depending on the version) — if your addon depends on exact limits,
+validate it before calling `enchant()`.
+- `level` accepts any integer; there is no automatic clamp.
 
 ---
 
-<sub>EnchantHelper por **IIBl4z3MasterII**</sub>
+<sub>EnchantHelperby **IIBl4z3MasterII**</sub>

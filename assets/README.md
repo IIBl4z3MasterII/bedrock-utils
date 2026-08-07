@@ -1,8 +1,8 @@
 # Assets
 
-Recursos estáticos sueltos (no código) para usar en tus propios resource
+Loose static resources (not code) to use in your own resources
 packs.
 
-| Carpeta | Contenido |
+| Folder | Content |
 |---|---|
 | [**glyphs/**](glyphs/README.md) | Texturas de glyphs para scoreboard/UI con iconos custom |

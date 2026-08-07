@@ -1,91 +1,91 @@
 # 🏷️ Lore Durability
 
-Script "instalar y olvidar" que mantiene actualizado el lore de los
-items del jugador: muestra la durabilidad restante en tiempo real para
-items que se gastan, y agrega una firma de lore fija a los que no tienen
-componente de durabilidad.
+"Install and forget" script that keeps the lore of the
+player items: shows the remaining durability in real time for
+items that are spent, and adds a fixed lore signature to those that do not have
+durability component.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Toda la lógica — sin exports, se autoejecuta al importarlo |
+| `index.js` | All logic — no exports, auto-executes upon import |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Bedrock no muestra la durabilidad numérica en el tooltip del item de
-forma nativa y visible como texto — solo la barra de color. Este script
-escribe `§7Durabilidad: X/Y` como primera línea del lore, actualizándola
-sola a medida que el item se gasta, y evita reescribir el lore si el
-texto no cambió (para no generar updates innecesarios de item).
+Bedrock does not show numerical durability in the item tooltip
+natively visible as text — just the color bar. This script
+write `§7Durability: X/Y` as the first line of the lore, updating it
+alone as the item is spent, and avoids rewriting the lore if the
+text did not change (so as not to generate unnecessary item updates).
 
 ---
 
-## Cómo funciona por dentro
+## How it works inside
 
-Corre dos `system.runInterval` independientes apenas se importa el
-archivo — **no hay que llamar a ninguna función para activarlo**:
+Run dos `system.runInterval`independents hardly care
+file — **you don't have to call any function to activate it**:
 
-| Interval | Frecuencia | Qué actualiza |
+| Interval | Frequency | What updates |
 |---|---|---|
-| Equipo | cada `20` ticks (~1s) | Armadura y offhand (`getComponent("minecraft:equippable")`) |
-| Inventario | cada `40` ticks (~2s) | Todos los slots del inventario principal |
+| Team | every `20` ticks (~1s) | Armor and offhand (`getComponent("minecraft:equippable")`) |
+| Inventory | every `40` ticks (~2s) | All main inventory slots |
 
-Por cada item revisado (`updateItemLore`):
+For each item reviewed (`updateItemLore`):
 
 ```
-¿tiene componente "minecraft:durability"?
-    sí → calcular durabilidad actual = max - damage
-         ¿el lore ya dice ese texto? → no tocar
-         si no → reescribir lore con el nuevo valor
-    no → ¿ya tiene el lore por defecto ("by @bl4z3master")?
-         no → agregarlo al final del lore existente
+has component "minecraft:durability"?
+    yes → calculate current durability = max - damage
+          does the lore already say that text? → don't touch it
+          if not → rewrite lore with the new value
+    no → does it already have the default lore ("by @bl4z3master")?
+         no → append it to the end of the existing lore
 ```
 
 ---
 
-## Config interna
+## Internal config
 
 ```js
 const CONFIG = {
-    EQUIPMENT_UPDATE_INTERVAL: 20,   // ticks entre updates de equipo
-    INVENTORY_UPDATE_INTERVAL: 40,   // ticks entre updates de inventario
-    DEFAULT_LORE: "by @bl4z3master", // firma para items sin durabilidad
-    DURABILITY_FORMAT: "§7Durabilidad: %current%/%max%",
+    EQUIPMENT_UPDATE_INTERVAL: 20,   // ticks between equipment updates
+    INVENTORY_UPDATE_INTERVAL: 40,   // ticks between inventory updates
+    DEFAULT_LORE: "by @bl4z3master", // signature for items without durability
+    DURABILITY_FORMAT: "§7Durability: %current%/%max%",
 };
 ```
 
-Para cambiar el texto de durabilidad o la firma, editar esta constante
-directamente en `index.js` (no está expuesta como parámetro configurable
-desde afuera — es un script de instalación directa, no una clase).
+To change the durability text or signature, edit this constant
+directly in `index.js` (not exposed as a configurable parameter
+from outside — it's a direct installation script, not a class).
 
 ---
 
-## Uso
+## Use
 
 ```js
 import "./helpers/lore-durability/index.js";
-// No hay nada más que hacer — se activa solo al importarlo.
+// Nothing else to do — it activates just by importing it.
 ```
 
 ---
 
-## Notas
+## Grades
 
-- **No exporta nada** — a diferencia del resto de `helpers/`, este módulo
-  es un script de efecto secundario, no una clase con API. Solo se
-  importa una vez en el `main.js` del addon.
-- Si el item ya tenía otro lore antes de recibir la firma por defecto, se
-  agrega al final del array (`[...lore, DEFAULT_LORE]`), no lo
+- **Does not export anything** — unlike the rest of `helpers/`, this module
+It is a side effect script, not a class with API. I just know
+import once in the addon's `main.js`.
+- If the item already had another lore before receiving the default signature, it
+adds to the end of the array (`[...lore,DEFAULT_LORE]`), not
   reemplaza.
-- El check `item.getLore()?.[0] !== durabilityText` evita reescribir el
-  lore en cada tick si no cambió — importante para no generar carga
-  extra en inventarios grandes.
+- El check `item.getLore()?.[0] !==durabilityText` avoids rewriting the
+lore in each tick if it did not change — important to not generate load
+extra in large inventories.
 
 ---
 
-<sub>Lore Durability por **IIBl4z3MasterII**</sub>
+<sub>Lore Durability by **IIBl4z3MasterII**</sub>

@@ -5,15 +5,15 @@ const posData = new Map();
 
 function showHelp(player) {
   player.sendMessage([
-    "§6╔═══ Comandos disponibles ═══╗",
-    "§e!pos1 §7- Marcar posición 1",
-    "§e!pos2 §7- Marcar posición 2",
-    "§e!view line §7- Línea entre pos1 y pos2",
-    "§e!view cube §7- Cubo entre pos1 y pos2",
-    "§e!view circle §7- Círculo en pos1 hacia pos2",
-    "§e!view sphere §7- Esfera en pos1 hacia pos2",
-    "§e!stopview §7- Detener todas las partículas",
-    "§e!posclear §7- Borrar posiciones",
+    "§6╔═══ Available commands ═══╗",
+    "§e!pos1§7- Mark position 1",
+    "§e!pos2§7- Mark position 2",
+    "§e!view line§7- Line between pos1 and pos2",
+    "§e!view cube§7- Cube between pos1 and pos2",
+    "§e!view circle§7- Circle in pos1 towards pos2",
+    "§e!view sphere§7- Sphere in pos1 towards pos2",
+    "§e!stopview§7- Stop all particles",
+    "§e!posclear§7- Delete positions",
     "§6╚══════════════════════════╝",
   ].join("\n"));
 }
@@ -49,22 +49,22 @@ world.beforeEvents.chatSend.subscribe((ev) => {
     });
   }
 
-  if (msg === "!view" || msg.startsWith("!view ")) {
+  if (msg === "!view" || msg.startsWith("!view")) {
     ev.cancel = true;
     const type = msg.slice(6).trim().toLowerCase();
     if (!type) {
-      player.sendMessage("§cUsa: §e!view line | cube | circle | sphere");
+      player.sendMessage("§cOne:§e!view line | cube | circle | sphere");
       return;
     }
     system.run(() => {
       const data = posData.get(pid);
       if (!data?.pos1 || !data?.pos2) {
-        player.sendMessage("§cPrimero marca !pos1 y !pos2");
+        player.sendMessage("§cFirst check !pos1 and !pos2");
         return;
       }
 
       if (!["line", "cube", "circle", "sphere"].includes(type)) {
-        player.sendMessage("§cUsa: §e!view line | cube | circle | sphere");
+        player.sendMessage("§cOne:§e!view line | cube | circle | sphere");
         return;
       }
 
@@ -98,7 +98,7 @@ world.beforeEvents.chatSend.subscribe((ev) => {
         }
       }, 10);
 
-      player.sendMessage(`§aMostrando §e${type}§a, escribe §e!stopview§a para detener`);
+      player.sendMessage(`§aMostrando §e${type}§a, writes§e!stopview§ato stop`);
     });
   }
 
@@ -109,9 +109,9 @@ world.beforeEvents.chatSend.subscribe((ev) => {
       if (data?.viewInterval) {
         try { system.clearRun(data.viewInterval); } catch {}
         data.viewInterval = undefined;
-        player.sendMessage("§7Visualización detenida");
+        player.sendMessage("§7Stopped display");
       } else {
-        player.sendMessage("§cNo hay visualización activa");
+        player.sendMessage("§cNo active display");
       }
     });
   }
@@ -123,6 +123,6 @@ world.beforeEvents.chatSend.subscribe((ev) => {
       try { system.clearRun(data.viewInterval); } catch {}
     }
     posData.delete(pid);
-    system.run(() => player.sendMessage("§7Posiciones eliminadas"));
+    system.run(() => player.sendMessage("§7Eliminated positions"));
   }
 });

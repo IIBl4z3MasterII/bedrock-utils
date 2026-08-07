@@ -9,11 +9,11 @@ world.beforeEvents.chatSend.subscribe((ev) => {
   const msg = ev.message;
   const player = ev.sender;
 
-  if (msg === "!give" || msg.startsWith("!give ")) {
+  if (msg === "!give" || msg.startsWith("!give")) {
     ev.cancel = true;
     const parts = msg.split(" ").filter(Boolean);
     if (parts.length < 2) {
-      player.sendMessage("§cUsa: §e!give <id> [cantidad] §7ej: !give diamond 10");
+      player.sendMessage("§cOne:§e!give <id> [amount]§7ej: !give diamond 10");
       return;
     }
     const raw = parts[1];
@@ -25,26 +25,26 @@ world.beforeEvents.chatSend.subscribe((ev) => {
     });
   }
 
-  if (msg === "!count" || msg.startsWith("!count ")) {
+  if (msg === "!count" || msg.startsWith("!count")) {
     ev.cancel = true;
     const parts = msg.split(" ").filter(Boolean);
     if (parts.length < 2) {
-      player.sendMessage("§cUsa: §e!count <id> §7ej: !count diamond");
+      player.sendMessage("§cOne:§e!count <id>§7ej: !count diamond");
       return;
     }
     const raw = parts[1];
     const id = normalizeId(raw);
     system.run(() => {
       const total = InventoryHelper.countItem(player, id);
-      player.sendMessage(`§e${id}§7: §f${total} en tu inventario`);
+      player.sendMessage(`§e${id}§7: §f${total}in your inventory`);
     });
   }
 
-  if (msg === "!remove" || msg.startsWith("!remove ")) {
+  if (msg === "!remove" || msg.startsWith("!remove")) {
     ev.cancel = true;
     const parts = msg.split(" ").filter(Boolean);
     if (parts.length < 2) {
-      player.sendMessage("§cUsa: §e!remove <id> [cantidad] §7ej: !remove diamond 5");
+      player.sendMessage("§cOne:§e!remove <id> [quantity]§7ej: !remove diamond 5");
       return;
     }
     const raw = parts[1];
@@ -54,7 +54,7 @@ world.beforeEvents.chatSend.subscribe((ev) => {
       if (InventoryHelper.removeItem(player, id, amount)) {
         player.sendMessage(`§c-${amount}x §e${id}`);
       } else {
-        player.sendMessage(`§cNo tienes suficientes §e${id}`);
+        player.sendMessage(`§cYou don't have enough§e${id}`);
       }
     });
   }

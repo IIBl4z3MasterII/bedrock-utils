@@ -1,7 +1,7 @@
 export {
-    inicializarSistemaBaneos, mostrarMenuBaneos, mostrarFormularioBan,
-    mostrarJugadoresBaneados, obtenerJugadoresBaneados, estaJugadorBaneado,
-    obtenerInfoBan, aplicarBanPermanente, aplicarBan
+    initBanSystem, showBanMenu, showBanForm,
+    showBannedPlayers, getBannedPlayers, isPlayerBanned,
+    getBanInfo, applyPermanentBan, applyBan
 } from "./ban-system/index.js";
 
 export {

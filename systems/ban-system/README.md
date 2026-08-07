@@ -1,32 +1,32 @@
 # 🚫 Ban System
 
-Sistema de moderación completo: reportes entre jugadores, panel de staff,
-y baneos temporales/permanentes con UI integrada.
+Complete moderation system: reports between players, staff panel,
+and temporary/permanent bans with integrated UI.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Todo el sistema — reportes + baneos, un solo módulo |
+| `index.js` | The entire system — reports + bans, a single module |
 
 ---
 
-## Propósito general
+## General purpose
 
-Cubre dos flujos que suelen ir juntos en servidores con moderación
-comunitaria:
+Covers two flows that usually go together on servers in moderation
+community:
 
-1. **Reportes**: cualquier jugador reporta a otro (razón, seriedad,
-   descripción, evidencia opcional) desde un form.
-2. **Baneos**: el staff (identificado por un tag) resuelve esos reportes
-   con advertencia o ban, o banea directamente desde un panel — con
-   duración en minutos/segundos o permanente.
+1. **Reports**: any player reports to another (reason, seriousness,
+description, optional evidence) from a form.
+2. **Bans**: the staff (identified by a tag) resolves these reports
+with warning or ban, or ban directly from a panel — with
+duration in minutes/seconds or permanent.
 
 ---
 
-## Cómo se activa
+## How to activate
 
 ```js
 import { inicializarSistemaBaneos } from "./systems/ban-system/index.js";
@@ -34,12 +34,12 @@ import { inicializarSistemaBaneos } from "./systems/ban-system/index.js";
 inicializarSistemaBaneos(); // llamar una vez en tu main.js
 ```
 
-Esto: carga los baneos existentes, arranca el verificador periódico de
-expiración, y registra el chequeo de ban al conectarse un jugador.
+This: loads existing bans, starts the periodic ban checker
+expiration, and records the ban check when a player connects.
 
-Para abrir el flujo de reportes/panel desde algún trigger propio (item,
-comando, bloque), llamá a las funciones exportadas — el módulo no decide
-solo cuándo mostrar la UI de reportes, eso lo conectás vos.
+To open the report/panel flow from your own trigger (item,
+command, block), calls the exported functions — the module does not decide
+Only when to show the reporting UI, you connect that.
 
 ---
 
@@ -48,66 +48,66 @@ solo cuándo mostrar la UI de reportes, eso lo conectás vos.
 ```js
 const CONFIG = {
     STAFF_TAG: "Modd",                              // tag que identifica al staff
-    REDSTONE_BLOCK_ID: "minecraft:redstone_block",  // (referencia legada, no se usa como trigger acá)
+    REDSTONE_BLOCK_ID: "minecraft:redstone_block",  // (legacy reference, not used as a trigger here)
 };
 ```
 
-Para cambiar qué tag identifica al staff, editar `CONFIG.STAFF_TAG`
-directamente en `index.js`.
+To change which tag identifies the staff, edit `CONFIG.STAFF_TAG`
+directly in `index.js`.
 
 ---
 
-## Persistencia: tags de jugador, no Dynamic Properties
+## Persistence: player tags, not Dynamic Properties
 
-**Importante:** este sistema guarda el estado de baneo en **tags del
-jugador** (`bannedUntil:...`, `permabanned`, `banReason:...`,
-`bannedBy:...`, `banDate:...`), no en Dynamic Properties del mundo. Al
-cargar (`cargarJugadoresBaneados` → `migrarDatosLegacyBan`), lee esos
-tags de cada jugador conectado, los pasa a un `Map` en memoria
-(`jugadoresBaneados`), y **borra los tags legacy** una vez migrados
+**Important:** this system saves the ban status in **tags of the
+player** (`bannedUntil:...`, `permabanned`, `banReason:...`,
+`bannedBy:...`, `banDate:...`), not in the Dynamic Properties of the world. To the
+load(`cargarJugadoresBaneados` → `migrarDatosLegacyBan`), read those
+tags of each connected player, passes them to a `Map` in memory
+(`jugadoresBaneados`), and **delete the legacy tags** once migrated
 (`removerTagsLegacy`).
 
-Esto significa:
-- El estado real "vive" en memoria mientras el mundo está corriendo — el
-  `Map` es la fuente de verdad después de la migración inicial.
-- Los tags solo importan para jugadores que **ya estaban baneados antes**
-  de que este sistema corriera por primera vez, o si el mundo se
-  reinicia sin que el jugador haya vuelto a conectarse (en ese caso, se
-  vuelve a leer del tag al reconectarse).
-- Si necesitás persistencia más robusta entre reinicios sin depender de
-  que el jugador esté online, considerá migrar `jugadoresBaneados` a
+This means:
+- The actual state "lives" in memory while the world is running — the
+`Map` is the source of truth after the initial migration.
+- Tags only matter for players who **were already banned before**
+of this system running for the first time, or if the world
+restarts without the player having reconnected (in that case,
+reads from the tag again upon reconnection).
+- If you need more robust persistence between reboots without depending on
+for the player to be online, consider migrating `jugadoresBaneados` a
   `WorldManager`/`DynamicStore` (ver `systems/world-manager/`).
 
 ---
 
-## API pública
+## Public API
 
-### Baneos
+### Bans
 
-| Función | Parámetros | Descripción |
+| Function | Parameters | Description |
 |---|---|---|
-| `inicializarSistemaBaneos()` | — | Arranca todo: carga datos, verificador periódico, listener de conexión |
-| `aplicarBan(player, razon, duracionSegundos, baneadoPor)` | — | Ban temporal, duración en **segundos** |
-| `aplicarBanPermanente(player, razon, baneadoPor)` | — | Ban permanente |
+| `inicializarSistemaBaneos()` | — | Start everything: load data, periodic checker, connection listener |
+| `aplicarBan(player, reason,duracionSegundos, baneadoPor)` | — | Temporary ban, duration in **seconds** |
+| `aplicarBanPermanente(player, reason,baneadoPor)` | — | Permanent ban |
 | `estaJugadorBaneado(nombreJugador)` | `string` | `boolean` |
-| `obtenerJugadoresBaneados()` | — | `string[]` — nombres de todos los baneados activos |
-| `obtenerInfoBan(nombreJugador)` | `string` | Datos del ban (`{ razon, tiempoFin, baneadoPor, permanente, fechaBan }`) o `null` |
-| `mostrarMenuBaneos(player)` | — | UI: banear / desbanear / ver lista (pensada para staff) |
-| `mostrarFormularioBan(player)` | — | Form directo de ban (elegir jugador online + razón + duración) |
-| `mostrarJugadoresBaneados(player)` | — | Lista de baneados con detalle y opción de desbanear |
+| `obtenerJugadoresBaneados()` | — | `string[]` — names of all active bans |
+| `obtenerInfoBan(nombreJugador)` | `string` | Ban data (`{ reason,tiempoFin, baneadoPor, permanent,fechaBan}`) o `null` |
+| `mostrarMenuBaneos(player)` | — | UI: ban / unban / view list (intended for staff) |
+| `mostrarFormularioBan(player)` | — | Direct ban form (choose online player + reason + duration) |
+| `mostrarJugadoresBaneados(player)` | — | Banned list with details and unban option |
 
-### Reportes (funciones internas — se disparan mostrando el menú principal)
+### Reports (internal functions — triggered by displaying the main menu)
 
-El flujo de reportes no expone funciones sueltas para cada paso — todo
-arranca desde `mostrarMenuPrincipal(player)` (no exportada actualmente;
-si necesitás dispararla desde otro archivo, exportala en `index.js`).
-Internamente recorre: reportar → elegir jugador/razón/seriedad/descripción
-→ notificar al staff → panel de staff → ver pendientes/historial →
-resolver (advertir/banear).
+The reporting flow does not expose individual functions for each step — everything
+boot from `mostrarMenuPrincipal(player)` (not currently exported;
+if you need to trigger it from another file, export it in `index.js`).
+Internally it goes through: report → choose player/reason/seriousness/description
+→ notify staff → staff panel → view pending/history →
+resolve (warn/ban).
 
 ---
 
-## Flujo interno (baneos)
+## Internal flow (bans)
 
 ```
 inicializarSistemaBaneos()
@@ -119,7 +119,7 @@ inicializarSistemaBaneos()
                                                └── temporal → mostrarUIBan() con tiempo restante
 ```
 
-## Flujo interno (reportes)
+## Internal flow (reports)
 
 ```
 mostrarMenuPrincipal(player)
@@ -134,16 +134,16 @@ mostrarMenuPrincipal(player)
 
 ---
 
-## Variables clave (estado en memoria)
+## Key variables (state in memory)
 
-| Variable | Tipo | Descripción |
+| Variable | Type | Description |
 |---|---|---|
-| `jugadoresBaneados` | `Map<string, BanData>` | Estado de todos los bans activos, clave = nombre del jugador |
-| `uiActiva` | `Set<string>` | Evita abrir formularios duplicados al mismo jugador |
-| `reportes` | `Array<ReporteData>` | Reportes en memoria — **se pierden al reiniciar el servidor** |
-| `RAZONES_REPORTE` | `string[]` | 10 razones predefinidas seleccionables en el dropdown de reporte |
+| `jugadoresBaneados` | `Map<string,BanData>` | Status of all active bans, key = player name |
+| `uiActiva` | `Set<string>` | Avoid opening duplicate forms to the same player |
+| `reports` | `Array<ReporteData>` | In-memory reports — **lost upon server restart** |
+| `RAZONES_REPORTE` | `string[]` | 10 predefined reasons selectable in the report dropdown |
 
-### Forma de `BanData`
+### Form of `BanData`
 
 ```js
 {
@@ -157,38 +157,38 @@ mostrarMenuPrincipal(player)
 
 ---
 
-## Eventos utilizados
+## Events used
 
-| Evento | Cuándo |
+| Event | When |
 |---|---|
-| `world.afterEvents.playerSpawn` | Verifica y aplica ban al conectarse (con `initialSpawn`) |
-| `system.runInterval` (verificador) | Limpia baneos temporales ya expirados |
+| `world.afterEvents.playerSpawn` | Check and apply ban when connecting (with `initialSpawn`) |
+| `system.runInterval` (verifier) ​​| Clean temporary bans that have already expired |
 
 ---
 
-## Consideraciones de rendimiento
+## Performance considerations
 
-- `jugadoresBaneados` es un `Map` recorrido linealmente — sin problema en
-  servidores normales (decenas/cientos de baneos).
-- `reportes[]` **no persiste** — si necesitás historial entre
-  reinicios, hay que migrarlo a `DynamicStore` (`systems/world-manager/`)
-  o a `VaultDB` (`systems/drops-in-inventory/vault-db.js`).
-- `aplicarRestriccionesBan` cambia el gamemode a Spectator y bloquea
-  input categories 1 y 2 — revisar que no choque con otro sistema que
-  también gestione gamemode del jugador.
+-`jugadoresBaneados` is a linearly traversed `Map` — no problem in
+normal servers (dozens/hundreds of bans).
+- `reportes[]` **does not persist** — if you need history between
+reboots, you have to migrate it to `DynamicStore` (`systems/world-manager/`)
+o a `VaultDB` (`systems/drops-in-inventory/vault-db.js`).
+-`aplicarRestriccionesBan` change gamemode to Spectator and crash
+input categories 1 and 2 — check that it does not collide with another system that
+Also manage player's gamemode.
 
 ---
 
-## Posibles mejoras
+## Possible improvements
 
-- Persistir `reportes[]` (VaultDB o DynamicStore) para que sobrevivan un
+- Persist `reports[]` (VaultDB o DynamicStore) so that they survive a
   reinicio.
-- Cooldown entre reportes del mismo jugador, para evitar spam de
-  reportes falsos.
-- Paginación en `mostrarJugadoresBaneados` para listas grandes.
-- Exportar `mostrarMenuPrincipal` explícitamente si necesitás dispararla
-  desde otro módulo (item, comando, etc).
+- Cooldown between reports from the same player, to avoid spam from
+false reports.
+- Pagination in `mostrarJugadoresBaneados` for large lists.
+- Export `mostrarMenuPrincipal` explicitly if you need to fire it
+from another module (item, command, etc).
 
 ---
 
-<sub>Ban System por **IIBl4z3MasterII**</sub>
+<sub>Ban System por**IIBl4z3MasterII**</sub>

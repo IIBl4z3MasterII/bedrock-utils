@@ -4,11 +4,11 @@ export class EnchantHelper {
     static enchant(itemStack, enchantId, level) {
         const enchantment = EnchantmentTypes.get(enchantId);
         if (!enchantment) {
-            throw new Error(`Encantamiento inválido: "${enchantId}"`);
+            throw new Error(`Invalid incantation: "${enchantId}"`);
         }
         const enchantable = itemStack.getComponent("enchantable");
         if (!enchantable) {
-            throw new Error(`El item "${itemStack.typeId}" no es encantable`);
+            throw new Error(`The item "${itemStack.typeId}"is not charming`);
         }
         enchantable.addEnchantment({ type: enchantment, level });
         return itemStack;

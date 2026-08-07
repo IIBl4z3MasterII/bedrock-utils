@@ -150,7 +150,7 @@ export class RtpHelper {
     state.searchStart = null;
     state.isWaiting = false;
     state.isSearching = false;
-    this.config.onNotify(player, "RTP Cancelado", reason);
+    this.config.onNotify(player, "RTP Canceled", reason);
   }
 
   #startWaitingPhase(player, dimension, dimConfig, state) {
@@ -159,20 +159,20 @@ export class RtpHelper {
     state.isWaiting = true;
     let elapsed = 0;
     const maxWait = this.config.stillTimeMs;
-    this.config.onNotify(player, "Preparando RTP", `Quédate quieto ${maxWait / 1000}s → ${dimConfig.name}`);
+    this.config.onNotify(player, "Preparing RTP", `stay still${maxWait / 1000}s →${dimConfig.name}`);
     const waitId = system.runInterval(() => {
       if (!this.#isValid(player)) { system.clearRun(waitId); this.#timers.delete(player.id); return; }
       if (this.#hasMoved(state, player.location)) {
         system.clearRun(waitId);
         this.#timers.delete(player.id);
-        this.#cancelRTP(player, "movimiento detectado");
+        this.#cancelRTP(player, "motion detected");
         return;
       }
       elapsed += MS_PER_TICK;
       if (elapsed >= maxWait) {
         system.clearRun(waitId);
         this.#timers.delete(player.id);
-        this.config.onNotify(player, "Buscando ubicación", `Buscando en ${dimConfig.name}...`);
+        this.config.onNotify(player, "Searching location", `Searching in${dimConfig.name}...`);
         this.#startSearchPhase(player, dimension, dimConfig, state);
       }
     }, 1);
@@ -192,7 +192,7 @@ export class RtpHelper {
       while (true) {
         if (!self.#isValid(player)) break;
         searchTick++;
-        if (searchTick >= self.config.maxSearchTicks) { self.#cancelRTP(player, "no se encontró ubicación segura"); break; }
+        if (searchTick >= self.config.maxSearchTicks) { self.#cancelRTP(player, "no safe location found"); break; }
         if (searchTick % 100 === 0) { searchLoc = self.#generateRandomLocation(dimConfig); }
         const safe = self.#findSafeLocation(dimension, searchLoc, dimConfig);
         if (safe) {
@@ -232,7 +232,7 @@ export class RtpHelper {
     state.isWaiting = false;
     state.isSearching = false;
     const coords = `${Math.floor(final.x)}, ${Math.floor(final.y)}, ${Math.floor(final.z)}`;
-    this.config.onNotify(player, "RTP exitoso", `${coords} · ${dimConfig.name} · ${searchTime}`);
+    this.config.onNotify(player, "Successful RTP", `${coords} · ${dimConfig.name} · ${searchTime}`);
   }
 
   rtp(player, targetDimension = null) {
@@ -241,7 +241,7 @@ export class RtpHelper {
     const dim = typeof targetDimension === "string" ? world.getDimension(targetDimension) : targetDimension || player.dimension;
     const dimConfig = this.#getDimConfig(dim.id);
     const cooldownLeft = Math.max(0, state.lastCooldown + this.config.cooldownMs - Date.now());
-    if (cooldownLeft > 0) { this.config.onNotify(player, "Cooldown", `${Math.ceil(cooldownLeft / 1000)}s restantes`); return false; }
+    if (cooldownLeft > 0) { this.config.onNotify(player, "Cooldown", `${Math.ceil(cooldownLeft / 1000)}remaining s`); return false; }
     if (this.#hasTag(player, "rtp") || this.#hasTag(player, "rtp_waiting")) {
       if (this.#timers.has(player.id)) return false;
       this.#cleanup(player.id);
@@ -252,5 +252,5 @@ export class RtpHelper {
     return true;
   }
 
-  cancel(player) { this.#cancelRTP(player, "cancelado manualmente"); }
+  cancel(player) { this.#cancelRTP(player, "manually canceled"); }
 }

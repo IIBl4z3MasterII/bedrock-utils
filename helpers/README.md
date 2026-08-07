@@ -1,30 +1,30 @@
 # Helpers
 
-Clases atómicas y reusables para Minecraft Bedrock Edition. Cada módulo
-es autocontenido, sin dependencias externas más allá de
-`@minecraft/server` (y `@minecraft/server-ui` para `template-ui`). No
-dependen de ningún `system` — se pueden copiar sueltos a cualquier
-proyecto.
+Atomic and reusable classes for Minecraft Bedrock Edition. Each module
+is self-contained, with no external dependencies beyond
+`@minecraft/server` (and `@minecraft/server-ui` for `template-ui`). No
+depend on `system` — they can be copied loose into any
+project.
 
-| Módulo | Descripción |
+| Module | Description |
 |---|---|
-| [**chat-moderation**](chat-moderation/README.md) | Conteo de mayúsculas, detección de caps excesivos |
-| [**cooldown**](cooldown/README.md) | Manager de cooldowns en memoria, por `id` + `action` |
-| [**coordinates**](coordinates/README.md) | Coordenadas local (`^`), relativa (`~`) y absoluta |
-| [**enchant-helper**](enchant-helper/README.md) | Encantar `ItemStack` validando encantamiento y compatibilidad |
-| [**inventory-helper**](inventory-helper/README.md) | `giveItem`, `countItem`, `removeItem` con manejo de overflow |
-| [**lore-durability**](lore-durability/README.md) | Lore automático con durabilidad — script de instalar y olvidar, sin API propia |
-| [**particle-helper**](particle-helper/README.md) | Formas geométricas de partículas, trail y borde animado |
+| [**chat-moderation**](chat-moderation/README.md) | Uppercase count, excessive caps detection |
+| [**cooldown**](cooldown/README.md) | In-memory cooldown manager, by `id` + `action` |
+| [**coordinates**](coordinates/README.md) | Local (`^`), relative (`~`) and absolute coordinates |
+| [**enchant-helper**](enchant-helper/README.md) | Encantar `ItemStack` validating enchantment and compatibility |
+| [**inventory-helper**](inventory-helper/README.md) | `giveItem`, `countItem`, `removeItem` with overflow handling |
+| [**lore-durability**](lore-durability/README.md) | Automatic durability lore — install-and-forget script, no dedicated API |
+| [**particle-helper**](particle-helper/README.md) | Geometric particle shapes, trail and animated edge |
 | [**raycaster**](raycaster/README.md) | `getEntityLookingAt`, `getBlockLookingAt` |
-| [**region**](region/README.md) | Región cuboide con `contains`, `overlaps`, `toJSON`/`fromJSON` |
-| [**rtp-helper**](rtp-helper/README.md) | Random teleport con búsqueda de ubicación segura y cooldown |
-| [**template-ui**](template-ui/README.md) | Builder declarativo de `ActionForm`/`ModalForm`/`MessageForm` + router de menús |
-| [**timer**](timer/README.md) | Cuenta regresiva con `pause`/`resume`/`cancel` |
+| [**region**](region/README.md) | Cuboid region with `contains`, `overlaps`, `toJSON`/`fromJSON` |
+| [**rtp-helper**](rtp-helper/README.md) | Random teleport with safe-location search and cooldown |
+| [**ui-template**](ui-template/README.md) | Builder declarativo de `ActionForm`/`ModalForm`/`MessageForm` + menu router |
+| [**hours**](hours/README.md) | Countdown timer with `pause`/`resume`/`cancel` |
 
-> Cada módulo (salvo `lore-durability`) ahora incluye un `example.js`
-> con un caso de uso mínimo, además de su `README.md`.
+> Every module (except `lore-durability`) now includes an `example.js`
+> with a minimal use case, in addition to its `README.md`.
 
-Importar todo junto:
+Import everything together:
 
 ```js
 import { Region, CooldownManager, Timer } from "./helpers/index.js";

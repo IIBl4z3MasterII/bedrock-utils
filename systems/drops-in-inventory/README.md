@@ -1,45 +1,45 @@
 # 🎒 Drops In Inventory
 
-Sistema que intercepta los drops al romper bloques y los transfiere
-directamente al inventario del jugador, con persistencia de overflow vía
-`VaultDB` (una base de datos liviana propia sobre Dynamic Properties).
+System that intercepts drops when breaking blocks and transfers them
+directly to the player's inventory, with overflow persistence via
+`VaultDB` (a proprietary lightweight database on Dynamic Properties).
 
 ---
 
-## Archivos
+## Files
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Lógica principal — registra bloques rotos, intercepta drops, gestiona inventario |
-| `vault-db.js` | Clase `VaultDB` — mini base de datos key-value sobre Dynamic Properties, con cache, cola de guardado y validaciones |
+| `index.js` | Core logic — records broken blocks, intercepts drops, manages inventory |
+| `vault-db.js` | Clase `VaultDB` — mini key-value database on Dynamic Properties, with cache, save queue and validations |
 
 ---
 
-## Propósito general
+## General purpose
 
-Elimina el paso de "agacharse a recoger el item del suelo": cuando un
-jugador rompe un bloque, el drop va directo a su inventario. Si el
-inventario está lleno, el item se guarda en `VaultDB` (namespace
-`"overflow"`) y se entrega automáticamente al reconectarse.
+Eliminates the "bend down to pick up the item from the ground" step: when a
+player breaks a block, the drop goes directly to his inventory. If he
+inventory is full, the item is saved in `VaultDB` (namespace
+`"overflow"`) and is delivered automatically upon reconnection.
 
 ---
 
-## Cómo se activa
+## How to activate
 
 ```js
 import "./systems/drops-in-inventory/index.js";
-// Se autoregistra — no requiere inicialización explícita.
+// Self-registers — no explicit initialization required.
 ```
 
 ---
 
-## Flujo interno
+## Internal flow
 
 ```
 playerBreakBlock → BlockBreakRegistry.register(block, player)
         │
 entitySpawn (item entity) → ItemCollector detecta el drop
-        ├── BlockBreakRegistry.findPlayer(location)   ← jugador más cercano dentro del TTL
+        ├── BlockBreakRegistry.findPlayer(location)   ← nearest player within the TTL
         ├── InventoryManager.addItem(player, item)
         │       ├── hay espacio → da el item directo, despawnea la entidad
         │       └── inventario lleno → overflowDB.set(...) (VaultDB)
@@ -48,51 +48,51 @@ entitySpawn (item entity) → ItemCollector detecta el drop
 
 ---
 
-## Clases internas de `index.js`
+## Internal classes of `index.js`
 
 ### `BlockBreakRegistry`
 
-Registra qué jugador rompió cada bloque, con un TTL para poder emparejar
-el drop resultante con el jugador correcto.
+Record which player broke each block, with a TTL for matching
+the resulting drop with the correct player.
 
-| Método | Descripción |
+| Method | Description |
 |---|---|
-| `register(block, player)` | Guarda `{ player, timestamp }` bajo la clave `x,y,z` del bloque; se auto-limpia tras `ttlTicks` (default `40`, ~2s) |
-| `findPlayer(location, maxDistance?, maxAgeMs?)` | Devuelve el jugador registrado más cercano dentro de `maxDistance` (default `2`) y `maxAgeMs` (default `2000`) |
+| `register(block, player)` | Store `{ player, timestamp }` under the `x,y,z` key of the block; self-cleans after `ttlTicks` (default `40`, ~2s) |
+| `findPlayer(location,maxDistance?, maxAgeMs?)` | Returns the closest registered player within `maxDistance` (default `2`) y `maxAgeMs` (default `2000`) |
 
 ### `InventoryManager`
 
-| Método | Descripción |
+| Method | Description |
 |---|---|
-| `addItem(player, itemStack)` | Da el item con lógica de stacking correcta (rellena stacks parciales existentes antes de usar slots vacíos); `false` si no entró nada |
-| `clamp(amount)` | Normaliza cantidades fuera de rango (`≤0 → 1`, `≥256 → 255`) |
+| `addItem(player,itemStack)` | Returns the item with correct stacking logic (fills existing partial stacks before using empty slots); `false` if nothing entered |
+| `clamp(amount)` | Normalize quantities out of range (`≤0 → 1`, `≥256 → 255`) |
 
 ### `ItemCollector`
 
-Escucha el spawn de entidades tipo `item`, usa `BlockBreakRegistry` para
-saber de quién es, y usa `InventoryManager` para dárselo (o mandarlo a
-overflow si no entra).
+Listen for the spawn of `item` type entities, use `BlockBreakRegistry` for
+know whose it is, and use `InventoryManager` to give it to him (or send it to
+overflow if it does not enter).
 
 ---
 
 ## `vault-db.js` — clase `VaultDB`
 
-Base de datos key-value sobre Dynamic Properties, pensada específicamente
-para guardar **arrays de `ItemStack`** (serializa `typeId`, `amount`,
-`nameTag`, `keepOnDeath`, lore y encantamientos), aunque también acepta
-otros valores serializables.
+Key-value database on Dynamic Properties, specifically designed
+to save **arrays of `ItemStack`** (serialization `typeId`, `amount`,
+`nameTag`, `keepOnDeath`, lore and enchantments), although it also accepts
+other serializable values.
 
-### Por qué no es solo `set`/`get` directo sobre Dynamic Properties
+### Why isn't it just direct `set`/`get` over Dynamic Properties
 
-- **Cola de guardado asíncrona**: los `set()` no escriben la Dynamic
-  Property al instante — se encolan y se persisten de a `saveRate` claves
-  por tick, para no saturar de escrituras un tick con drops masivos.
-- **Cache en memoria** con tamaño máximo (`cacheSize`) — lecturas
-  repetidas no vuelven a tocar Dynamic Properties.
-- **Debe esperar a `world.afterEvents.worldLoad`** antes de aceptar
-  operaciones — usar `set`/`get` antes de que esté listo lanza `Error`.
-- **Avisa si el mundo se cierra con datos sin guardar** (cola pendiente
-  al hacer shutdown → `console.error`).
+- **Asynchronous save queue**: `set()` do not write the Dynamic
+Property instantly — they are queued and persisted one at a time.saveRate` keys
+per tick, so as not to saturate a tick with massive drops.
+- **In-memory cache** with maximum size (`cacheSize`) — readings
+Repeated actions do not touch Dynamic Properties again.
+- **Must wait for `world.afterEvents.worldLoad`** before accepting
+operations — using `set`/`get` before ready throws `Error`.
+- **Warns if the world closes with unsaved data** (pending queue
+when doing shutdown → `console.error`).
 
 ### Constructor
 
@@ -100,25 +100,25 @@ otros valores serializables.
 new VaultDB(namespace = "", cacheSize = 50, saveRate = 1)
 ```
 
-| Parámetro | Descripción |
+| Parameter | Description |
 |---|---|
-| `namespace` | Prefijo de las keys en Dynamic Properties (solo `A-Za-z0-9_`) |
-| `cacheSize` | Máximo de entradas cacheadas en memoria antes de descartar las más viejas |
-| `saveRate` | Claves guardadas por tick desde la cola pendiente — `>1` genera advertencia de posible lag |
+| `namespace` | Key prefix in Dynamic Properties (`A-Za-z0-9_` only) |
+| `cacheSize` | Maximum entries cached in memory before discarding the oldest ones |
+| `saveRate` | Keys saved per tick from pending queue — `>1` generates possible lag warning |
 
-### API pública
+### Public API
 
-| Método | Descripción |
+| Method | Description |
 |---|---|
-| `onReady(callback)` | Se llama cuando la instancia ya puede usarse (post `worldLoad`) |
-| `set(key, value)` | Guarda (encola); valida nombre de key y longitud (`≤30` chars), y que un array no supere `1024` items |
-| `get(key)` | Lee (cache primero, luego Dynamic Property); lanza `Error` si se llama antes de `onReady` |
+| `onReady(callback)` | Called when the instance can already be used (post `worldLoad`) |
+| `set(key, value)` | Save (enqueue); validates key name and length (`≤30` chars), and that an array does not exceed `1024` items |
+| `get(key)` | Read (cache first, then Dynamic Property); throws `Error` if called before `onReady` |
 | `has(key)` | `boolean` |
-| `delete(key)` | Elimina; lanza `Error` si la key no existe |
-| `keys()` | Todas las keys bajo el namespace |
-| `values()` | Todos los valores bajo el namespace |
-| `clear()` | Borra todas las keys del namespace |
-| `logs` | Objeto público `{ save, load, set, get, has, delete, clear, keys, values }` — poner en `false` el que no querés loguear en consola |
+| `delete(key)` | Delete; throws `Error` if the key does not exist |
+| `keys()` | All keys under the namespace |
+| `values()` | All values ​​under the namespace |
+| `clear()` | Delete all namespace keys |
+| `logs` | Public object `{ save, load, set, get, has, delete, clear, keys, values ​​}` — set to `false` the one you do not want to log into the console |
 
 ```js
 import { VaultDB } from "./systems/drops-in-inventory/vault-db.js";
@@ -133,37 +133,37 @@ db.onReady(() => {
 
 ---
 
-## Eventos utilizados
+## Events used
 
-| Evento | Cuándo |
+| Event | When |
 |---|---|
-| `world.beforeEvents.playerBreakBlock` | Registra qué jugador rompió qué bloque |
-| `world.afterEvents.entitySpawn` | Intercepta el drop resultante (tipo `item`) |
-| `world.afterEvents.playerSpawn` | Entrega el overflow pendiente al reconectarse |
+| `world.beforeEvents.playerBreakBlock` | Record which player broke which block |
+| `world.afterEvents.entitySpawn` | Intercepts the resulting drop (type `item`) |
+| `world.afterEvents.playerSpawn` | Delivers pending overflow upon reconnection |
 
 ---
 
-## Consideraciones de rendimiento
+## Performance considerations
 
-- TTL de 40 ticks en `BlockBreakRegistry` — con lag alto en el servidor,
-  considerar aumentarlo para no perder el emparejamiento bloque↔jugador.
-- `VaultDB` con `saveRate: 1` (el default en `overflowDB`) es la opción
-  más segura contra lag — solo sube `saveRate` si de verdad necesitás
-  guardar más rápido y medís que no genera problemas.
-- Cada `set()` en `VaultDB` es asíncrono (se guarda en un tick posterior)
-  — no asumir que el dato ya está en Dynamic Properties justo después de
-  llamar a `set()`, aunque `get()` sí lo va a devolver correctamente
-  gracias al cache.
+- TTL the 40 ticks and `BlockBreakRegistry` — with high server lag,
+consider increasing it so as not to lose the block↔player pairing.
+-`VaultDB` with `saveRate: 1` (the default in `overflowDB`) is the option
+safer against lag — just upload `saveRate'if you really need
+Save faster and without problems.
+- Every `set()` in `VaultDB` is asynchronous (saved to a later tick)
+— do not assume that the data is already in Dynamic Properties right after
+call `set()`, although `get()` will return it correctly
+thanks to the cache.
 
 ---
 
-## Posibles mejoras
+## Possible improvements
 
-- Soporte para drops de mobs (actualmente solo intercepta drops de
-  bloques rotos).
-- Notificar al jugador cuando un item se va a overflow, no solo al
-  entregarlo de vuelta.
-- UI para ver y recuperar overflow manualmente sin esperar a
+- Support for mob drops (currently only intercepts mob drops).
+broken blocks).
+- Notify the player when an item is going to overflow, not just the
+deliver it back.
+- UI to view and recover overflow manually without waiting for
   reconectarse.
 
 ---

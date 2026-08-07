@@ -1,18 +1,18 @@
 import { world, system } from "@minecraft/server";
-import { action, modal, message, buildAndShow, registerActionMenu, registerModalForm, mostrarMenu } from "./index.js";
+import { action, modal, message, buildAndShow, registerActionMenu, registerModalForm, showMenu } from "./index.js";
 
 registerActionMenu("demo", {
   title: "§6Demo Template UI",
-  body: "Elige un tipo de formulario",
+  body: "Choose a type of form",
   buttons: [
     {
       text: "§aActionForm",
       callback: (p, back) => {
-        buildAndShow(action("ActionForm", "Esto es un ActionForm", [
-          { text: "Opción 1" },
-          { text: "Opción 2", icon: "textures/ui/icon_steve" },
+        buildAndShow(action("ActionForm", "This is aActionForm", [
+          { text: "Option 1" },
+          { text: "Option 2", icon: "textures/ui/icon_steve" },
         ]), { player: p }).then((r) => {
-          if (!r.canceled) p.sendMessage(`§aElegiste: §e${r.selection}`);
+          if (!r.canceled) p.sendMessage(`§aYou chose:§e${r.selection}`);
           back();
         });
       },
@@ -24,29 +24,29 @@ registerActionMenu("demo", {
     {
       text: "§dMessageForm",
       callback: (p, back) => {
-        buildAndShow(message("MessageForm", "¿Te gusta esto?", "§aSí", "§cNo"), { player: p }).then((r) => {
-          if (!r.canceled) p.sendMessage(r.selection === 0 ? "§aDijiste que sí!" : "§cDijiste que no");
+        buildAndShow(message("MessageForm", "Do you like this?", "§aYes", "§cNo"), { player: p }).then((r) => {
+          if (!r.canceled) p.sendMessage(r.selection === 0 ? "§aYou said yes!" : "§cyou said no");
           back();
         });
       },
     },
     {
       text: "§7Cerrar",
-      callback: (p) => p.sendMessage("§7Menú cerrado"),
+      callback: (p) => p.sendMessage("§7Closed menu"),
     },
   ],
 });
 
 registerModalForm("demo_modal", {
-  title: "§bFormulario Modal",
+  title: "§bModal Form",
   fields: [
     { type: "toggle", label: "Activar", defaultValue: true },
-    { type: "textField", label: "Nombre", placeholder: "Escribe tu nombre" },
+    { type: "textField", label: "Nombre", placeholder: "write your name" },
     { type: "slider", label: "Edad", min: 0, max: 100, step: 1, defaultValue: 18 },
   ],
   submitButton: "§aEnviar",
   onSubmit: (p, values, back) => {
-    p.sendMessage(`§aToggle: §e${values[0]} §7| §aNombre: §e${values[1]} §7| §aEdad: §e${values[2]}`);
+    p.sendMessage(`§aToggle:§e${values[0]} §7| §aName:§e${values[1]} §7| §aAge:§e${values[2]}`);
     back();
   },
 });
@@ -54,6 +54,6 @@ registerModalForm("demo_modal", {
 world.beforeEvents.chatSend.subscribe((ev) => {
   if (ev.message === "!menu") {
     ev.cancel = true;
-    system.run(() => mostrarMenu(ev.sender, "demo"));
+    system.run(() => showMenu(ev.sender, "demo"));
   }
 });

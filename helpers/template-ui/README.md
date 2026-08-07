@@ -1,56 +1,56 @@
-# 🖼️ TemplateUI
+#🖼️TemplateUI
 
-Builder declarativo sobre `ActionFormData`, `ModalFormData` y
-`MessageFormData`: en vez de armar cada form imperativamente, describís
-la estructura como un objeto (o función que devuelve un objeto) y esta
-capa la traduce a llamadas reales de la Forms API. Incluye también un
-sistema de navegación entre menús registrados por id.
+Declarative Builder on `ActionFormData`, `ModalFormData` and
+`MessageFormData`: instead of compiling each form imperatively, you describe
+the structure as an object (or function that returns an object) and this
+layer translates it into actual Forms API calls. Also includes a
+navigation system between menus registered by ID.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Funciones `forceShow`, `action`, `modal`, `message`, `buildForm`, `buildAndShow`, `registerActionMenu`, `registerModalForm`, `mostrarMenu`, `mostrarModal` |
+| `index.js` | Functions `forceShow`, `action`, `modal`, `message`, `buildForm`, `buildAndShow`, `registerActionMenu`, `registerModalForm`, `showMenu`, `showModal` |
 
-A diferencia del resto de `helpers/`, este módulo exporta **funciones
-sueltas**, no una clase — porque modela un lenguaje declarativo de
-templates, no un objeto con estado propio.
+Unlike the rest of `helpers/`, this module exports **functions
+loose**, not a class — because it models a declarative language of
+templates, not an object with its own state.
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Armar UIs de Bedrock a mano significa repetir `new ActionFormData().title(...).body(...).button(...)`
-en cada menú, y manejar el `.then()/.catch()` de cada `.show()` por
-separado. `TemplateUI` separa **qué se muestra** (el template, un
-objeto plano) de **cómo se muestra** (`buildForm`/`buildAndShow`), y
-agrega un router simple para menús que se abren unos a otros por id.
+Building Bedrock UIs by hand means repeating `newActionFormData().title(...).body(...).button(...)`
+in each menu, and handle the `.then()/.catch()` of each `.show()` by
+separate. `TemplateUI` separates **what is shown** (the template, a
+flat object) from **as shown** (`buildForm`/`buildAndShow`), and
+adds a simple router for menus that open to each other by id.
 
 ---
 
 ## Templates: `action`, `modal`, `message`
 
-Son solo constructores de objetos planos — no llaman a la Forms API
-todavía.
+They are just flat object constructors — they don't call the Forms API
+still.
 
-| Función | Forma que produce | Campos |
+| Function | Form that produces | Fields |
 |---|---|---|
 | `action(title, body, buttons)` | `ActionFormData` | `buttons: Array<{ text, icon? }>` |
-| `modal(title, fields, submitButton)` | `ModalFormData` | `fields: Array<FieldSpec>` (ver abajo) |
-| `message(title, body, button1, button2)` | `MessageFormData` | dos botones simples |
+| `modal(title, fields,submitButton)` | `ModalFormData` | `fields: Array<FieldSpec>` (see below) |
+| `message(title, body, button1, button2)` | `MessageFormData` | two simple buttons |
 
-`title`, `body` y cualquier campo de `fields` pueden ser un valor fijo
-**o una función `(ctx) => valor`** — se resuelven en el momento de
-construir el form, recibiendo el `ctx` que le pases a `buildForm`. Esto
-permite templates reusables con datos dinámicos (ej. mostrar el nombre
-del jugador o su saldo actual sin tener que recrear el objeto template
-cada vez).
+`title`, `body` and any field in `fields` can be a fixed value
+**or a function `(ctx) => value`** — are resolved at call time
+build the form, receiving the `ctx` that you pass to `buildForm`. This
+allows reusable templates with dynamic data (e.g. display name
+of the player or their current balance without having to recreate the template object
+every time).
 
-### `FieldSpec` (para `modal`)
+### `FieldSpec` (for `modal`)
 
-| `type` | Campos propios | Mapea a |
+| `type` | Own fields | Maps to |
 |---|---|---|
 | `"dropdown"` | `label`, `options`, `defaultIndex?` | `form.dropdown(...)` |
 | `"textField"` | `label`, `placeholder?`, `defaultValue?` | `form.textField(...)` |
@@ -59,88 +59,88 @@ cada vez).
 
 ---
 
-## Mostrar sin que se cancele por UserBusy: `forceShow`
+## Show without being canceled byUserBusy:`forceShow`
 
 ```js
 export async function forceShow(form, player, maximumRetries = 300)
 ```
 
-Wrapper sobre `form.show(player)` que reintenta automáticamente cuando
-el form se cancela por `FormCancelationReason.UserBusy` (el jugador
-tenía otra UI abierta en el mismo tick, típico al abrir un form desde
-un evento). Si supera `maximumRetries` intentos, loguea un warning y
-devuelve la última respuesta (cancelada). `buildAndShow`, `mostrarMenu`
-y `mostrarModal` lo usan internamente — no hace falta llamarlo a mano
-salvo que muestres un form fuera de esas funciones.
+Wrapper over `form.show(player)` that automatically retries when
+the form is canceled by `FormCancelationReason.UserBusy` (the player
+I had another UI open on the same tick, typical when opening a form from
+an event). If it exceeds `maximumRetries` attempts, log a warning and
+returns the last response (canceled). `buildAndShow`, `showMenu`
+and `showModal` they use it internally — no need to call it manually
+unless you show a form outside of those functions.
 
-## Construcción: `buildForm`, `buildAndShow`
+## Construction: `buildForm`, `buildAndShow`
 
-| Función | Parámetros | Devuelve | Descripción |
+| Function | Parameters | Returns | Description |
 |---|---|---|---|
-| `buildForm(tpl, ctx?)` | `tpl: Template \| (ctx) => Template`, `ctx: object = {}` | `ActionFormData \| ModalFormData \| MessageFormData` | Resuelve el template y arma el form real, sin mostrarlo |
-| `buildAndShow(tpl, ctx?)` | igual que arriba, `ctx.player` requerido | `Promise<FormResponse>` | Arma el form y lo muestra a `ctx.player` vía `forceShow` (reintenta si el form se cancela por `UserBusy`) |
+| `buildForm(tpl, ctx?)` | `tpl: Template \| (ctx) => Template`, `ctx: object = {}` | `ActionFormData \| ModalFormData \| MessageFormData` | Resolve the template and create the real form, without showing it |
+| `buildAndShow(tpl, ctx?)` | same as above, `ctx.player` required | `Promise<FormResponse>` | Create the form and show it to `ctx.player` via `forceShow` (retry if form is canceled by `UserBusy`) |
 
 ```js
 import { action, buildAndShow } from "./helpers/template-ui/index.js";
 
 const confirmTemplate = (ctx) => action(
-    "Confirmar compra",
-    `¿Comprar por ${ctx.price} monedas?`,
-    [{ text: "Sí" }, { text: "No" }]
+    "Confirm purchase",
+    `Buy for ${ctx.price} coins?`,
+    [{ text: "Yes" }, { text: "No" }]
 );
 
 buildAndShow(confirmTemplate, { player, price: 250 }).then((res) => {
     if (!res.canceled && res.selection === 0) {
-        // procesar compra
+        // process purchase
     }
 });
 ```
 
 ---
 
-## Navegación: menús y modals registrados por id
+## Navigation: menus and modals registered by id
 
-Para flujos con varias pantallas que se abren entre sí (menú → submenú
-→ modal → vuelta atrás), en vez de encadenar `.then()` a mano, registrás
-cada pantalla una vez con un id y dejás que el router las abra:
+For flows with multiple screens that open to each other (menu → submenu
+→ modal → backtrack), instead of chaining `.then()` by hand, you register
+each screen once with an id and you let the router open them:
 
-| Función | Parámetros | Descripción |
+| Function | Parameters | Description |
 |---|---|---|
-| `registerActionMenu(id, config)` | `id: string`, `config: MenuConfig` | Registra un menú de botones bajo ese id |
-| `registerModalForm(id, config)` | `id: string`, `config: ModalConfig` | Registra un modal bajo ese id |
-| `mostrarMenu(player, menuId, onBack?)` | `async` | Muestra el menú registrado (vía `forceShow`); si se cancela, llama a `onBack` |
-| `mostrarModal(player, formId, onBack?)` | `async` | Muestra el modal registrado (vía `forceShow`); si se cancela, llama a `onBack` |
+| `registerActionMenu(id, config)` | `id: string`, `config:MenuConfig` | Register a button menu under that id |
+| `registerModalForm(id, config)` | `id: string`, `config:ModalConfig` | Register a modal under that id |
+| `showMenu(player,menuId, onBack?)` | `async` | Shows the registered menu (via `forceShow`); if cancelled, call `onBack` |
+| `showModal(player,formId, onBack?)` | `async` | Shows the registered modal (via `forceShow`); if cancelled, call `onBack` |
 
 ### `MenuConfig`
 
 ```js
-registerActionMenu("tienda_principal", {
-    title: "§6Tienda",
-    body: "Elegí una sección:",
+registerActionMenu("main_shop", {
+    title: "§6Shop",
+    body: "Choose a section:",
     buttons: [
-        { text: "Armas", action: "tienda_armas" },       // abre otro menú registrado
-        { text: "Config", modal: "tienda_config" },      // abre un modal registrado
-        { text: "Comprar espada", callback: (player, reopen) => {
+        { text: "Weapons", action: "weapons_shop" },     // opens another registered menu
+        { text: "Config", modal: "shop_config" },        // opens a registered modal
+        { text: "Buy sword", callback: (player, reopen) => {
             InventoryHelper.giveItem(player, new ItemStack("minecraft:iron_sword"));
-            reopen(); // vuelve a mostrar este mismo menú
+            reopen(); // shows this same menu again
         }},
     ],
 });
 ```
 
-Cada botón puede tener **una** de tres propiedades: `action` (id de otro
-menú), `modal` (id de un modal) o `callback(player, reopen)` (lógica
-custom, con `reopen()` para volver a mostrar el menú actual).
+Each button can have **one** of three properties: `action` (id of another
+menu), `modal` (id of a modal) or `callback(player, reopen)` (logic
+custom, with `reopen()` to redisplay the current menu).
 
 ### `ModalConfig`
 
 ```js
-registerModalForm("tienda_config", {
-    title: "Configuración",
-    fields: [{ type: "toggle", label: "Notificaciones", defaultValue: true }],
-    submitButton: "Guardar",
+registerModalForm("shop_config", {
+    title: "Settings",
+    fields: [{ type: "toggle", label: "Notifications", defaultValue: true }],
+    submitButton: "Save",
     onSubmit: (player, formValues, onBack) => {
-        // formValues[0] = valor del toggle
+        // formValues[0] = toggle value
         onBack?.();
     },
 });
@@ -148,18 +148,18 @@ registerModalForm("tienda_config", {
 
 ---
 
-## Notas
+## Grades
 
-- `mostrarMenu`/`mostrarModal` son ahora `async` y tragan errores de
-  `forceShow()` con un `try/catch` silencioso (ej. si el jugador se
-  desconecta a mitad de la animación del form) — si necesitás loguear
-  esos casos, hacer tu propio wrapper alrededor.
-- Los registros (`MENU_STRUCTURE`, `MODAL_STRUCTURE`) son objetos a nivel
-  de módulo — se comparten entre todos los jugadores; no hay estado por
-  jugador acá (eso lo maneja quien use `TemplateUI`, no esta capa).
-- Ningún template llama a `.show()` por sí solo — siempre pasa por
-  `buildAndShow` o por el router (`mostrarMenu`/`mostrarModal`).
+-`showMenu`/`showModal` are now `async` and swallow errors
+  `forceShow()` with a silent `try/catch` (i.e. if the player
+disconnect in the middle of the form animation) — if you need to log in
+In those cases, make your own wrapper around it.
+- The records (`MENU_STRUCTURE`, `MODAL_STRUCTURE`) are level objects
+module — are shared among all players; there is no state
+player here (that is handled by whoever uses `TemplateUI`, not this layer).
+- No template calls `.show()` on its own — it always goes through
+  `buildAndShow` or by the router (`showMenu`/`showModal`).
 
 ---
 
-<sub>TemplateUI por **IIBl4z3MasterII**</sub>
+<sub>TemplateUIby **IIBl4z3MasterII**</sub>

@@ -20,16 +20,16 @@ world.beforeEvents.chatSend.subscribe((ev) => {
       const frente = Coordinates.local(player, 0, 0, 5, "eyes");
       spawnSafe(player.dimension, "minecraft:villager_happy", frente);
 
-      player.sendMessage(`§7↑ 3 arriba: §e${arriba.x.toFixed(1)} ${arriba.y.toFixed(1)} ${arriba.z.toFixed(1)}`);
-      player.sendMessage(`§7→ 5 al frente: §e${frente.x.toFixed(1)} ${frente.y.toFixed(1)} ${frente.z.toFixed(1)}`);
+      player.sendMessage(`§7↑ 3 above:§e${arriba.x.toFixed(1)} ${arriba.y.toFixed(1)} ${arriba.z.toFixed(1)}`);
+      player.sendMessage(`§7→ 5 in front:§e${frente.x.toFixed(1)} ${frente.y.toFixed(1)} ${frente.z.toFixed(1)}`);
     });
   }
 
-  if (msg === "!local" || msg.startsWith("!local ")) {
+  if (msg === "!local" || msg.startsWith("!local")) {
     ev.cancel = true;
     const args = msg.split(" ").slice(1).map(Number);
     if (args.length !== 3 || args.some(isNaN)) {
-      player.sendMessage("§cUsa: §e!local <derecha> <arriba> <adelante> §7(offsets -16 a 16)");
+      player.sendMessage("§cOne:§e!local <right> <up> <forward>§7(offsets -16 a 16)");
       return;
     }
     const [x, y, z] = args;

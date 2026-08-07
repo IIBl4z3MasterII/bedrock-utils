@@ -7,12 +7,12 @@ export function exampleCooldown(player) {
   const id = player.id;
 
   if (cd.isOnCooldown(id, "heal")) {
-    player.sendMessage(`§cEspera §e${cd.getRemaining(id, "heal")}§c ticks para usar heal`);
+    player.sendMessage(`§cEspera §e${cd.getRemaining(id, "heal")}§cticks to use heal`);
     return;
   }
 
   cd.start(id, "heal", 100);
-  player.sendMessage("§aHeal usado! Cooldown de 100 ticks iniciado");
+  player.sendMessage("§aHeal used! 100 tick cooldown started");
   player.addEffect("regeneration", 100, { amplifier: 2 });
 }
 

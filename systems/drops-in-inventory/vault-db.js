@@ -90,7 +90,7 @@ function dpDelete(fk) {
 
 export class VaultDB {
   constructor(namespace = "", cacheSize = 50, saveRate = 1) {
-    if (!VALID_NAME.test(namespace)) throw new Error(`VaultDB > "${namespace}" namespace inválido.`);
+    if (!VALID_NAME.test(namespace)) throw new Error(`VaultDB> "${namespace}"invalid namespace.`);
     this.#settings = { namespace, cacheSize, saveRate };
     this.#cache = new Map();
     this.#queue = new Map();
@@ -99,11 +99,11 @@ export class VaultDB {
       this.#setupShutdown();
       const { namespace, saveRate } = this.#settings;
       if (saveRate > 1) {
-        const warn = `VaultDB > saveRate > 1 puede causar lag. namespace: <${namespace}> ${_date()}`;
+        const warn = `VaultDB > saveRate> 1 may cause lag. namespace: <${namespace}> ${_date()}`;
         console.warn(warn);
         world.getPlayers().forEach((p) => p.isOp() && p.sendMessage(warn));
       }
-      console.log(`VaultDB > initialized. namespace: ${namespace} ${_date()}`);
+      console.log(`VaultDB> initialized. namespace:${namespace} ${_date()}`);
       this.#setReady();
     };
     const sub = world.afterEvents.worldLoad.subscribe(() => { world.afterEvents.worldLoad.unsubscribe(sub); init(); });
@@ -125,7 +125,7 @@ export class VaultDB {
       const overflow = this.#cache.size - cacheSize;
       if (overflow > 0) { const iter = this.#cache.keys(); for (let i = 0; i < overflow; i++) this.#cache.delete(iter.next().value); }
       if (this.#queue.size === 0) {
-        if (logId !== undefined) { system.clearRun(logId); logId = undefined; if (saving && this.logs.save) console.log(`VaultDB > Guardado completo. Puedes cerrar el mundo. ${_date()}`); saving = false; }
+        if (logId !== undefined) { system.clearRun(logId); logId = undefined; if (saving && this.logs.save) console.log(`VaultDB> Save complete. You can close the world.${_date()}`); saving = false; }
         return;
       }
       saving = true;
@@ -147,12 +147,12 @@ export class VaultDB {
   #logSave(lastSize) {
     if (!this.logs.save) return;
     const speed = lastSize !== undefined ? (-(this.#queue.size - lastSize) / 6).toFixed(0) : "//";
-    console.log(`VaultDB > Guardando...\n[Stats] Pendientes: ${this.#queue.size} | Velocidad: ${speed} keys/s ${_date()}`);
+    console.log(`VaultDB> Saving...\n[Stats] Pending:${this.#queue.size}| Speed:${speed}keys/s${_date()}`);
   }
 
   #setupShutdown() {
     system.beforeEvents.shutdown.subscribe(() => {
-      if (this.#queue.size > 0) console.error(`\nVaultDB > ERROR FATAL > Mundo cerrado con datos sin guardar!\nNamespace: ${this.#settings.namespace} | Keys perdidas: ${this.#queue.size} ${_date()}\n`);
+      if (this.#queue.size > 0) console.error(`\nVaultDB > ERROR FATAL > Mundo cerrado con datos sin guardar!\nNamespace: ${this.#settings.namespace}| Lost keys:${this.#queue.size} ${_date()}\n`);
     });
   }
 
@@ -162,47 +162,47 @@ export class VaultDB {
   #cache;
   #queue;
 
-  #assertReady() { if (!this.#ready) throw new Error(`VaultDB > [${this.#settings.namespace}] Aún no está listo. ${_date()}`); }
+  #assertReady() { if (!this.#ready) throw new Error(`VaultDB> [${this.#settings.namespace}] It's not ready yet.${_date()}`); }
 
   set(key, value) {
-    if (!VALID_NAME.test(key)) throw new Error(`VaultDB > Key inválida: <${key}>. ${_date()}`);
-    if (key.length > MAX_KEY_LENGTH) throw new Error(`VaultDB > Key <${key}> supera ${MAX_KEY_LENGTH} caracteres. ${_date()}`);
+    if (!VALID_NAME.test(key)) throw new Error(`VaultDB> Invalid key: <${key}>. ${_date()}`);
+    if (key.length > MAX_KEY_LENGTH) throw new Error(`VaultDB> Key <${key}> exceeds${MAX_KEY_LENGTH} caracteres. ${_date()}`);
     this.#assertReady();
     const fk = `${this.#settings.namespace}:${key}`;
-    if (Array.isArray(value) && value.length > MAX_ITEMS) throw new Error(`VaultDB > Máximo ${MAX_ITEMS} ItemStacks. ${_date()}`);
+    if (Array.isArray(value) && value.length > MAX_ITEMS) throw new Error(`VaultDB> Maximum${MAX_ITEMS} ItemStacks. ${_date()}`);
     this.#cache.set(fk, value);
     this.#queue.set(fk, value);
-    if (this.logs.set) console.log(`VaultDB > Set <${fk}> ${_date()}`);
+    if (this.logs.set) console.log(`VaultDB> Set <${fk}> ${_date()}`);
   }
 
   get(key) {
-    if (!VALID_NAME.test(key)) throw new Error(`VaultDB > Key inválida: <${key}>. ${_date()}`);
+    if (!VALID_NAME.test(key)) throw new Error(`VaultDB> Invalid key: <${key}>. ${_date()}`);
     this.#assertReady();
     const fk = `${this.#settings.namespace}:${key}`;
-    if (this.#cache.has(fk)) { if (this.logs.get) console.log(`VaultDB > Got <${fk}> (cache) ${_date()}`); return this.#cache.get(fk); }
-    if (!dpExists(fk)) { if (this.logs.get) console.log(`VaultDB > Key <${fk}> no existe. ${_date()}`); return undefined; }
+    if (this.#cache.has(fk)) { if (this.logs.get) console.log(`VaultDB> Got <${fk}> (cache)${_date()}`); return this.#cache.get(fk); }
+    if (!dpExists(fk)) { if (this.logs.get) console.log(`VaultDB> Key <${fk}> does not exist.${_date()}`); return undefined; }
     const result = dpRead(fk);
     this.#cache.set(fk, result);
-    if (this.logs.get) console.log(`VaultDB > Got <${fk}> ${_date()}`);
+    if (this.logs.get) console.log(`VaultDB> Got <${fk}> ${_date()}`);
     return result;
   }
 
   has(key) {
-    if (!VALID_NAME.test(key)) throw new Error(`VaultDB > Key inválida: <${key}>. ${_date()}`);
+    if (!VALID_NAME.test(key)) throw new Error(`VaultDB> Invalid key: <${key}>. ${_date()}`);
     const fk = `${this.#settings.namespace}:${key}`;
     const exists = this.#cache.has(fk) || dpExists(fk);
-    if (this.logs.has) console.log(`VaultDB > has <${fk}>: ${exists} ${_date()}`);
+    if (this.logs.has) console.log(`VaultDB> has <${fk}>: ${exists} ${_date()}`);
     return exists;
   }
 
   delete(key) {
-    if (!VALID_NAME.test(key)) throw new Error(`VaultDB > Key inválida: <${key}>. ${_date()}`);
+    if (!VALID_NAME.test(key)) throw new Error(`VaultDB> Invalid key: <${key}>. ${_date()}`);
     const fk = `${this.#settings.namespace}:${key}`;
-    if (!dpExists(fk)) throw new Error(`VaultDB > Key <${fk}> no existe. ${_date()}`);
+    if (!dpExists(fk)) throw new Error(`VaultDB> Key <${fk}> does not exist.${_date()}`);
     this.#cache.delete(fk);
     this.#queue.delete(fk);
     dpDelete(fk);
-    if (this.logs.delete) console.log(`VaultDB > Deleted <${fk}> ${_date()}`);
+    if (this.logs.delete) console.log(`VaultDB> Deleted <${fk}> ${_date()}`);
   }
 
   keys() {
@@ -214,5 +214,5 @@ export class VaultDB {
 
   values() { const vals = this.keys().map((k) => this.get(k)); if (this.logs.values) console.log(`VaultDB > ${vals.length} values. ${_date()}`); return vals; }
 
-  clear() { const ks = this.keys(); ks.forEach((k) => this.delete(k)); if (this.logs.clear) console.log(`VaultDB > Cleared ${ks.length} keys. ${_date()}`); }
+  clear() { const ks = this.keys(); ks.forEach((k) => this.delete(k)); if (this.logs.clear) console.log(`VaultDB> Cleared${ks.length} keys. ${_date()}`); }
 }

@@ -75,7 +75,7 @@ class ItemCollector {
     constructor() { this.#registry = new BlockBreakRegistry(); this.#inventory = new InventoryManager(); }
 
     init() {
-        console.warn("Sistema de recolección con VaultDB iniciado.");
+        console.warn("Collection system withVaultDB iniciado.");
         world.afterEvents.playerBreakBlock.subscribe((e) => this.#onBlockBreak(e));
         world.afterEvents.entitySpawn.subscribe((e) => this.#onEntitySpawn(e));
         world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => { if (initialSpawn) this.#deliverOverflow(player); });
@@ -102,9 +102,9 @@ class ItemCollector {
             else {
                 this.#saveOverflow(player, original);
                 entity.kill();
-                player.sendMessage("§eInventario lleno. §fEl item fue guardado y se entregará cuando tengas espacio.");
+                player.sendMessage("§eInventory full.§fThe item was saved and will be delivered when you have space.");
             }
-        } catch (error) { console.error(`[Error crítico] ${error}`); console.error(`Stack trace: ${error.stack}`); }
+        } catch (error) { console.error(`[Critical error]${error}`); console.error(`Stack trace:${error.stack}`); }
     }
 
     #saveOverflow(player, item) {
@@ -115,8 +115,8 @@ class ItemCollector {
                 if (overflowDB.has(key)) { const stored = overflowDB.get(key); pending = Array.isArray(stored) ? stored : (stored ? [stored] : []); }
                 pending.push(item);
                 overflowDB.set(key, pending);
-                console.log(`VaultDB > Item overflow guardado para [${player.name}]. Pendientes: ${pending.length}`);
-            } catch (err) { console.error(`[VaultDB overflow save error] ${err}`); }
+                console.log(`VaultDB> Overflow item saved for [${player.name}]. Earrings:${pending.length}`);
+            } catch (err) { console.error(`[VaultDBoverflow save error]${err}`); }
         });
     }
 
@@ -130,9 +130,9 @@ class ItemCollector {
                 if (pending.length === 0) return;
                 const undelivered = [];
                 for (const item of pending) { if (!this.#inventory.addItem(player, item)) undelivered.push(item); else player.playSound("random.pop"); }
-                if (undelivered.length === 0) { overflowDB.delete(key); player.sendMessage(`§aSe entregaron todos tus items guardados (${pending.length}).`); }
-                else { overflowDB.set(key, undelivered); player.sendMessage(`§eSe entregaron ${pending.length - undelivered.length} items. §f${undelivered.length} siguen guardados (inventario lleno).`); }
-            } catch (err) { console.error(`[VaultDB overflow deliver error] ${err}`); }
+                if (undelivered.length === 0) { overflowDB.delete(key); player.sendMessage(`§aAll your saved items were delivered (${pending.length}).`); }
+                else { overflowDB.set(key, undelivered); player.sendMessage(`§eThey surrendered${pending.length - undelivered.length} items. §f${undelivered.length}are still saved (inventory full).`); }
+            } catch (err) { console.error(`[VaultDBoverflow deliver error]${err}`); }
         });
     }
 }

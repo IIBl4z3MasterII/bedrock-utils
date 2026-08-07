@@ -1,14 +1,11 @@
-/* 
-
-██████╗ ██╗██╗  ██╗███████╗██████╗     ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ 
-██╔══██╗██║██║  ██║╚══███╔╝╚════██╗    ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗
-██████╔╝██║███████║  ███╔╝  █████╔╝    ██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝
-██╔══██╗██║╚════██║ ███╔╝   ╚═══██╗    ██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗
-██████╔╝███████╗██║███████╗██████╔╝    ██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║
-╚═════╝ ╚══════╝╚═╝╚══════╝╚═════╝     ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
+/* ██████╗ ██╗██╗ ██╗███████╗██████╗ ███╗ ███╗ █████╗ ███████╗████████╗███████╗██████╗ 
+██╔══██╗██║██║ ██║╚══███╔╝╚════██╗ ████╗ ████║██╔══██╗██╔════╝╚═ ═██╔══╝██╔════╝██╔══██╗
+██████╔╝██║███████║ ███╔╝ █████╔╝ ██╔████╔██║███████║███████╗ ██║ █████╗ ██████╔╝
+██╔══██╗██║╚════██║ ███╔╝ ╚═══██╗ ██║╚██╔╝██║██╔══██║╚════██║ ██║ ██╔══╝ ██╔══██╗
+██████╔╝███████╗██║███████╗██████╔╝ ██║ ╚═╝ ██║██║ ██║███████║ ██║ ███████╗██║ ██║
+╚═════╝ ╚══════╝╚═╝╚══════╝╚═════╝ ╚═╝ ╚═╝╚═╝ ╚═╝╚══════╝ ╚═╝ ╚══════╝╚═╝ ╚═╝
                                                                                            
-          Shop Config •  By: @bl4z3master
-*/
+          Shop Config • By: @bl4z3master */
 
 export const PROPERTY_KEYS = {
   SHOP_STOCKS: 'shop_stocks_data',
@@ -21,9 +18,9 @@ export const ECONOMY_CONFIG = {
 };
 
 export const STOCK_CONFIG = {
-  RESET_INTERVAL: 1800, // 30 minutos en segundos
-  NOTIFICATION_INTERVAL: 600, // 10 minutos en segundos
-  AUTO_SAVE_INTERVAL: 6000 // 5 minutos en ticks (6000 ticks = 5 min)
+  RESET_INTERVAL: 1800, // 30 minutes in seconds
+  NOTIFICATION_INTERVAL: 600, // 10 minutes in seconds
+  AUTO_SAVE_INTERVAL: 6000 // 5 minutes in ticks (6000 ticks = 5 min)
 };
 
 export const MATERIALS = {
@@ -37,7 +34,7 @@ export const MATERIALS = {
   ],
   armor: [
     { name: "Cuero", id: "leather", multiplier: 0.3 },
-    { name: "Cota de Malla", id: "chainmail", multiplier: 0.5 },
+    { name: "Coat of mail", id: "chainmail", multiplier: 0.5 },
     { name: "Hierro", id: "iron", multiplier: 0.6 },
     { name: "Oro", id: "golden", multiplier: 0.8 },
     { name: "Diamante", id: "diamond", multiplier: 1.0 },
@@ -49,7 +46,7 @@ export const MATERIALS = {
     { name: "Abedul", id: "birch", multiplier: 1.1 },
     { name: "Jungla", id: "jungle", multiplier: 1.2 },
     { name: "Acacia", id: "acacia", multiplier: 1.2 },
-    { name: "Roble Oscuro", id: "dark_oak", multiplier: 1.3 },
+    { name: "Dark Oak", id: "dark_oak", multiplier: 1.3 },
     { name: "Manglar", id: "mangrove", multiplier: 1.3 },
     { name: "Cerezo", id: "cherry", multiplier: 1.4 }
   ],
@@ -58,8 +55,8 @@ export const MATERIALS = {
     { name: "Granito", id: "granite", itemId: "minecraft:granite", multiplier: 1.1 },
     { name: "Diorita", id: "diorite", itemId: "minecraft:diorite", multiplier: 1.1 },
     { name: "Andesita", id: "andesite", itemId: "minecraft:andesite", multiplier: 1.1 },
-    { name: "Piedra Lisa", id: "smooth_stone", itemId: "minecraft:smooth_stone", multiplier: 1.3 },
-    { name: "Adoquín", id: "cobblestone", itemId: "minecraft:cobblestone", multiplier: 0.8 },
+    { name: "Smooth Stone", id: "smooth_stone", itemId: "minecraft:smooth_stone", multiplier: 1.3 },
+    { name: "Cobble", id: "cobblestone", itemId: "minecraft:cobblestone", multiplier: 0.8 },
     { name: "Pizarra", id: "deepslate", itemId: "minecraft:deepslate", multiplier: 1.4 },
     { name: "Toba", id: "tuff", itemId: "minecraft:tuff", multiplier: 1.2 }
   ],
@@ -69,7 +66,7 @@ export const MATERIALS = {
     { name: "Diamante", id: "diamond", itemId: "minecraft:diamond_block", multiplier: 1.0 },
     { name: "Esmeralda", id: "emerald", itemId: "minecraft:emerald_block", multiplier: 1.5 },
     { name: "Netherite", id: "netherite", itemId: "minecraft:netherite_block", multiplier: 2.5 },
-    { name: "Lapislázuli", id: "lapis", itemId: "minecraft:lapis_block", multiplier: 0.4 },
+    { name: "Lapis lazuli", id: "lapis", itemId: "minecraft:lapis_block", multiplier: 0.4 },
     { name: "Redstone", id: "redstone", itemId: "minecraft:redstone_block", multiplier: 0.3 },
     { name: "Cobre", id: "copper", itemId: "minecraft:copper_block", multiplier: 0.5 },
     { name: "Cuarzo", id: "quartz", itemId: "minecraft:quartz_block", multiplier: 0.7 }
@@ -88,15 +85,15 @@ export const UI_CONFIG = {
 };
 
 export const MESSAGES = {
-  COUNTDOWN_3: "§c§l[TIENDA] §r§eReinicio de stocks en §c§l3§e...",
-  COUNTDOWN_2: "§c§l[TIENDA] §r§eReinicio de stocks en §c§l2§e...",
-  COUNTDOWN_1: "§c§l[TIENDA] §r§eReinicio de stocks en §c§l1§e...",
-  RESET_COMPLETE: "§a§l[TIENDA] §r§e¡Los stocks de la tienda se han reiniciado!",
-  INSUFFICIENT_FUNDS: "§cNo tienes suficientes monedas!",
-  INSUFFICIENT_STOCK: "§cNo hay suficiente stock de §f{item}§c!",
-  WAIT_RESET: "§7Espera al siguiente reinicio de stocks",
-  PURCHASE_SUCCESS: "§a✓ Compraste §f{quantity}x {item} §apor §6{price} §eCoins",
-  NEXT_RESET: "§e§l[TIENDA] §r§7Próximo reinicio de stocks en: §6{minutes} minutos"
+  COUNTDOWN_3: "§c§l[TIENDA] §r§eReset of stocks in§c§l3§e...",
+  COUNTDOWN_2: "§c§l[TIENDA] §r§eReset of stocks in§c§l2§e...",
+  COUNTDOWN_1: "§c§l[TIENDA] §r§eReset of stocks in§c§l1§e...",
+  RESET_COMPLETE: "§a§l[TIENDA] §r§eStore stocks have been reset!",
+  INSUFFICIENT_FUNDS: "§cYou don\'t have enough coins!",
+  INSUFFICIENT_STOCK: "§cThere is not enough stock of§f{item}§c!",
+  WAIT_RESET: "§7Wait for the next stock reset",
+  PURCHASE_SUCCESS: "§a✓ You bought§f{quantity}x {item}§apor §6{price}§eCoins",
+  NEXT_RESET: "§e§l[TIENDA] §r§7Next reset of stocks in:§6{minutes} minutes"
 };
 
 export const SOUNDS = {

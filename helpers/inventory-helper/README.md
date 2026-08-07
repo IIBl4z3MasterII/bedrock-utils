@@ -1,39 +1,39 @@
-# 🎒 InventoryHelper
+# 🎒InventoryHelper
 
-Clase con métodos estáticos para dar, contar y remover items del
-inventario de un jugador, sin repetir
-`player.getComponent("minecraft:inventory").container` en cada script.
+Class with static methods to give, count and remove items from the
+inventory of a player, without repeating
+`player.getComponent("minecraft:inventory").container` in each script.
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `InventoryHelper` |
+| `index.js` | Class `InventoryHelper` |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Las tres operaciones más comunes sobre un inventario (dar un item,
-contar cuántos tenés de algo, quitar una cantidad) requieren manejar el
-`container`, iterar slots y lidiar con overflow. Esta clase lo resuelve
-una sola vez.
+The three most common operations on an inventory (give an item,
+count how many you have of something, remove a quantity) require managing the
+`container`, iterate slots and deal with overflow. This class solves it
+just once.
 
 ---
 
-## API pública
+## Public API
 
-| Método | Parámetros | Devuelve | Descripción |
+| Method | Parameters | Returns | Description |
 |---|---|---|---|
-| `giveItem(player, itemStack)` | `player: Player`, `itemStack: ItemStack` | `boolean` | Da el item: primero rellena slots existentes del mismo `typeId` hasta 64, después usa slots vacíos, y si sigue sobrando dropea el resto al suelo. `true` si entró completo |
-| `countItem(player, itemTypeId)` | `player: Player`, `itemTypeId: string` | `number` | Suma la cantidad total de ese `typeId` en el inventario |
-| `removeItem(player, itemTypeId, amount)` | `player: Player`, `itemTypeId: string`, `amount: number` | `boolean` | Remueve la cantidad pedida; `false` si no tenía suficiente (no remueve nada parcial) |
+| `giveItem(player,itemStack)` | `player: Player`, `itemStack: ItemStack` | `boolean` | Give the item: first fill existing slots of the same `typeId` up to 64, then use empty slots, and if there is still extra, drop the rest to the ground. `true` if entered complete |
+| `countItem(player,itemTypeId)` | `player: Player`, `itemTypeId: string` | `number` | Add the total amount of that `typeId` in inventory |
+| `removeItem(player,itemTypeId, amount)` | `player: Player`, `itemTypeId:string`, `amount: number` | `boolean` | Remove the requested quantity; `false` if it didn't have enough (does not remove any partial) |
 
 ---
 
-## Ejemplo de uso
+## Usage example
 
 ```js
 import { InventoryHelper } from "./helpers/inventory-helper/index.js";
@@ -51,19 +51,19 @@ if (diamonds >= 5) {
 
 ---
 
-## Notas
+## Grades
 
-- `giveItem` primero intenta rellenar slots parciales del mismo item
-  (hasta stack de 64) antes de ocupar slots vacíos — más eficiente que
-  antes, que delegaba todo a `container.addItem`.
-- `giveItem` nunca "pierde" items: si el inventario está lleno, el
-  sobrante se dropea en la posición del jugador en vez de descartarse.
-- `removeItem` es todo-o-nada: si no hay suficiente cantidad, no toca el
-  inventario y devuelve `false` — así evitás dejar al jugador con menos
-  de lo que tenía sin completar la operación.
-- No distingue items con NBT/lore distinto del mismo `typeId` — cuenta y
-  remueve por tipo, no por instancia exacta.
+-`giveItem` first try to fill partial slots of the same item
+(up to stack of 64) before occupying empty slots — more efficient than
+before, which delegated everything to `container.addItem`.
+-`giveItem` never "lose" items: if the inventory is full, the
+Any excess is dropped at the player's position instead of being discarded.
+-`removeItem` is all-or-nothing: if there is not enough quantity, it does not touch the
+inventory and returns `false` — this way you avoid leaving the player with less
+of what he had without completing the operation.
+- Does not distinguish items with NBT/lore different from the same `typeId` — count and
+removes by type, not by exact instance.
 
 ---
 
-<sub>InventoryHelper por **IIBl4z3MasterII**</sub>
+<sub>InventoryHelperby **IIBl4z3MasterII**</sub>

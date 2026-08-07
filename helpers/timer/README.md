@@ -1,44 +1,44 @@
 # ⏳ Timer
 
-Clase `Timer` — cuenta regresiva con callbacks `onTick`/`onFinish` y
-control de `pause`/`resume`/`cancel`. Reemplaza el `system.runInterval`
-armado a mano que se repite en scripts con temporizador (ascensores,
-transformaciones con delay, rondas de minijuego, eventos con countdown).
+`Timer` class — countdown with callbacks `onTick`/`onFinish` and
+`pause`/`resume`/`cancel` control. Replaces `system.runInterval`
+hand-assembled that is repeated in timer scripts (elevators,
+transformations with delay, minigame rounds, events with countdown).
 
 ---
 
-## Archivo
+## Archive
 
-| Archivo | Rol |
+| Archive | Role |
 |---|---|
-| `index.js` | Clase `Timer` |
+| `index.js` | `Timer` class |
 
 ---
 
-## Por qué existe
+## Why does it exist
 
-Un countdown "a mano" implica guardar el tiempo restante en una
-variable, armar un `runInterval` de 20 ticks, decrementar, chequear si
-llegó a cero, y limpiar el interval al terminar o cancelar. `Timer`
-empaqueta ese patrón completo, con pausa incluida (algo que a mano se
-suele terminar sin implementar por lo tedioso que es).
+A "hand" countdown involves saving the remaining time in a
+variable, create a `runInterval` of 20 ticks, decrement, check if
+reached zero, and clear the interval upon completion or cancel. `Timer`
+packs that complete pattern, with pause included (something that can be done by hand).
+usually ends up not implemented because it is so tedious).
 
 ---
 
-## API pública
+## Public API
 
-| Miembro | Tipo | Descripción |
+| Member | Type | Description |
 |---|---|---|
-| `constructor(durationSeconds, { onTick?, onFinish? })` | — | `durationSeconds: number`; `onTick(secondsRemaining)` se llama una vez por segundo; `onFinish()` al llegar a 0 |
-| `start()` | método | Arranca (o reinicia desde el total) la cuenta regresiva |
-| `pause()` | método | Pausa sin perder el tiempo restante |
-| `resume()` | método | Reanuda desde donde quedó |
-| `cancel()` | método | Detiene el timer **sin** disparar `onFinish` |
-| `isRunning()` | método → `boolean` | `true` si está corriendo y no pausado |
+| `constructor(durationSeconds, {onTick?, onFinish? })` | — | `durationSeconds: number`; `onTick(secondsRemaining)` is called once per second; `onFinish()` upon reaching 0 |
+| `start()` | method | Start (or restart from total) the countdown |
+| `pause()` | method | Pause without wasting the remaining time |
+| `resume()` | method | Resume from where you left off |
+| `cancel()` | method | Stops the timer **without** firing `onFinish` |
+| `isRunning()` | method → ​​`boolean` | `true` if running and not paused |
 
 ---
 
-## Ejemplo de uso
+## Usage example
 
 ```js
 import { Timer } from "./helpers/timer/index.js";
@@ -50,7 +50,7 @@ const countdown = new Timer(10, {
         }
     },
     onFinish: () => {
-        player.sendMessage("§2¡Tiempo cumplido!");
+        player.sendMessage("§2Time's up!");
         swapEntities(player);
     },
 });
@@ -64,18 +64,18 @@ countdown.start();
 
 ---
 
-## Notas
+## Grades
 
-- Llamar a `start()` de nuevo mientras ya está corriendo lo **reinicia**
-  desde el total (llama a `cancel()` internamente antes de arrancar de
-  nuevo) — no acumula intervals duplicados.
-- `pause()` no cancela el interval interno, solo ignora los ticks
-  mientras `_paused` es `true` — así `resume()` es instantáneo, sin
-  tener que recrear nada.
-- Una instancia de `Timer` maneja **un solo** countdown — para varios
-  countdowns simultáneos (ej. uno por jugador), crear una instancia por
-  cada uno.
+- Calling `start()` again while it is already running **restarts it**
+from total (calls `cancel()` internally before booting from
+new) — does not accumulate duplicate intervals.
+- `pause()` does not cancel the internal interval, it just ignores the ticks
+while `_paused` is `true` — so `resume()` is instantaneous, without
+having to recreate anything.
+- An instance of `Timer` handles **a single** countdown — for several
+simultaneous countdowns (e.g. one per player), create one instance per
+each.
 
 ---
 
-<sub>Timer por **IIBl4z3MasterII**</sub>
+<sub>Timer by **IIBl4z3MasterII**</sub>

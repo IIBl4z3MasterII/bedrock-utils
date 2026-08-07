@@ -1,15 +1,15 @@
 # Addons
 
-A diferencia de `helpers/` y `systems/` (código fuente para copiar a tu
-propio addon), esto son **addons completos e instalables**: behavior
-pack + resource pack con su propio `manifest.json`, listos para cargar
-en Minecraft tal cual, sin integrar código a mano.
+Unlike `helpers/` and `systems/` (source code to copy to your
+own addon), these are **complete and installable addons**: behavior
+pack + resource pack with your own `manifest.json`, ready to load
+in Minecraft as is, without integrating code by hand.
 
-| Módulo | Descripción |
+| Module | Description |
 |---|---|
-| [**shop-ui**](shop-ui/README.md) | Tienda con UI custom (JSON UI), economía y stock persistente |
+| [**shop-ui**](shop-ui/README.md) | Tienda con UI custom (JSONUI), economy and persistent stock |
 
-Cada addon se instala copiando `bp/` y `rp/` a
+Each addon is installed by copying `bp/` and `rp/` to
 `com.mojang/development_behavior_packs/` y
-`development_resource_packs/` respectivamente — ver el README de cada
-uno para detalles de configuración.
+`development_resource_packs/` respectivamente — ver el READMEdecade
+one for configuration details.

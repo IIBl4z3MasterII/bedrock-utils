@@ -8,7 +8,7 @@ const CONFIG = Object.freeze({
     EQUIPMENT_UPDATE_INTERVAL: 20,
     INVENTORY_UPDATE_INTERVAL: 40,
     DEFAULT_LORE: "by @bl4z3master",
-    DURABILITY_FORMAT: "§7Durabilidad: %current%/%max%"
+    DURABILITY_FORMAT: "§7Durability: %current%/%max%"
 });
 
 function updateItemLore(item) {
