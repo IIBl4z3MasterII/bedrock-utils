@@ -127,7 +127,7 @@ as behavior pack + resource pack. See your
 | | |
 |---|---|
 | 🌐 Site | [bl4z3community.neocities.org](https://bl4z3community.neocities.org/) |
-| 📁 Portfolio | [See portfolio](https://bl4z3community.neocities.org/Manifest/portafolio) |
+   | 📁 Portfolio | [See portfolio](https://bl4z3community.neocities.org/portafolio/) |
 | 📦CurseForge| [iibl4z3master](https://www.curseforge.com/members/iibl4z3master/projects) |
 | ▶️YouTube| [@bl4z3master](https://www.youtube.com/@bl4z3master) |
 | 💬 Discord | [Join](https://discord.gg/kBNHNxXbMM) |
