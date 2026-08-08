@@ -152,7 +152,7 @@ export class VaultDB {
 
   #setupShutdown() {
     system.beforeEvents.shutdown.subscribe(() => {
-      if (this.#queue.size > 0) console.error(`\nVaultDB > ERROR FATAL > Mundo cerrado con datos sin guardar!\nNamespace: ${this.#settings.namespace}| Lost keys:${this.#queue.size} ${_date()}\n`);
+      if (this.#queue.size > 0) console.error(`\nVaultDB > FATAL ERROR > World closed with unsaved data!\nNamespace: ${this.#settings.namespace}| Lost keys:${this.#queue.size} ${_date()}\n`);
     });
   }
 

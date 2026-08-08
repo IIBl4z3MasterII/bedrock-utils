@@ -7,9 +7,9 @@ in Minecraft as is, without integrating code by hand.
 
 | Module | Description |
 |---|---|
-| [**shop-ui**](shop-ui/README.md) | Tienda con UI custom (JSONUI), economy and persistent stock |
+| [**shop-ui**](shop-ui/README.md) | Store with custom UI (JSONUI), economy and persistent stock |
 
 Each addon is installed by copying `bp/` and `rp/` to
-`com.mojang/development_behavior_packs/` y
-`development_resource_packs/` respectivamente — ver el READMEdecade
-one for configuration details.
+`com.mojang/development_behavior_packs/` and
+`development_resource_packs/` respectively — see each one's README
+for configuration details.

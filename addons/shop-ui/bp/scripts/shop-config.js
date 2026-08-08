@@ -85,15 +85,15 @@ export const UI_CONFIG = {
 };
 
 export const MESSAGES = {
-  COUNTDOWN_3: "§c§l[TIENDA] §r§eReset of stocks in§c§l3§e...",
-  COUNTDOWN_2: "§c§l[TIENDA] §r§eReset of stocks in§c§l2§e...",
-  COUNTDOWN_1: "§c§l[TIENDA] §r§eReset of stocks in§c§l1§e...",
-  RESET_COMPLETE: "§a§l[TIENDA] §r§eStore stocks have been reset!",
+  COUNTDOWN_3: "§c§l[STORE] §r§eReset of stocks in§c§l3§e...",
+  COUNTDOWN_2: "§c§l[STORE] §r§eReset of stocks in§c§l2§e...",
+  COUNTDOWN_1: "§c§l[STORE] §r§eReset of stocks in§c§l1§e...",
+  RESET_COMPLETE: "§a§l[STORE] §r§eStore stocks have been reset!",
   INSUFFICIENT_FUNDS: "§cYou don\'t have enough coins!",
   INSUFFICIENT_STOCK: "§cThere is not enough stock of§f{item}§c!",
   WAIT_RESET: "§7Wait for the next stock reset",
-  PURCHASE_SUCCESS: "§a✓ You bought§f{quantity}x {item}§apor §6{price}§eCoins",
-  NEXT_RESET: "§e§l[TIENDA] §r§7Next reset of stocks in:§6{minutes} minutes"
+  PURCHASE_SUCCESS: "§a✓ You bought§f{quantity}x {item}§afor §6{price}§eCoins",
+  NEXT_RESET: "§e§l[STORE] §r§7Next reset of stocks in:§6{minutes} minutes"
 };
 
 export const SOUNDS = {

@@ -29,9 +29,9 @@ duration in minutes/seconds or permanent.
 ## How to activate
 
 ```js
-import { inicializarSistemaBaneos } from "./systems/ban-system/index.js";
+import { initBanSystem } from "./systems/ban-system/index.js";
 
-inicializarSistemaBaneos(); // llamar una vez en tu main.js
+initBanSystem(); // call once in your main.js
 ```
 
 This: loads existing bans, starts the periodic ban checker
@@ -39,7 +39,7 @@ expiration, and records the ban check when a player connects.
 
 To open the report/panel flow from your own trigger (item,
 command, block), calls the exported functions — the module does not decide
-Only when to show the reporting UI, you connect that.
+only when to show the reporting UI, you connect that.
 
 ---
 
@@ -47,7 +47,7 @@ Only when to show the reporting UI, you connect that.
 
 ```js
 const CONFIG = {
-    STAFF_TAG: "Modd",                              // tag que identifica al staff
+    STAFF_TAG: "Modd",                              // tag that identifies staff
     REDSTONE_BLOCK_ID: "minecraft:redstone_block",  // (legacy reference, not used as a trigger here)
 };
 ```
@@ -59,24 +59,24 @@ directly in `index.js`.
 
 ## Persistence: player tags, not Dynamic Properties
 
-**Important:** this system saves the ban status in **tags of the
-player** (`bannedUntil:...`, `permabanned`, `banReason:...`,
-`bannedBy:...`, `banDate:...`), not in the Dynamic Properties of the world. To the
-load(`cargarJugadoresBaneados` → `migrarDatosLegacyBan`), read those
-tags of each connected player, passes them to a `Map` in memory
-(`jugadoresBaneados`), and **delete the legacy tags** once migrated
-(`removerTagsLegacy`).
+**Important:** this system saves the ban status in **player
+tags** (`bannedUntil:...`, `permabanned`, `banReason:...`,
+`bannedBy:...`, `banDate:...`), not in the Dynamic Properties of the world. On
+load (`loadBannedPlayers` → `migrateLegacyBanData`), it reads those
+tags of each connected player, moves them to an in-memory `Map`
+(`bannedPlayers`), and **deletes the legacy tags** once migrated
+(`removeLegacyTags`).
 
 This means:
 - The actual state "lives" in memory while the world is running — the
 `Map` is the source of truth after the initial migration.
 - Tags only matter for players who **were already banned before**
-of this system running for the first time, or if the world
+this system running for the first time, or if the world
 restarts without the player having reconnected (in that case,
-reads from the tag again upon reconnection).
-- If you need more robust persistence between reboots without depending on
-for the player to be online, consider migrating `jugadoresBaneados` a
-  `WorldManager`/`DynamicStore` (ver `systems/world-manager/`).
+it reads from the tag again upon reconnection).
+- If you need more robust persistence between reboots without depending
+on the player being online, consider migrating `bannedPlayers` to a
+  `WorldManager`/`DynamicStore` (see `systems/world-manager/`).
 
 ---
 
@@ -86,20 +86,20 @@ for the player to be online, consider migrating `jugadoresBaneados` a
 
 | Function | Parameters | Description |
 |---|---|---|
-| `inicializarSistemaBaneos()` | — | Start everything: load data, periodic checker, connection listener |
-| `aplicarBan(player, reason,duracionSegundos, baneadoPor)` | — | Temporary ban, duration in **seconds** |
-| `aplicarBanPermanente(player, reason,baneadoPor)` | — | Permanent ban |
-| `estaJugadorBaneado(nombreJugador)` | `string` | `boolean` |
-| `obtenerJugadoresBaneados()` | — | `string[]` — names of all active bans |
-| `obtenerInfoBan(nombreJugador)` | `string` | Ban data (`{ reason,tiempoFin, baneadoPor, permanent,fechaBan}`) o `null` |
-| `mostrarMenuBaneos(player)` | — | UI: ban / unban / view list (intended for staff) |
-| `mostrarFormularioBan(player)` | — | Direct ban form (choose online player + reason + duration) |
-| `mostrarJugadoresBaneados(player)` | — | Banned list with details and unban option |
+| `initBanSystem()` | — | Start everything: load data, periodic checker, connection listener |
+| `applyBan(player, reason, durationSeconds, bannedBy)` | — | Temporary ban, duration in **seconds** |
+| `applyPermanentBan(player, reason, bannedBy)` | — | Permanent ban |
+| `isPlayerBanned(playerName)` | `string` | `boolean` |
+| `getBannedPlayers()` | — | `string[]` — names of all active bans |
+| `getBanInfo(playerName)` | `string` | Ban data (`{ reason, endTime, bannedBy, permanent, banDate }`) or `null` |
+| `showBanMenu(player)` | — | UI: ban / unban / view list (intended for staff) |
+| `showBanForm(player)` | — | Direct ban form (choose online player + reason + duration) |
+| `showBannedPlayers(player)` | — | Banned list with details and unban option |
 
 ### Reports (internal functions — triggered by displaying the main menu)
 
 The reporting flow does not expose individual functions for each step — everything
-boot from `mostrarMenuPrincipal(player)` (not currently exported;
+starts from `showMainMenu(player)` (not currently exported;
 if you need to trigger it from another file, export it in `index.js`).
 Internally it goes through: report → choose player/reason/seriousness/description
 → notify staff → staff panel → view pending/history →
@@ -110,26 +110,26 @@ resolve (warn/ban).
 ## Internal flow (bans)
 
 ```
-inicializarSistemaBaneos()
-    ├── cargarJugadoresBaneados()       ← migra tags legacy → Map en memoria
-    ├── iniciarVerificadorBaneos()      ← runInterval, limpia expirados
-    └── configurarEventoJugadores()     ← playerSpawn → verificarEstadoBanJugador()
-                                               ├── expirado → removerJugadorBaneado()
-                                               ├── permanente → mostrarUIBanPermanente()
-                                               └── temporal → mostrarUIBan() con tiempo restante
+initBanSystem()
+    ├── loadBannedPlayers()             ← migrates legacy tags → in-memory Map
+    ├── startBanChecker()               ← runInterval, cleans up expired bans
+    └── setupPlayerEvents()             ← playerSpawn → checkPlayerBanStatus()
+                                               ├── expired → removeBannedPlayer()
+                                               ├── permanent → showPermanentBanUI()
+                                               └── temporary → showBanUI() with time remaining
 ```
 
 ## Internal flow (reports)
 
 ```
-mostrarMenuPrincipal(player)
-    ├── "Reportar Jugador" → mostrarFormularioReporte()
-    │       → guarda en reportes[] → notificarStaff()
-    └── "Panel de Staff" (solo con STAFF_TAG) → mostrarPanelStaff()
-            ├── Reportes pendientes → mostrarDetalleReporte() → advertir/banear
-            ├── Historial de reportes
-            ├── Jugadores baneados
-            └── Ban directo → mostrarFormularioBan()
+showMainMenu(player)
+    ├── "Report Player" → showReportForm()
+    │       → saves to reports[] → notifyStaff()
+    └── "Staff Panel" (STAFF_TAG only) → showStaffPanel()
+            ├── Pending reports → showReportDetails() → warn/ban
+            ├── Report history
+            ├── Banned players
+            └── Direct ban → showBanForm()
 ```
 
 ---
@@ -138,20 +138,20 @@ mostrarMenuPrincipal(player)
 
 | Variable | Type | Description |
 |---|---|---|
-| `jugadoresBaneados` | `Map<string,BanData>` | Status of all active bans, key = player name |
-| `uiActiva` | `Set<string>` | Avoid opening duplicate forms to the same player |
-| `reports` | `Array<ReporteData>` | In-memory reports — **lost upon server restart** |
-| `RAZONES_REPORTE` | `string[]` | 10 predefined reasons selectable in the report dropdown |
+| `bannedPlayers` | `Map<string,BanData>` | Status of all active bans, key = player name |
+| `activeUI` | `Set<string>` | Avoid opening duplicate forms to the same player |
+| `reports` | `Array<ReportData>` | In-memory reports — **lost upon server restart** |
+| `REPORT_REASONS` | `string[]` | 10 predefined reasons selectable in the report dropdown |
 
-### Form of `BanData`
+### Shape of `BanData`
 
 ```js
 {
-  razon: string,
-  baneadoPor: string,
-  tiempoFin: number,     // Date.now() + duracion*1000, o -1 si es permanente
-  permanente: boolean,
-  fechaBan: number,      // Date.now() al momento del ban
+  reason: string,
+  bannedBy: string,
+  endTime: number,     // Date.now() + duration*1000, or -1 if permanent
+  permanent: boolean,
+  banDate: number,      // Date.now() at the moment of the ban
 }
 ```
 
@@ -162,33 +162,33 @@ mostrarMenuPrincipal(player)
 | Event | When |
 |---|---|
 | `world.afterEvents.playerSpawn` | Check and apply ban when connecting (with `initialSpawn`) |
-| `system.runInterval` (verifier) ​​| Clean temporary bans that have already expired |
+| `system.runInterval` (verifier) | Clean temporary bans that have already expired |
 
 ---
 
 ## Performance considerations
 
--`jugadoresBaneados` is a linearly traversed `Map` — no problem in
+- `bannedPlayers` is a linearly traversed `Map` — no problem in
 normal servers (dozens/hundreds of bans).
-- `reportes[]` **does not persist** — if you need history between
+- `reports[]` **does not persist** — if you need history between
 reboots, you have to migrate it to `DynamicStore` (`systems/world-manager/`)
-o a `VaultDB` (`systems/drops-in-inventory/vault-db.js`).
--`aplicarRestriccionesBan` change gamemode to Spectator and crash
+or a `VaultDB` (`systems/drops-in-inventory/vault-db.js`).
+- `applyBanRestrictions` changes gamemode to Spectator and clears
 input categories 1 and 2 — check that it does not collide with another system that
-Also manage player's gamemode.
+also manages the player's gamemode.
 
 ---
 
 ## Possible improvements
 
-- Persist `reports[]` (VaultDB o DynamicStore) so that they survive a
-  reinicio.
+- Persist `reports[]` (VaultDB or DynamicStore) so that they survive a
+  restart.
 - Cooldown between reports from the same player, to avoid spam from
 false reports.
-- Pagination in `mostrarJugadoresBaneados` for large lists.
-- Export `mostrarMenuPrincipal` explicitly if you need to fire it
+- Pagination in `showBannedPlayers` for large lists.
+- Export `showMainMenu` explicitly if you need to trigger it
 from another module (item, command, etc).
 
 ---
 
-<sub>Ban System por**IIBl4z3MasterII**</sub>
+<sub>Ban System by **IIBl4z3MasterII**</sub>

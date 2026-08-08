@@ -40,11 +40,11 @@ registerActionMenu("demo", {
 registerModalForm("demo_modal", {
   title: "§bModal Form",
   fields: [
-    { type: "toggle", label: "Activar", defaultValue: true },
-    { type: "textField", label: "Nombre", placeholder: "write your name" },
-    { type: "slider", label: "Edad", min: 0, max: 100, step: 1, defaultValue: 18 },
+    { type: "toggle", label: "Enable", defaultValue: true },
+    { type: "textField", label: "Name", placeholder: "write your name" },
+    { type: "slider", label: "Age", min: 0, max: 100, step: 1, defaultValue: 18 },
   ],
-  submitButton: "§aEnviar",
+  submitButton: "§aSubmit",
   onSubmit: (p, values, back) => {
     p.sendMessage(`§aToggle:§e${values[0]} §7| §aName:§e${values[1]} §7| §aAge:§e${values[2]}`);
     back();

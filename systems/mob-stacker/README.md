@@ -25,8 +25,8 @@ a single entity representing the group.
 
 ```js
 import "./systems/mob-stacker/index.js";
-// Al importarse, corre system.run(() => mobStackerManager.initialize())
-// — se autoregistra, no hace falta llamar nada.
+// On import, it runs system.run(() => mobStackerManager.initialize())
+// — self-registers, no need to call anything.
 ```
 
 To control it in runtime:
@@ -34,9 +34,9 @@ To control it in runtime:
 ```js
 import { mobStackerManager } from "./systems/index.js";
 
-mobStackerManager.toggleSystem();   // activa/desactiva (persistido en dynamic property del mundo)
+mobStackerManager.toggleSystem();   // enables/disables (persisted in a world dynamic property)
 mobStackerManager.getStats();       // { enabled, maxStackSize, supportedMobs, updateInterval }
-mobStackerManager.shutdown();       // detiene el runInterval interno
+mobStackerManager.shutdown();       // stops the internal runInterval
 ```
 
 ---

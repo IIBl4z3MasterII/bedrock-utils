@@ -4,8 +4,8 @@ Own system to centralize access to Dynamic Properties: instead
 to have them distributed throughout the addon with loose reads/writes,
 everything happens here — a single entry point that resolves the parsing of
 types, error handling, distribution (world vs. entity), and
-world cargo life cycle. Two classes: `DynamicStore` (el wrapper
-low level) and `WorldManager` (singleton that manages the life cycle +
+world load life cycle. Two classes: `DynamicStore` (the
+low level wrapper) and `WorldManager` (singleton that manages the life cycle +
 store factory).
 
 ---
@@ -21,27 +21,27 @@ store factory).
 
 ##`DynamicStore`
 
-Target agnostic wrapper — works the same on `world` or on a
-`Entity`/`Player`. Auto-detect type (bool/number/JSON/string) al leer, y
-serializes objects toJSONin writing. Optionally cache in memory.
+Target agnostic wrapper — works the same on `world` or on an
+`Entity`/`Player`. Auto-detects the type (bool/number/JSON/string) on read, and
+serializes objects to JSON on write. Optionally cache in memory.
 
 ```js
 import worldManager from "./systems/world-manager/index.js";
 
-const configStore = worldManager.store("myApp"); // namespace = "myApp", cacheado
+const configStore = worldManager.store("myApp"); // namespace = "myApp", cached
 
 configStore.set("difficulty", 2);
-configStore.set("settings", { pvp: true, maxPlayers: 20 }); // se guarda como JSON
+configStore.set("settings", { pvp: true, maxPlayers: 20 }); // saved as JSON
 
 configStore.get("difficulty");          // 2
 configStore.get("settings").pvp;        // true
-configStore.get("noExiste", "default"); // "default"
+configStore.get("doesNotExist", "default"); // "default"
 configStore.has("difficulty");          // true
 configStore.delete("difficulty");
-configStore.keys();                     // todas las keys bajo el namespace "myApp"
+configStore.keys();                     // all keys under the "myApp" namespace
 ```
 
-### Payloads grandes (> 8 KB)
+### Large payloads (> 8 KB)
 
 Bedrock cuts Dynamic Properties at ~32 KB per string. `setLarge`/`getLarge`
 They split the value into chunks automatically if necessary:
@@ -65,7 +65,7 @@ playerStore.set("kills", 10);
 | `has(name)` | `true` if exists |
 | `delete(name)` | Delete (and its chunks, if any) |
 | `keys()` | All namespace keys (requires non-empty namespace) |
-| `setLarge(name, value,chunkSize?)` / `getLarge(name, default?)` | Para payloads > 8 KB |
+| `setLarge(name, value,chunkSize?)` / `getLarge(name, default?)` | For payloads > 8 KB |
 | `invalidateCache(name?)` | Clear the cache in memory (one key or all) |
 
 ---
@@ -80,13 +80,13 @@ import worldManager, { onWorldReady } from "./systems/world-manager/index.js";
 
 // Runs as soon as the world is ready (or immediately if it already is)
 onWorldReady(() => {
-    console.log("Mundo listo, arrancando sistemas...");
+    console.log("World ready, starting systems...");
 });
 
 // Alternative: register an init function that runs only once
 worldManager.registerInitFunction(() => {
-    // setup que necesita el mundo cargado
-}, "Sistema X inicializado");
+    // setup that needs the world loaded
+}, "System X initialized");
 
 const store = worldManager.store("myApp");
 ```

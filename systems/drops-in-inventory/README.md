@@ -11,7 +11,7 @@ directly to the player's inventory, with overflow persistence via
 | Archive | Role |
 |---|---|
 | `index.js` | Core logic — records broken blocks, intercepts drops, manages inventory |
-| `vault-db.js` | Clase `VaultDB` — mini key-value database on Dynamic Properties, with cache, save queue and validations |
+| `vault-db.js` | `VaultDB` class — mini key-value database on Dynamic Properties, with cache, save queue and validations |
 
 ---
 
@@ -38,12 +38,12 @@ import "./systems/drops-in-inventory/index.js";
 ```
 playerBreakBlock → BlockBreakRegistry.register(block, player)
         │
-entitySpawn (item entity) → ItemCollector detecta el drop
+entitySpawn (item entity) → ItemCollector detects the drop
         ├── BlockBreakRegistry.findPlayer(location)   ← nearest player within the TTL
         ├── InventoryManager.addItem(player, item)
-        │       ├── hay espacio → da el item directo, despawnea la entidad
-        │       └── inventario lleno → overflowDB.set(...) (VaultDB)
-        └── playerSpawn → entrega el overflow pendiente al reconectarse
+        │       ├── has space → gives the item directly, despawns the entity
+        │       └── inventory full → overflowDB.set(...) (VaultDB)
+        └── playerSpawn → delivers pending overflow on reconnect
 ```
 
 ---
@@ -75,7 +75,7 @@ overflow if it does not enter).
 
 ---
 
-## `vault-db.js` — clase `VaultDB`
+## `vault-db.js` — the `VaultDB` class
 
 Key-value database on Dynamic Properties, specifically designed
 to save **arrays of `ItemStack`** (serialization `typeId`, `amount`,

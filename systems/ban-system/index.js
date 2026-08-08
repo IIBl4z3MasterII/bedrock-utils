@@ -91,7 +91,7 @@ function showStaffPanel(player) {
     const bannedPlayersArr = getBannedPlayers();
     const form = new ActionFormData();
     form.title("§aStaff Panel");
-    form.body(`§7Pending reports:§e${pendingReports}\n§7Total de reports: §6${reports.length}\n§7Jugadores baneados: §c${bannedPlayersArr.length}`);
+    form.body(`§7Pending reports:§e${pendingReports}\n§7Total reports: §6${reports.length}\n§7Banned players: §c${bannedPlayersArr.length}`);
     form.button("§eView Pending Reports", "textures/ui/book_edit_default");
     form.button("§6Report History", "textures/ui/book_normal_default");
     form.button("§cBanned Players", "textures/ui/hammer");

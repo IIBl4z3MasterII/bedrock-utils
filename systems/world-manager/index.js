@@ -119,7 +119,7 @@ class WorldManager {
       this.log("World loaded successfully! Initializing systems...");
       this.#initLegacyDefaults();
       this.runInitFunctions();
-      for (const cb of this.#readyQueue) { try { cb(); } catch (error) { this.log(`Error inonReadycallback:${error}`, true); } }
+      for (const cb of this.#readyQueue) { try { cb(); } catch (error) { this.log(`Error in onReady callback:${error}`, true); } }
       this.#readyQueue.length = 0;
     };
 

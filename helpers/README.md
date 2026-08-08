@@ -18,7 +18,7 @@ project.
 | [**raycaster**](raycaster/README.md) | `getEntityLookingAt`, `getBlockLookingAt` |
 | [**region**](region/README.md) | Cuboid region with `contains`, `overlaps`, `toJSON`/`fromJSON` |
 | [**rtp-helper**](rtp-helper/README.md) | Random teleport with safe-location search and cooldown |
-| [**ui-template**](ui-template/README.md) | Builder declarativo de `ActionForm`/`ModalForm`/`MessageForm` + menu router |
+| [**ui-template**](ui-template/README.md) | Declarative builder for `ActionForm`/`ModalForm`/`MessageForm` + menu router |
 | [**hours**](hours/README.md) | Countdown timer with `pause`/`resume`/`cancel` |
 
 > Every module (except `lore-durability`) now includes an `example.js`

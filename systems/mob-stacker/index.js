@@ -128,7 +128,7 @@ class MobStackerManager {
         }
       }
     } catch (error) {
-      this.log(`Error inupdateStacks: ${error}`, true);
+      this.log(`Error in updateStacks: ${error}`, true);
     }
   }
 

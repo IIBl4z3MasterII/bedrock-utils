@@ -64,14 +64,14 @@ normal use.
 Module of ~1200 lines, without exports (it registers itself when loading the pack).
 Usa `world.setDynamicProperty`/`getDynamicProperty` direct (with helpers
 own `saveObjectData`/`loadObjectData`) to persist stock and
-economy — does not use `WorldManager`/`DynamicStore` de `systems/world-manager/`.
+economy — does not use `WorldManager`/`DynamicStore` from `systems/world-manager/`.
 
 ---
 
 ## `rp/ui/`
 
 JSONUI custom (`_ui_defs.json`, `server_form.json`,
-`center/forms/gallery_form.json`) para el estilo visual de la tienda
+`center/forms/gallery_form.json`) for the store's visual style
 (multi-tab, item gallery) instead of using the `ActionFormData` generic
 of the Forms API.
 

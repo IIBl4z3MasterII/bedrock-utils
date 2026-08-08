@@ -46,7 +46,7 @@ if (entity) {
 
 const block = Raycaster.getBlockLookingAt(player);
 if (block?.typeId === "minecraft:chest") {
-    player.sendMessage("§eHay un cofre frente a vos.");
+    player.sendMessage("§eThere is a chest in front of you.");
 }
 ```
 

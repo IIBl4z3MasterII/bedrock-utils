@@ -41,7 +41,7 @@ axis: `+x` = left, `+y` = up, `+z` = forward.
 ```js
 import { Coordinates } from "./helpers/coordinates/index.js";
 
-// Punto 2 bloques adelante y 1 arriba de la vista del jugador
+// Point 2 blocks ahead and 1 above the player's eye line
 const spawnPoint = Coordinates.local(player, 0, 1, 2);
 player.dimension.spawnEntity("minecraft:arrow", spawnPoint);
 ```

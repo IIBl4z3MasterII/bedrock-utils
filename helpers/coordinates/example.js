@@ -14,14 +14,14 @@ world.beforeEvents.chatSend.subscribe((ev) => {
   if (msg === "!pos") {
     ev.cancel = true;
     system.run(() => {
-      const arriba = Coordinates.relative(player, 0, 3, 0);
-      spawnSafe(player.dimension, "minecraft:endrod", arriba);
+      const above = Coordinates.relative(player, 0, 3, 0);
+      spawnSafe(player.dimension, "minecraft:endrod", above);
 
-      const frente = Coordinates.local(player, 0, 0, 5, "eyes");
-      spawnSafe(player.dimension, "minecraft:villager_happy", frente);
+      const front = Coordinates.local(player, 0, 0, 5, "eyes");
+      spawnSafe(player.dimension, "minecraft:villager_happy", front);
 
-      player.sendMessage(`§7↑ 3 above:§e${arriba.x.toFixed(1)} ${arriba.y.toFixed(1)} ${arriba.z.toFixed(1)}`);
-      player.sendMessage(`§7→ 5 in front:§e${frente.x.toFixed(1)} ${frente.y.toFixed(1)} ${frente.z.toFixed(1)}`);
+      player.sendMessage(`§7↑ 3 above:§e${above.x.toFixed(1)} ${above.y.toFixed(1)} ${above.z.toFixed(1)}`);
+      player.sendMessage(`§7→ 5 in front:§e${front.x.toFixed(1)} ${front.y.toFixed(1)} ${front.z.toFixed(1)}`);
     });
   }
 

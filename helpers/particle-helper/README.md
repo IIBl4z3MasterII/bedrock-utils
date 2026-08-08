@@ -80,7 +80,7 @@ external: you pass direct center/radius/dimension.
 | `radius` | `number` | Block radius |
 | `dimensionId` | `string` | ej. `"minecraft:overworld"` |
 | `options.particleId` | `string` | Edge Particle (default `"minecraft:endrod"`) |
-| `options.interval` | `number` | Ticks entre frames (default `8`) |
+| `options.interval` | `number` | Ticks between frames (default `8`) |
 | `options.maxDistance` | `number` | Render radius around player (default `28`) |
 | `options.autoStopSeconds` | `number` | Auto-off (default `300`) |
 | `options.centerParticle` | `string` | Center particle (default `"minecraft:villager_happy"`) |

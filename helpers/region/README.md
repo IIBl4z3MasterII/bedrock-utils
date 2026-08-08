@@ -56,10 +56,10 @@ if (claim.contains(player.location, player.dimension.id)) {
 
 // Does it overlap with an existing claim? (to block buying a new one)
 if (claim.overlaps(otroClaimExistente)) {
-    player.sendMessage("§cEste terreno se superpone con uno existente.");
+    player.sendMessage("§cThis claim overlaps with an existing one.");
 }
 
-// Guardar en una Dynamic Property
+// Save in a Dynamic Property
 world.setDynamicProperty("claim:player123", claim.toJSON());
 
 // Retrieve it later

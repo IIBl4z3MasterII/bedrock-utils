@@ -7,7 +7,7 @@ export function exampleCooldown(player) {
   const id = player.id;
 
   if (cd.isOnCooldown(id, "heal")) {
-    player.sendMessage(`§cEspera §e${cd.getRemaining(id, "heal")}§cticks to use heal`);
+    player.sendMessage(`§cWait §e${cd.getRemaining(id, "heal")}§cticks to use heal`);
     return;
   }
 

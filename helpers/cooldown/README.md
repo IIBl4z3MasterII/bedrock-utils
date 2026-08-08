@@ -58,8 +58,8 @@ world.afterEvents.itemUse.subscribe((event) => {
     const player = event.source;
 
     if (cooldowns.isOnCooldown(player.id, "fireball")) {
-        const seg = Math.ceil(cooldowns.getRemaining(player.id, "fireball") / 20);
-        player.sendMessage(`§cEspera ${seg}s antes de usar esto de nuevo.`);
+        const sec = Math.ceil(cooldowns.getRemaining(player.id, "fireball") / 20);
+        player.sendMessage(`§cWait ${sec}s before using this again.`);
         return;
     }
 

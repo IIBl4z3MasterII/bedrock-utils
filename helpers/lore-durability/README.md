@@ -80,9 +80,9 @@ import "./helpers/lore-durability/index.js";
 It is a side effect script, not a class with API. I just know
 import once in the addon's `main.js`.
 - If the item already had another lore before receiving the default signature, it
-adds to the end of the array (`[...lore,DEFAULT_LORE]`), not
-  reemplaza.
-- El check `item.getLore()?.[0] !==durabilityText` avoids rewriting the
+adds to the end of the array (`[...lore,DEFAULT_LORE]`), it does not
+  replace it.
+- The check `item.getLore()?.[0] !==durabilityText` avoids rewriting the
 lore in each tick if it did not change — important to not generate load
 extra in large inventories.
 

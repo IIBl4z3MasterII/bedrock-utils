@@ -5,4 +5,4 @@ packs.
 
 | Folder | Content |
 |---|---|
-| [**glyphs/**](glyphs/README.md) | Texturas de glyphs para scoreboard/UI con iconos custom |
+| [**glyphs/**](glyphs/README.md) | Glyph textures for scoreboard/UI with custom icons |
