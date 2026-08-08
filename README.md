@@ -28,7 +28,7 @@ bedrock-utils/
 │   ├── rtp-helper/
 │   ├── template-ui/
 │   ├── timer/
-│   └── index.js                # Re-exporta todo lo de arriba en un solo import
+│   └── index.js                # Re-exports everything above in a single import
 ├── systems/                    # Full systems: event listeners + persistence + gameplay logic
 │   ├── ban-system/
 │   ├── death-custom-msg/
@@ -58,7 +58,7 @@ review theREADMEof each one).
 | Module | Description | Docs |
 |---|---|---|
 | 🧩 **helpers** | Atomic and reusable classes | [→ helpers](helpers/README.md) |
-| ⚙️ **systems** | Sistemas completos de gameplay | [→ systems](systems/README.md) |
+| ⚙️ **systems** | Complete gameplay systems | [→ systems](systems/README.md) |
 | 📦 **addons** | Complete and installable addons (BP+RP) | [→ addons](addons/README.md) |
 | 🖼️ **assets** | Static resources (textures, glyphs) | [→ assets](assets/README.md) |
 
@@ -78,13 +78,13 @@ review theREADMEof each one).
 ## 🔄 General flow
 
 ```
-Evento de Minecraft (playerSpawn, entityDie, blockBreak...)
+Minecraft event (playerSpawn, entityDie, blockBreak...)
         │
         ▼
-   Sistema correspondiente (systems/ban-system, systems/mob-stacker...)
+   Corresponding system (systems/ban-system, systems/mob-stacker...)
         │
-        ├──► helpers/ (Region, Cooldown, InventoryHelper...) como piezas reusables
-        ├──► Dynamic Properties / VaultDB / WorldManager (persistencia)
+        ├──► helpers/ (Region, Cooldown, InventoryHelper...) as reusable pieces
+        ├──► Dynamic Properties / VaultDB / WorldManager (persistence)
         └──► UI Forms (ActionFormData / ModalFormData / TemplateUI / JSON UI)
 ```
 
@@ -127,7 +127,7 @@ as behavior pack + resource pack. See your
 | | |
 |---|---|
 | 🌐 Site | [bl4z3community.neocities.org](https://bl4z3community.neocities.org/) |
-| 📁 Portfolio | [See portfolio](https://bl4z3community.neocities.org/portafolio/) |
+| 📁 Portfolio | [See portfolio](https://bl4z3community.neocities.org/Manifest/portafolio) |
 | 📦CurseForge| [iibl4z3master](https://www.curseforge.com/members/iibl4z3master/projects) |
 | ▶️YouTube| [@bl4z3master](https://www.youtube.com/@bl4z3master) |
 | 💬 Discord | [Join](https://discord.gg/kBNHNxXbMM) |
