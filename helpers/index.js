@@ -8,4 +8,5 @@ export { Raycaster } from "./raycaster/index.js";
 export { Region } from "./region/index.js";
 export { RtpHelper } from "./rtp-helper/index.js";
 export { Timer } from "./timer/index.js";
+export { ArmorSetDetector, DEFAULT_ARMOR_MAPPING } from "./armor-set-detector/index.js";
 export { action, modal, message, buildForm, buildAndShow, registerActionMenu, registerModalForm, showMenu, showModal } from "./template-ui/index.js";

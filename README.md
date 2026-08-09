@@ -22,6 +22,7 @@ bedrock-utils/
 │   ├── enchant-helper/
 │   ├── inventory-helper/
 │   ├── lore-durability/
+│   ├── armor-set-detector/
 │   ├── particle-helper/
 │   ├── raycaster/
 │   ├── region/
@@ -58,7 +59,7 @@ review theREADMEof each one).
 
 | Module | Description | Docs |
 |---|---|---|
-| 🧩 **helpers** | Atomic and reusable classes | [→ helpers](helpers/README.md) |
+| 🧩 **helpers** | Atomic and reusable classes (13 modules: chat-moderation, cooldown, coordinates, enchant-helper, inventory-helper, lore-durability, particle-helper, raycaster, region, rtp-helper, template-ui, armor-set-detector, timer) | [→ helpers](helpers/README.md) |
 | ⚙️ **systems** | Complete gameplay systems (6 modules: ban-system, death-custom-msg, drops-in-inventory, mob-stacker, custom-commands, world-manager) | [→ systems](systems/README.md) |
 | 📦 **addons** | Complete and installable addons (BP+RP) | [→ addons](addons/README.md) |
 | 🖼️ **assets** | Static resources (textures, glyphs) | [→ assets](assets/README.md) |

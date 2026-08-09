@@ -9,7 +9,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/), versioned [SemV
 
 Repo structure by module type:
 
-- `helpers/` — 12 atomic and reusable modules, without dependencies on each other: `coordinates`, `cooldown`, `timer`, `region`, `enchant-helper`, `inventory-helper`, `chat-moderation`, `raycaster`, `particle-helper`, `rtp-helper`, `template-ui`, `lore-durability`. Each with `index.js` + `README.md`, most with `example.js`. Barrel export in `helpers/index.js`.
+- `helpers/` — 13 atomic and reusable modules, without dependencies on each other: `coordinates`, `cooldown`, `timer`, `region`, `enchant-helper`, `inventory-helper`, `chat-moderation`, `raycaster`, `particle-helper`, `rtp-helper`, `template-ui`, `lore-durability`, `armor-set-detector`. Each with `index.js` + `README.md`, most with `example.js`. Barrel export in `helpers/index.js`.
 - `systems/` — 6 complete systems with event listeners and persistence: `ban-system`, `death-custom-msg`, `drops-in-inventory` (+ `VaultDB`), `mob-stacker` (mob stacker via dynamic properties), `custom-commands` (slash commands `/blaze:...`), `world-manager` (`DynamicStore` + `WorldManager`). Barrel export and `systems/index.js`.
 - `addons/` — complete installable BP+RP packs (`shop-ui`).
 - `assets/` — static resources (`glyphs`).

@@ -8,6 +8,7 @@ project.
 
 | Module | Description |
 |---|---|
+| [**armor-set-detector**](armor-set-detector/README.md) | Armor set auto-equip based on mapped block in inventory |
 | [**chat-moderation**](chat-moderation/README.md) | Uppercase count, excessive caps detection |
 | [**cooldown**](cooldown/README.md) | In-memory cooldown manager, by `id` + `action` |
 | [**coordinates**](coordinates/README.md) | Local (`^`), relative (`~`) and absolute coordinates |
@@ -18,8 +19,8 @@ project.
 | [**raycaster**](raycaster/README.md) | `getEntityLookingAt`, `getBlockLookingAt` |
 | [**region**](region/README.md) | Cuboid region with `contains`, `overlaps`, `toJSON`/`fromJSON` |
 | [**rtp-helper**](rtp-helper/README.md) | Random teleport with safe-location search and cooldown |
-| [**ui-template**](ui-template/README.md) | Declarative builder for `ActionForm`/`ModalForm`/`MessageForm` + menu router |
-| [**hours**](hours/README.md) | Countdown timer with `pause`/`resume`/`cancel` |
+| [**template-ui**](template-ui/README.md) | Declarative builder for `ActionForm`/`ModalForm`/`MessageForm` + menu router |
+| [**timer**](timer/README.md) | Countdown timer with `pause`/`resume`/`cancel` |
 
 > Every module (except `lore-durability`) now includes an `example.js`
 > with a minimal use case, in addition to its `README.md`.
@@ -27,5 +28,5 @@ project.
 Import everything together:
 
 ```js
-import { Region, CooldownManager, Timer } from "./helpers/index.js";
+import { Region, CooldownManager, Timer, ArmorSetDetector } from "./helpers/index.js";
 ```
