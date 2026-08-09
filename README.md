@@ -34,6 +34,7 @@ bedrock-utils/
 │   ├── death-custom-msg/
 │   ├── drops-in-inventory/
 │   ├── mob-stacker/
+│   ├── custom-commands/
 │   ├── world-manager/
 │   └── index.js                # Re-exports the public API of each system
 ├── addons/                     # Complete, installable addons (BP + RP), not just source code
@@ -58,7 +59,7 @@ review theREADMEof each one).
 | Module | Description | Docs |
 |---|---|---|
 | 🧩 **helpers** | Atomic and reusable classes | [→ helpers](helpers/README.md) |
-| ⚙️ **systems** | Complete gameplay systems | [→ systems](systems/README.md) |
+| ⚙️ **systems** | Complete gameplay systems (6 modules: ban-system, death-custom-msg, drops-in-inventory, mob-stacker, custom-commands, world-manager) | [→ systems](systems/README.md) |
 | 📦 **addons** | Complete and installable addons (BP+RP) | [→ addons](addons/README.md) |
 | 🖼️ **assets** | Static resources (textures, glyphs) | [→ assets](assets/README.md) |
 
