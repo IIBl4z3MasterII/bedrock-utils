@@ -261,10 +261,10 @@ The engine injects the `#title_text`, `#dropdown`, `#slider`, `#toggle`, `#input
     "form_router": {
       "type": "panel",
       "controls": [
-        { "shop@pandora_shop.shop": { "ignored": "(not ($title_text = 'SHOP'))" } },
-        { "map@pandora_map.map": { "ignored": "(not ($title_text = 'MAP'))" } },
-        { "skills@pandora_skills.skills": { "ignored": "(not ($title_text = 'SKILLS'))" } },
-        { "default@pandora_main.default": { "ignored": "(not ($title_text = 'MAIN'))" } }
+        { "shop@bl4z3_shop.shop": { "ignored": "(not ($title_text = 'SHOP'))" } },
+        { "map@bl4z3_map.map": { "ignored": "(not ($title_text = 'MAP'))" } },
+        { "skills@bl4z3_skills.skills": { "ignored": "(not ($title_text = 'SKILLS'))" } },
+        { "default@bl4z3_main.default": { "ignored": "(not ($title_text = 'MAIN'))" } }
       ]
     }
   }]
@@ -547,14 +547,14 @@ The item is not rewritten by hand: you inherit the vanilla `common.container_ite
 }
 ```
 
-### 7.2 Form with sidebar (bl4z3_forms `pandora_form.generic_form`)
+### 7.2 Form with sidebar (bl4z3_forms `bl4z3_form.generic_form`)
 ```json
 "generic_form": {
   "type": "panel",
   "size": ["100%", "100%"],
   "controls": [
-    { "sidebar@pandora_form.sidebar": {} },
-    { "content@pandora_form.content": { "controls": "$form_content" } }
+    { "sidebar@bl4z3_form.sidebar": {} },
+    { "content@bl4z3_form.content": { "controls": "$form_content" } }
   ]
 }
 ```

@@ -80,7 +80,7 @@ The state is local to the panel. It's changed via `play_sound`/events (rare) or 
   "controls": [{ "box": { "color": "$color" } }]
 }
 ```
-Evaluates `$tipo` and assigns `$color` based on the first condition that matches. **Base of the routers** of bl4z3_forms (framework of the Pandora pack).
+Evaluates `$tipo` and assigns `$color` based on the first condition that matches. **Base of the routers** of bl4z3_forms (framework of the Bl4z3 pack).
 
 ### 1.8 Expressions in bindings (string-processing)
 Syntax observed (bl4z3_forms, Scoreboar):
@@ -133,10 +133,10 @@ Different "item types" → different controls.
 ### 2.3 Collection + static index (fixed layout)
 ```json
 "controls": [
-  { "top_left@pandora_main.button": { "collection_index": 0 } },
-  { "top_right@pandora_main.button": { "collection_index": 1 } },
-  { "bottom_left@pandora_main.button": { "collection_index": 2 } },
-  { "bottom_right@pandora_main.button": { "collection_index": 3 } }
+  { "top_left@bl4z3_main.button": { "collection_index": 0 } },
+  { "top_right@bl4z3_main.button": { "collection_index": 1 } },
+  { "bottom_left@bl4z3_main.button": { "collection_index": 2 } },
+  { "bottom_right@bl4z3_main.button": { "collection_index": 3 } }
 ]
 ```
 With `collection_name` on the parent stack/grid, each control takes the item at its index. **Perfect for 2×2, 3×1, etc. menus.**
@@ -366,10 +366,10 @@ In Scoreboar `setDynamicProperty` is only used for **persistence** (`worldManage
 "form_router": {
   "type": "panel",
   "controls": [
-    { "shop@pandora_shop.shop":   { "ignored": "(not ($title_text = 'SHOP'))" } },
-    { "map@pandora_map.map":      { "ignored": "(not ($title_text = 'MAP'))" } },
-    { "main@pandora_main.main":   { "ignored": "(not ($title_text = 'MAIN'))" } },
-    { "default@pandora_main.default": { "ignored": "(not ($title_text = 'UNKNOWN'))" } }
+    { "shop@bl4z3_shop.shop":   { "ignored": "(not ($title_text = 'SHOP'))" } },
+    { "map@bl4z3_map.map":      { "ignored": "(not ($title_text = 'MAP'))" } },
+    { "main@bl4z3_main.main":   { "ignored": "(not ($title_text = 'MAIN'))" } },
+    { "default@bl4z3_main.default": { "ignored": "(not ($title_text = 'UNKNOWN'))" } }
   ]
 }
 ```
@@ -456,7 +456,7 @@ Tabs use multiple states (default/hover/pressed/selected × focused/disabled) to
 
 ## 10. Complete Reusable Example — Server Form with Router and Button Grid
 
-Complete, portable pattern for rendering ActionForms with a custom view (extracted from Scoreboar `server_form.json` + bl4z3_forms `pandora_form`).
+Complete, portable pattern for rendering ActionForms with a custom view (extracted from Scoreboar `server_form.json` + bl4z3_forms `bl4z3_form`).
 
 ### RP (server_form.json)
 ```json

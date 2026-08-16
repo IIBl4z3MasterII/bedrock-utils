@@ -1,6 +1,6 @@
 # Components — Buttons, Labels, Images, Inputs, Lists, Scroll, Tooltips, Modals
 
-> Real patterns extracted from: Scoreboar, Pandora (bl4z3_forms .cui), WayMar, ChunkPrevi, UltimateSu, pack(2), ChatCh, System Slayer.
+> Real patterns extracted from: Scoreboar, Bl4z3 (bl4z3_forms .cui), WayMar, ChunkPrevi, UltimateSu, pack(2), ChatCh, System Slayer.
 
 ---
 
@@ -133,7 +133,7 @@ Key properties:
 ### 2.3 Label with `font_type` observed
 | Font | Use |
 |---|---|
-| `MinecraftTen` | Large titles (Pandora `titles`, Scoreboar loading) |
+| `MinecraftTen` | Large titles (Bl4z3 `titles`, Scoreboar loading) |
 | `default` | Normal text |
 
 ---
@@ -197,7 +197,7 @@ The `flip_book` animation advances the `uv` over a sprite sheet; the node links 
 Other real flip_books in the same file: `portal_animation` (16 frames, `reversible: true`), `spinner_animation` (10 frames), `anim_realms_stories_icon` (13 frames, `looping: false`).
 
 ### 3.4 Texture `textures/ui/Black` — universal translucent block
-Used in: Scoreboar (scoreboard bg, tooltip bg), Pandora (backgrounds), System Slayer.
+Used in: Scoreboar (scoreboard bg, tooltip bg), Bl4z3 (backgrounds), System Slayer.
 ```json
 "bg": { "type": "image", "texture": "textures/ui/Black", "alpha": 0.7 }
 ```
@@ -305,7 +305,7 @@ The chat engine feeds `chat_texts`; you just render it.
 "scroll_panel@common.scrolling_panel": {
   "$show_background": false,
   "size": ["100% - 20px", "100% - 20px"],
-  "$scrolling_content": "pandora_common.content_stack",
+  "$scrolling_content": "bl4z3_common.content_stack",
   "$scroll_size": [5, "100% - 4px"],
   "$scrolling_pane_size": ["100% - 8px", "100% - 4px"],
   "$scrolling_pane_offset": [4, 0]

@@ -37,13 +37,13 @@
 
 ---
 
-## 2. `RPBl4z3Forms` — `a0+tXtMv4LY=` (world `Pandora`)
+## 2. `RPBl4z3Forms` — `a0+tXtMv4LY=` (world `Bl4z3`)
 
 **Location**: `minecraftWorlds\a0+tXtMv4LY=\resource_packs\RPBl4z3Forms\ui\`
 
-**Structure**: **`bl4z3_forms`** framework (`.cui` / Collapse-UI v4.1 + `pandora_form`/`pandora_common`) + legacy per-service forms.
+**Structure**: **`bl4z3_forms`** framework (`.cui` / Collapse-UI v4.1 + `bl4z3_form`/`bl4z3_common`) + legacy per-service forms.
 
-> **Names in this doc**: the pack's full framework (`.cui` theme, `$cuigv:*`, and the `pandora_*` primitives) is documented as **`bl4z3_forms`**. "Pandora" is only used as the origin world.
+> **Names in this doc**: the pack's full framework (`.cui` theme, `$cuigv:*`, and the `bl4z3_*` primitives) is documented as **`bl4z3_forms`**. "Bl4z3" is only used as the origin world.
 
 **Key files**:
 - `_ui_defs.json` — 66 entries (⚠ includes redundant vanilla overrides)
@@ -52,8 +52,8 @@
 - `scoreboards.json` — scoreboard override
 - `hud_screen.json` — HUD override
 - `ui_template_buttons.json` / `ui_template_toggles.json` / `ui_template_dialogs.json` — vanilla overrides
-- `pandora/form.json` — `bl4z3_forms` `pandora_form` (generic_form, form_grid, sidebar) **← gem**
-- `pandora/common.json` — `bl4z3_forms` `pandora_common` primitives (main_panel_empty, grid_button_panel_main) **← gem**
+- `bl4z3/form.json` — `bl4z3_forms` `bl4z3_form` (generic_form, form_grid, sidebar) **← gem**
+- `bl4z3/common.json` — `bl4z3_forms` `bl4z3_common` primitives (main_panel_empty, grid_button_panel_main) **← gem**
 - `.cui/*` — `bl4z3_forms` screens with configurable `$cuigv:*` theme (cui-button, cui-slider, cui-toggle, cui-dialog, cui-tabs)
 - `forms/` — main.json (2×2 grid with collection_index), shop.json, kit.json, etc.
 - `crate_ui.json` — loot crate UI
@@ -61,7 +61,7 @@
 - `chest_server_form.json` — server form override
 
 **Contributions**:
-- ✅ Complete modular framework (`bl4z3_forms` = `pandora_form`/`pandora_common`/`.cui`)
+- ✅ Complete modular framework (`bl4z3_forms` = `bl4z3_form`/`bl4z3_common`/`.cui`)
 - ✅ Centralized theme system `$cuigv:*`
 - ✅ Title-based server_form router
 - ✅ Grid with `collection_index` (fixed 2×2 layout)
@@ -274,7 +274,7 @@
 
 ## Pattern Matrix by Pack
 
-| Pattern | Scoreboar | Pandora | UltimateSu | WayMar | ChatCh | Leader | S.Slayer | pack(2) |
+| Pattern | Scoreboar | Bl4z3 | UltimateSu | WayMar | ChatCh | Leader | S.Slayer | pack(2) |
 |---|---|---|---|---|---|---|---|---|
 | HUD override | ✓ | ✓ | ✓ | | ✓ | ✓ | ✓ | |
 | Full server form | ✓ | ✓ | | ✓ | | | ✓ | ✓ |
@@ -293,7 +293,7 @@
 ## Reusability Ranking
 
 1. **Scoreboar** (yUyl6PzY1xA) — best code/protocol/documentation balance
-2. **Pandora** (a0+tXtMv4LY) — modular **bl4z3_forms** framework but with duplication and invalid JSON
+2. **Bl4z3** (a0+tXtMv4LY) — modular **bl4z3_forms** framework but with duplication and invalid JSON
 3. **WayMar** (Geq7734AhFM) — 67KB common primitives + waypoint forms
 4. **System Slayer** (ZhkTZFZlAgA) — AmBro animated background
 5. **ChunkPrevi** (TuRCdiIjjEw) — gallery_form

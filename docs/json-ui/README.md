@@ -40,17 +40,17 @@ Practical knowledge base for developing JSON UI interfaces in Minecraft Bedrock,
 
 | Category | Patterns found | Quality |
 |---|---|---|
-| **Server Forms** | Title-based router (`server_form.long_form`), button grid with factory, native custom form (label/toggle/slider/dropdown/input) | ✓ Mature (Scoreboar, Pandora, WayMar) |
+| **Server Forms** | Title-based router (`server_form.long_form`), button grid with factory, native custom form (label/toggle/slider/dropdown/input) | ✓ Mature (Scoreboar, Bl4z3, WayMar) |
 | **Search Bar** | `search_form.advanced_long_form` with text_edit_box + icon + string-processing filter in view bindings | ✓ Complete (Scoreboar) |
 | **Hover Tooltips** | `follows_cursor:true` screen + `layer:100` + collection binding | ✓ Minimal but functional (Scoreboar) |
 | **HUD / Title / ActionBar** | `hud_screen.json` override + global bindings `#hud_title_text_string`, `#actionbar_text`, native scoreboard sidebar | ✓ Standard (Scoreboar, Leaderboar, System Slayer) |
-| **Scoreboard** | `scoreboards.json` override with `scoreboard_players`/`scoreboard_scores` collections, factory rows | ✓ Clean (Scoreboar, Pandora) |
+| **Scoreboard** | `scoreboards.json` override with `scoreboard_players`/`scoreboard_scores` collections, factory rows | ✓ Clean (Scoreboar, Bl4z3) |
 | **Containers (Chest)** | `chest_screen.json` same-key override, 9×N grids, `common.inventory_screen_common` inheritance | ✓ Complete (UltimateSu, invsee) |
 | **Pause Screen** | `insert_back` modifications in `root_panel`, custom button + waypoints panel | ✓ Functional (WayMar, ChunkPrevi) |
 | **Animations** | `anim_type`: alpha/size/offset/wait/flip_book, `easing`, `next`, `destroy_at_end`, `clip_direction:left` for bars | ✓ Rich (Scoreboar loading, bl4z3_forms gradient, AmBro background) |
-| **bl4z3_forms framework** | Centralized theme `$cuigv:*`, 4-state animated buttons, 8-sub-state tabs, sliders, toggles, modals, tooltip-bubble — `.cui`/`pandora_*` framework of the Pandora pack | ✓ Independent (bl4z3_forms) |
+| **bl4z3_forms framework** | Centralized theme `$cuigv:*`, 4-state animated buttons, 8-sub-state tabs, sliders, toggles, modals, tooltip-bubble — `.cui`/`bl4z3_*` framework of the Bl4z3 pack | ✓ Independent (bl4z3_forms) |
 | **Animated Background (AmBro)** | `ambro_x_background` + `animations.json` with flip_book UV, referenced from start/settings screens | ✓ Unique (System Slayer, H3o4ZE) |
-| **Binding String-Processing** | `%.Ns` slicing, concatenation, subtraction, comparison, suffix flags (`.icon`, `.sidebar`, `~`, `@`) | ✓ Advanced (Pandora, Scoreboar search) |
+| **Binding String-Processing** | `%.Ns` slicing, concatenation, subtraction, comparison, suffix flags (`.icon`, `.sidebar`, `~`, `@`) | ✓ Advanced (Bl4z3, Scoreboar search) |
 
 ---
 
@@ -81,7 +81,7 @@ Practical knowledge base for developing JSON UI interfaces in Minecraft Bedrock,
 | World | Pack(s) | Main contribution |
 |---|---|---|
 | `yUyl6PzY1xA=` | `[Scoreboar]` (RP+BP) | Search bar, tooltips, HUD/title/actionbar, scoreboard, loading anim, full server_form |
-| `a0+tXtMv4LY=` | `RPBl4z3Forms` + `BPBl4z3Forms` | **bl4z3_forms** framework (`.cui` Collapse-UI v4.1 + `pandora_form`/`pandora_common`), server_form router, grids, sidebar, gradients, paperdoll |
+| `a0+tXtMv4LY=` | `RPBl4z3Forms` + `BPBl4z3Forms` | **bl4z3_forms** framework (`.cui` Collapse-UI v4.1 + `bl4z3_form`/`bl4z3_common`), server_form router, grids, sidebar, gradients, paperdoll |
 | `2C159eIMLJo=` | `UltimateSu` | Vanilla container overrides (chest/ender/shulker/barrel), player renderer in chest, ui_template_tabs |
 | `jt+WZgXoAQA=` | `rp invsee`, `[Scoreboar]`, `RP`, `Bl4z3Entit` | invsee, pocket_containers |
 | `Geq7734AhFM=` | `[RP]WayMar` + `[BP]WayMar` | Pause screen + waypoint forms, 67KB common primitives |

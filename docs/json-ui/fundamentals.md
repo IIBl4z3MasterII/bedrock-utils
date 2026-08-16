@@ -43,7 +43,7 @@ resource_pack/
 
 **Key rule discovered across all packs:**
 - **Files that OVERRIDE vanilla** (same path as vanilla: `hud_screen.json`, `server_form.json`, `scoreboards.json`, `chat_screen.json`, `pause_screen.json`, `chest_screen.json`, `inventory_screen.json`, `ui_template_buttons.json`, `ui_template_toggles.json`, `ui_template_dialogs.json`, `ui_common.json`, etc.) → **NOT in `_ui_defs.json`**. The engine merges them automatically by file name.
-- **NEW files** (any other name: `search_form.json`, `pandora/form.json`, `center/forms/waypoint_form.json`, etc.) → **MUST go in `_ui_defs.json`** with a path relative to `ui/`.
+- **NEW files** (any other name: `search_form.json`, `bl4z3/form.json`, `center/forms/waypoint_form.json`, etc.) → **MUST go in `_ui_defs.json`** with a path relative to `ui/`.
 
 ### Real example (Scoreboar - `yUyl6PzY1xA=`):
 ```json
@@ -58,7 +58,7 @@ resource_pack/
 ```
 Only new files — the rest (`hud_screen.json`, `server_form.json`, `scoreboards.json`, `chat_screen.json`, `ui_common.json`) are overrides and **are not listed**.
 
-### Real example (Pandora - `a0+tXtMv4LY=`):
+### Real example (Bl4z3 - `a0+tXtMv4LY=`):
 ```json
 // ui/_ui_defs.json (66 entries)
 "ui_defs": [
@@ -66,8 +66,8 @@ Only new files — the rest (`hud_screen.json`, `server_form.json`, `scoreboards
     "ui/scoreboards.json",        // ⚠ This IS listed but it's an override!
     "ui/hud_screen.json",         // ⚠ Same
     "ui/server_form.json",        // ⚠ Same
-    "ui/pandora/common.json",
-    "ui/pandora/form.json",
+    "ui/bl4z3/common.json",
+    "ui/bl4z3/form.json",
     "ui/forms/main.json",
     ...
     "ui/.cui/.cui-anims.json",
@@ -75,7 +75,7 @@ Only new files — the rest (`hud_screen.json`, `server_form.json`, `scoreboards
     ...
 ]
 ```
-⚠ **Pandora also lists the overrides** — it works but is redundant. The engine loads them twice (once via vanilla merge, once via defs). It doesn't break but duplicates work.
+⚠ **Bl4z3 also lists the overrides** — it works but is redundant. The engine loads them twice (once via vanilla merge, once via defs). It doesn't break but duplicates work.
 
 ### Real example (WayMar - `Geq7734AhFM=`):
 ```json
@@ -107,7 +107,7 @@ Each JSON file **must** declare a unique `namespace` at the start:
 | Pack | Namespaces |
 |---|---|
 | Scoreboar | `hud` (implicit, no namespace in hud_screen), `server_form`, `scoreboard`, `while`, `loading_anim`, `search_form`, `hover_tooltip`, `common` |
-| Pandora | `server_form`, `scoreboard`, `common_buttons`, `common_dialogs`, `chest_ui`, `pandora_form`, `pandora_common`, `pandora_main`, `pandora_shop`, `pandora_kit`, `pandora_map`, `pandora_skills`, `pandora_pets`, `pandora_team`, `pandora_bounties`, `pandora_gambling`, `pandora_warps`, `pandora_mines`, `pandora_wheel`, `pandora_towers`, `pandora_roulette`, `grid`, `rangos_form`, `island_form`, `crate_ui`, `news_ui`, `welcome_ui`, `main_menu_ui`, `donator_ui`, `donator_2_ui`, `investing_ui`, `rankup_ui`, `pet_ui`, `cui-button`, `cui-common`, `cui-dialog`, `cui-slider`, `cui-toggle`, `cui-anims`, `cui-debug`, `cui-gamepad` |
+| Bl4z3 | `server_form`, `scoreboard`, `common_buttons`, `common_dialogs`, `chest_ui`, `bl4z3_form`, `bl4z3_common`, `bl4z3_main`, `bl4z3_shop`, `bl4z3_kit`, `bl4z3_map`, `bl4z3_skills`, `bl4z3_pets`, `bl4z3_team`, `bl4z3_bounties`, `bl4z3_gambling`, `bl4z3_warps`, `bl4z3_mines`, `bl4z3_wheel`, `bl4z3_towers`, `bl4z3_roulette`, `grid`, `rangos_form`, `island_form`, `crate_ui`, `news_ui`, `welcome_ui`, `main_menu_ui`, `donator_ui`, `donator_2_ui`, `investing_ui`, `rankup_ui`, `pet_ui`, `cui-button`, `cui-common`, `cui-dialog`, `cui-slider`, `cui-toggle`, `cui-anims`, `cui-debug`, `cui-gamepad` |
 | WayMar | `server_form`, `pause_screen`, `common`, `waypoint_form`, `action_form`, `create_form`, `edit_form` |
 | ChunkPrevi | `server_form`, `hud`, `scoreboard`, `gallery_form`, `waypoint_form`, `action_form`, `create_form`, `edit_form` |
 | UltimateSu | `chest` (explicit namespace in chest_screen) |
@@ -115,9 +115,9 @@ Each JSON file **must** declare a unique `namespace` at the start:
 | Leaderboar | `leaderboard` (implicit) |
 | System Slayer | `scoreboard`, `server_form`, `hud` (implicit), `ambro` |
 
-**Best practice**: one namespace per file, short and unique. Hyphenated names (`pandora_form`, `cui-button`) work well.
+**Best practice**: one namespace per file, short and unique. Hyphenated names (`bl4z3_form`, `cui-button`) work well.
 
-> Note: the `pandora_*` and `cui-*` namespaces in the Pandora row are the real identifiers of the framework documented as **bl4z3_forms**. They stay as-is in the code; "bl4z3_forms" is just the name the docs use to refer to that framework.
+> Note: the `bl4z3_*` and `cui-*` namespaces in the Bl4z3 row are the real identifiers of the framework documented as **bl4z3_forms**. They stay as-is in the code; "bl4z3_forms" is just the name the docs use to refer to that framework.
 
 ---
 
@@ -141,7 +141,7 @@ Each JSON file **must** declare a unique `namespace` at the start:
 }
 ```
 
-### Real example (Pandora `a0+tXtMv4LY=` — `bl4z3_forms` `.cui` theme, **second root object** ⚠):
+### Real example (Bl4z3 `a0+tXtMv4LY=` — `bl4z3_forms` `.cui` theme, **second root object** ⚠):
 ```json
 // ui/_global_variables.json (line 1400+)
 {
@@ -192,7 +192,7 @@ The child inherits **everything** from the parent and can override/add propertie
 }
 ```
 Scoreboar: `server_form.json:35-44`  
-bl4z3_forms (Pandora pack): `server_form.json:584-597`  
+bl4z3_forms (Bl4z3 pack): `server_form.json:584-597`  
 WayMar: does not use base_screen, defines its own screen.
 
 ### 5.3 Same-key override (without explicit inheritance)
@@ -240,7 +240,7 @@ Local variables defined **inside the control** and accessible in its children an
   ...
 }
 ```
-bl4z3_forms `pandora/form.json:5-11` — lets the parent inject values without breaking if they're not passed.
+bl4z3_forms `bl4z3/form.json:5-11` — lets the parent inject values without breaking if they're not passed.
 
 ---
 
@@ -330,18 +330,18 @@ Valid operations: `insert_front`, `insert_back`, `remove`, `replace` (documented
 
 | File | What it controls | Packs that touch it |
 |---|---|---|
-| `hud_screen.json` | HUD, title, subtitle, actionbar, chat | Scoreboar, Pandora, WayMar, ChunkPrevi, UltimateSu, Leaderboar, System Slayer |
-| `server_form.json` | Server forms (ActionForm/ModalForm) | Scoreboar, Pandora, WayMar, ChunkPrevi, pack(2), System Slayer |
-| `scoreboards.json` | Sidebar + player list | Scoreboar, Pandora, ChunkPrevi, System Slayer, jt+WZg Scoreboar |
+| `hud_screen.json` | HUD, title, subtitle, actionbar, chat | Scoreboar, Bl4z3, WayMar, ChunkPrevi, UltimateSu, Leaderboar, System Slayer |
+| `server_form.json` | Server forms (ActionForm/ModalForm) | Scoreboar, Bl4z3, WayMar, ChunkPrevi, pack(2), System Slayer |
+| `scoreboards.json` | Sidebar + player list | Scoreboar, Bl4z3, ChunkPrevi, System Slayer, jt+WZg Scoreboar |
 | `chat_screen.json` | Chat panel, messages | Scoreboar, ChatCh, jt+WZg Scoreboar, yUyl6Pz Scoreboar |
 | `pause_screen.json` | Pause menu | WayMar, ChunkPrevi, yUyl6Pz Scoreboar, System Slayer |
 | `chest_screen.json` | Containers (chest, ender, shulker, barrel) | UltimateSu, invsee |
-| `ui_template_buttons.json` | Vanilla buttons (`common_buttons`) | Pandora, UltimateSu |
-| `ui_template_toggles.json` | Vanilla toggles | Pandora |
-| `ui_template_dialogs.json` | Vanilla dialogs | Pandora |
+| `ui_template_buttons.json` | Vanilla buttons (`common_buttons`) | Bl4z3, UltimateSu |
+| `ui_template_toggles.json` | Vanilla toggles | Bl4z3 |
+| `ui_template_dialogs.json` | Vanilla dialogs | Bl4z3 |
 | `ui_common.json` | Vanilla utilities (animations, common panel) | Scoreboar, ChatCh, H3o4ZE, jt+WZg, yUyl6Pz, ZhkTZF, System Slayer |
 | `inventory_screen.json` | Player inventory | UltimateSu |
-| `trade_2_screen.json` | Villager trade | UltimateSu, Pandora (subpack) |
+| `trade_2_screen.json` | Villager trade | UltimateSu, Bl4z3 (subpack) |
 | `pause_screen.json` | Pause menu | WayMar, ChunkPrevi, yUyl6Pz Scoreboar, System Slayer |
 
 ---

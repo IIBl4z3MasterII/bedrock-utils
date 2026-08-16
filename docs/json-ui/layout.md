@@ -1,6 +1,6 @@
 # Layout — Panels, Stack Panels, Grids, Anchors, Offsets, Sizes
 
-> Real patterns extracted from: Scoreboar, Pandora (bl4z3_forms), WayMar, ChunkPrevi, UltimateSu, System Slayer.
+> Real patterns extracted from: Scoreboar, Bl4z3 (bl4z3_forms), WayMar, ChunkPrevi, UltimateSu, System Slayer.
 
 ---
 
@@ -233,8 +233,8 @@ Values can be numbers, `"100%c"`, `"calc(...)"`, or bindings.
   "orientation": "horizontal",
   "collection_name": "form_buttons",
   "controls": [
-    { "top_left@pandora_main.button": { "collection_index": 0 } },
-    { "top_right@pandora_main.button": { "collection_index": 1 } }
+    { "top_left@bl4z3_main.button": { "collection_index": 0 } },
+    { "top_right@bl4z3_main.button": { "collection_index": 1 } }
   ]
 }
 ```
@@ -322,7 +322,7 @@ Scoreboar hover_tooltip.json:4-16 — without this, the tooltip would be clipped
 |---|---|---|
 | **Centered panel + background** | Almost all forms | `main_panel_empty` (bl4z3_forms) |
 | **Header (title + close) + Body scroll + Buttons grid** | Server forms | `server_form.long_form` (Scoreboar, bl4z3_forms) |
-| **Sidebar + Grid content** | Shops, main menus | `pandora_form.generic_form` + `form_grid` + `sidebar` |
+| **Sidebar + Grid content** | Shops, main menus | `bl4z3_form.generic_form` + `form_grid` + `sidebar` |
 | **Chest grid 9×N + inventory below** | Containers | `chest_screen.json` (UltimateSu, invsee) |
 | **Full-screen centered loading screen** | Loading anim | `loading_animation` (Scoreboar) |
 | **Fixed bottom-left/right HUD** | Coordinates, days | `hud_screen.json` (Scoreboar) |
@@ -400,4 +400,4 @@ Scoreboar hover_tooltip.json:4-16 — without this, the tooltip would be clipped
   }
 }
 ```
-Based on `pandora/form.json:5-26` + `server_form.json` patterns.
+Based on `bl4z3/form.json:5-26` + `server_form.json` patterns.
