@@ -166,7 +166,7 @@ export class VaultDB {
 
   set(key, value) {
     if (!VALID_NAME.test(key)) throw new Error(`VaultDB> Invalid key: <${key}>. ${_date()}`);
-    if (key.length > MAX_KEY_LENGTH) throw new Error(`VaultDB> Key <${key}> exceeds${MAX_KEY_LENGTH} caracteres. ${_date()}`);
+    if (key.length > MAX_KEY_LENGTH) throw new Error(`VaultDB> Key <${key}> exceeds ${MAX_KEY_LENGTH} characters. ${_date()}`);
     this.#assertReady();
     const fk = `${this.#settings.namespace}:${key}`;
     if (Array.isArray(value) && value.length > MAX_ITEMS) throw new Error(`VaultDB> Maximum${MAX_ITEMS} ItemStacks. ${_date()}`);

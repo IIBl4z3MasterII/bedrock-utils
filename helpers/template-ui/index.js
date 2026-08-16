@@ -11,7 +11,7 @@ export async function forceShow(form, player, maximumRetries = 300) {
     response = await form.show(player);
     retries++;
     if (retries >= maximumRetries) {
-      console.warn(`[forceShow] ${player.name}did not respond after${maximumRetries} intentos`);
+      console.warn(`[forceShow] ${player.name} did not respond after ${maximumRetries} attempts`);
       break;
     }
   } while (response.canceled && response.cancelationReason === FormCancelationReason.UserBusy && retries < maximumRetries);

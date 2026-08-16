@@ -1,0 +1,94 @@
+{
+  "$1_color_format": [0.431, 0.431, 1.0],
+  "$2_color_format": [0.0, 1.0, 0.0],
+  "$3_color_format": [0.0, 0.0, 1.0],
+  "$4_color_format": [1.0, 0.5, 0.0],
+  "$5_color_format": [1.0, 0.0, 1.0],
+  "$6_color_format": [1.0, 0.878, 0.686],
+  "$7_color_format": [0.7, 0.7, 0.7],
+  "$8_color_format": [0.38, 0.38, 0.38],
+  "$9_color_format": [0.98, 0.698, 0.953],
+  "$a_color_format": [0.8, 1.0, 1.0],
+  "$b_color_format": [0.702, 0.855, 1.0],
+  "$c_color_format": [1.0, 0.427, 0.443],
+  "$d_color_format": [1.0, 0.765, 0.988],
+  "$e_color_format": [1.0, 1.0, 0.2],
+  "$f_color_format": [0.976, 1.0, 0.992],
+  "$g_color_format": [0.6, 0.6, 0.8], // Light Blue
+  "$h_color_format": [0.8, 0.6, 0.8], // Light Purple
+  "$i_color_format": [0.8, 0.8, 0.6], // Light Yellow
+  "$j_color_format": [0.5, 0.3, 0.5], // Muted Purple
+  "$k_color_format": [0.3, 0.5, 0.5], // Muted Aqua
+  "$l_color_format": [0.5, 0.5, 0.3], // Muted Gold
+  "$m_color_format": [0.6, 0.6, 0.6], // Light Gray
+  "$n_color_format": [0.2, 0.2, 0.5], // Dark Blue Muted
+  "$o_color_format": [0.5, 0.3, 0.7], // Muted Light Purple
+  "$p_color_format": [0.7, 0.3, 0.5], // Muted Red
+  "$q_color_format": [0.3, 0.7, 0.5], // Muted Green
+  "$r_color_format": [0.3, 0.5, 0.7], // Muted Blue
+  "$s_color_format": [0.7, 0.5, 0.3], // Muted Gold
+  "$t_color_format": [0.5, 0.7, 0.3], // Muted Green
+  "$u_color_format": [0.3, 0.7, 0.7], // Muted Aqua
+  "$v_color_format": [0.7, 0.3, 0.7], // Muted Light Purple
+  "$w_color_format": [0.7, 0.7, 0.3], // Muted Yellow
+  "$x_color_format": [0.3, 0.3, 0.7], // Muted Blue
+  "$y_color_format": [0.6, 0.6, 0.6], // Light Gray
+  "$z_color_format": [0.5, 0.5, 0.5], // Mid Gray
+  "$coin_color": [0.8, 1.0, 0.8, 1.0],
+  "$light_button_default_text_color": [1.0, 1.0, 1.0],
+  "$light_button_locked_text_color": [0.4, 0.4, 0.4],
+  "$light_toggle_default_text_color": [1.0, 1.0, 1.0],
+  "$light_toggle_checked_default_text_color": [1.0, 1.0, 1.0],
+  "$title_text_color": [1.0, 1.0, 1.0],
+  "$pocket_title_text_color": [1.0, 1.0, 1.0],
+  "$tab_checked_text_color": [1.0, 1.0, 1.0],
+  "$tab_checked_locked_text_color": [1.0, 1.0, 1.0],
+  "$tab_checked_locked_hover_text_color": [1.0, 1.0, 1.0],
+  "$tab_unchecked_glyph_color": [1.0, 1.0, 1.0],
+  "$tab_unchecked_hover_glyph_color": [1.0, 1.0, 1.0],
+  "$tab_unchecked_locked_glyph_color": [1.0, 1.0, 1.0],
+  "$tab_unchecked_locked_hover_glyph_color": [1.0, 1.0, 1.0],
+  "$tab_checked_glyph_color": [1.0, 1.0, 1.0],
+  "$tab_checked_hover_glyph_color": [1.0, 1.0, 1.0],
+  "$tab_checked_locked_glyph_color": [1.0, 1.0, 1.0],
+  "$tab_checked_locked_hover_glyph_color": [1.0, 1.0, 1.0],
+  "$dark_body_text_color": [1.0, 1.0, 1.0],
+  "$smithing_table_cost_fail_text_color": [1.0, 1.0, 1.0],
+  "$light_glyph_default_color": [1.0, 1.0, 1.0],
+  "$light_glyph_locked_color": [0.4, 0.4, 0.4],
+  "$store_dark_grey_text_color": [1.0, 1.0, 1.0],
+  "$dressing_room_lighter_button_color": [1.0, 1.0, 1.0],
+  "$dropdown_radio_background_checked_color": [1.0, 1.0, 1.0],
+  "$dark_button_locked_text_color": [0.4, 0.4, 0.4],
+  "$dark_button_secondary_locked_text_color": [0.4, 0.4, 0.4],
+  "$dark_glyph_locked_color": [0.4, 0.4, 0.4],
+  "$light_border_default_color": [0.0, 0.0, 0.0],
+  "$light_border_locked_color": [0.0, 0.0, 0.0],
+  "$light_border_toggle_default_color": [0.0, 0.0, 0.0],
+  "$dark_border_default_color": [0.0, 0.0, 0.0],
+  "$dark_border_locked_color": [0.0, 0.0, 0.0],
+  "$dark_border_toggle_default_color": [0.0, 0.0, 0.0],
+  "$tab_unchecked_text_color": [1.0, 1.0, 1.0],
+  "$tab_unchecked_locked_text_color": [1.0, 1.0, 1.0],
+  "$tab_unchecked_locked_hover_text_color": [1.0, 1.0, 1.0],
+  "$trade_tier_name_locked_color": [0.4, 0.4, 0.4],
+  "$trade_lock_color": [0.4, 0.4, 0.4],
+  "$dressing_room_right_side_default_text_color": [1.0, 1.0, 1.0],
+  "$dressing_room_size_default_text_color": [1.0, 1.0, 1.0],
+  "$dressing_room_color_title": [1.0, 1.0, 1.0],
+  "$dressing_room_dark_button_color": [1.0, 1.0, 1.0],
+  "$dressing_room_background_alpha": 0.7,
+  "$dressing_room_panel_alpha": 0.3,
+  "$profile_create_character_selected_color": [1.0, 1.0, 1.0],
+  "$profile_create_character_unselected_color": [0.1, 0.1, 0.1],
+  "$settings_background_alpha": 0.6,
+  "$profile_create_character_selected_dark_color": [0.2, 0.2, 0.2],
+  "$featured_info_panel": [0.2, 0.2, 0.2],
+  "$npc_dialog_text_color": [1.0, 1.0, 1.0],
+  "$transition_time_push_size": 0.0,
+  "$transition_time_pop_size": 0.0,
+  "$transition_time_push": 0.0,
+  "$transition_time_pop": 0.0,
+  "$container_transition_time_push": 0.0,
+  "$container_transition_time_pop": 0.0
+}

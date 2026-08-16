@@ -25,51 +25,51 @@ export const STOCK_CONFIG = {
 
 export const MATERIALS = {
   tools: [
-    { name: "Madera", id: "wooden", multiplier: 0.2 },
-    { name: "Piedra", id: "stone", multiplier: 0.4 },
-    { name: "Hierro", id: "iron", multiplier: 0.6 },
-    { name: "Oro", id: "golden", multiplier: 0.8 },
-    { name: "Diamante", id: "diamond", multiplier: 1.0 },
+    { name: "Wood", id: "wooden", multiplier: 0.2 },
+    { name: "Stone", id: "stone", multiplier: 0.4 },
+    { name: "Iron", id: "iron", multiplier: 0.6 },
+    { name: "Gold", id: "golden", multiplier: 0.8 },
+    { name: "Diamond", id: "diamond", multiplier: 1.0 },
     { name: "Netherite", id: "netherite", multiplier: 2.0 }
   ],
   armor: [
-    { name: "Cuero", id: "leather", multiplier: 0.3 },
-    { name: "Coat of mail", id: "chainmail", multiplier: 0.5 },
-    { name: "Hierro", id: "iron", multiplier: 0.6 },
-    { name: "Oro", id: "golden", multiplier: 0.8 },
-    { name: "Diamante", id: "diamond", multiplier: 1.0 },
+    { name: "Leather", id: "leather", multiplier: 0.3 },
+    { name: "Chainmail", id: "chainmail", multiplier: 0.5 },
+    { name: "Iron", id: "iron", multiplier: 0.6 },
+    { name: "Gold", id: "golden", multiplier: 0.8 },
+    { name: "Diamond", id: "diamond", multiplier: 1.0 },
     { name: "Netherite", id: "netherite", multiplier: 2.0 }
   ],
   wood: [
-    { name: "Roble", id: "oak", multiplier: 1.0 },
-    { name: "Abeto", id: "spruce", multiplier: 1.1 },
-    { name: "Abedul", id: "birch", multiplier: 1.1 },
-    { name: "Jungla", id: "jungle", multiplier: 1.2 },
+    { name: "Oak", id: "oak", multiplier: 1.0 },
+    { name: "Spruce", id: "spruce", multiplier: 1.1 },
+    { name: "Birch", id: "birch", multiplier: 1.1 },
+    { name: "Jungle", id: "jungle", multiplier: 1.2 },
     { name: "Acacia", id: "acacia", multiplier: 1.2 },
     { name: "Dark Oak", id: "dark_oak", multiplier: 1.3 },
-    { name: "Manglar", id: "mangrove", multiplier: 1.3 },
-    { name: "Cerezo", id: "cherry", multiplier: 1.4 }
+    { name: "Mangrove", id: "mangrove", multiplier: 1.3 },
+    { name: "Cherry", id: "cherry", multiplier: 1.4 }
   ],
   stone: [
-    { name: "Piedra", id: "stone", itemId: "minecraft:stone", multiplier: 1.0 },
-    { name: "Granito", id: "granite", itemId: "minecraft:granite", multiplier: 1.1 },
-    { name: "Diorita", id: "diorite", itemId: "minecraft:diorite", multiplier: 1.1 },
-    { name: "Andesita", id: "andesite", itemId: "minecraft:andesite", multiplier: 1.1 },
+    { name: "Stone", id: "stone", itemId: "minecraft:stone", multiplier: 1.0 },
+    { name: "Granite", id: "granite", itemId: "minecraft:granite", multiplier: 1.1 },
+    { name: "Diorite", id: "diorite", itemId: "minecraft:diorite", multiplier: 1.1 },
+    { name: "Andesite", id: "andesite", itemId: "minecraft:andesite", multiplier: 1.1 },
     { name: "Smooth Stone", id: "smooth_stone", itemId: "minecraft:smooth_stone", multiplier: 1.3 },
-    { name: "Cobble", id: "cobblestone", itemId: "minecraft:cobblestone", multiplier: 0.8 },
-    { name: "Pizarra", id: "deepslate", itemId: "minecraft:deepslate", multiplier: 1.4 },
-    { name: "Toba", id: "tuff", itemId: "minecraft:tuff", multiplier: 1.2 }
+    { name: "Cobblestone", id: "cobblestone", itemId: "minecraft:cobblestone", multiplier: 0.8 },
+    { name: "Deepslate", id: "deepslate", itemId: "minecraft:deepslate", multiplier: 1.4 },
+    { name: "Tuff", id: "tuff", itemId: "minecraft:tuff", multiplier: 1.2 }
   ],
   mineral_blocks: [
-    { name: "Hierro", id: "iron", itemId: "minecraft:iron_block", multiplier: 0.6 },
-    { name: "Oro", id: "gold", itemId: "minecraft:gold_block", multiplier: 0.8 },
-    { name: "Diamante", id: "diamond", itemId: "minecraft:diamond_block", multiplier: 1.0 },
-    { name: "Esmeralda", id: "emerald", itemId: "minecraft:emerald_block", multiplier: 1.5 },
+    { name: "Iron", id: "iron", itemId: "minecraft:iron_block", multiplier: 0.6 },
+    { name: "Gold", id: "gold", itemId: "minecraft:gold_block", multiplier: 0.8 },
+    { name: "Diamond", id: "diamond", itemId: "minecraft:diamond_block", multiplier: 1.0 },
+    { name: "Emerald", id: "emerald", itemId: "minecraft:emerald_block", multiplier: 1.5 },
     { name: "Netherite", id: "netherite", itemId: "minecraft:netherite_block", multiplier: 2.5 },
-    { name: "Lapis lazuli", id: "lapis", itemId: "minecraft:lapis_block", multiplier: 0.4 },
+    { name: "Lapis Lazuli", id: "lapis", itemId: "minecraft:lapis_block", multiplier: 0.4 },
     { name: "Redstone", id: "redstone", itemId: "minecraft:redstone_block", multiplier: 0.3 },
-    { name: "Cobre", id: "copper", itemId: "minecraft:copper_block", multiplier: 0.5 },
-    { name: "Cuarzo", id: "quartz", itemId: "minecraft:quartz_block", multiplier: 0.7 }
+    { name: "Copper", id: "copper", itemId: "minecraft:copper_block", multiplier: 0.5 },
+    { name: "Quartz", id: "quartz", itemId: "minecraft:quartz_block", multiplier: 0.7 }
   ]
 };
 

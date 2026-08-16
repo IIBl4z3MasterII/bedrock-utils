@@ -75,7 +75,7 @@ class ItemCollector {
     constructor() { this.#registry = new BlockBreakRegistry(); this.#inventory = new InventoryManager(); }
 
     init() {
-        console.warn("Collection system withVaultDB iniciado.");
+        console.warn("Collection system with VaultDB started.");
         world.afterEvents.playerBreakBlock.subscribe((e) => this.#onBlockBreak(e));
         world.afterEvents.entitySpawn.subscribe((e) => this.#onEntitySpawn(e));
         world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => { if (initialSpawn) this.#deliverOverflow(player); });
@@ -115,7 +115,7 @@ class ItemCollector {
                 if (overflowDB.has(key)) { const stored = overflowDB.get(key); pending = Array.isArray(stored) ? stored : (stored ? [stored] : []); }
                 pending.push(item);
                 overflowDB.set(key, pending);
-                console.log(`VaultDB> Overflow item saved for [${player.name}]. Earrings:${pending.length}`);
+                console.log(`VaultDB> Overflow item saved for [${player.name}]. Pending:${pending.length}`);
             } catch (err) { console.error(`[VaultDBoverflow save error]${err}`); }
         });
     }

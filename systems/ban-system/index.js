@@ -77,7 +77,7 @@ function showReportForm(player) {
         reports.push(report);
         const confirmForm = new MessageFormData();
         confirmForm.title("§aReport Sent");
-        confirmForm.body(`§7Your report against§c${reportedPlayer}§7has been sent.\n§7Report ID:§e#${report.id}\n§7Seriedad: §6${severity}/10`);
+        confirmForm.body(`§7Your report against§c${reportedPlayer}§7has been sent.\n§7Report ID:§e#${report.id}\n§7Severity: §6${severity}/10`);
         confirmForm.button1("§aUnderstood");
         confirmForm.show(player).catch((error) => { console.warn("Error showing confirmation:", error); });
         notifyStaff(report);
@@ -219,7 +219,7 @@ function resolveReport(staff, report, status) {
     report.handledBy = staff.name;
     const message = status === "Resolved" ? "resolved" : "rejected";
     const confirmForm = new MessageFormData();
-    confirmForm.title(`§aReporte ${message}`);
+    confirmForm.title(`§aReport ${message}`);
     confirmForm.body(`§7The report #${report.id}has been marked as§e${message}§7.`);
     confirmForm.button1("§aUnderstood");
     confirmForm.show(staff).then(() => showStaffPanel(staff)).catch((error) => { console.warn("Error showing resolution confirmation:", error); });
@@ -450,7 +450,7 @@ function showBanUI(player, reason, duration, bannedBy) {
         const banDate = new Date(playerData.banDate);
         const form = new ActionFormData()
             .title("§cTEMPORARILY BANNED")
-            .body(`§7Ban date:§f${banDate.toLocaleDateString()}\n§7Tiempo restante: §e${minutes}m ${seconds}s\n§7Reason:§c${reason}\n§7Baneado por: §e${bannedBy}`)
+            .body(`§7Ban date:§f${banDate.toLocaleDateString()}\n§7Time remaining: §e${minutes}m ${seconds}s\n§7Reason:§c${reason}\n§7Banned by: §e${bannedBy}`)
             .button("§7Accept");
         form.show(player).then(() => {
             if (bannedPlayers.has(player.name) && !bannedPlayers.get(player.name).permanent) system.runTimeout(updateUI);
@@ -500,7 +500,7 @@ function showUnbanConfirmation(player, bannedPlayer) {
     if (permanent) banDuration = "Permanent Ban";
     else { const timeRemaining = Math.max(0, endTime - Date.now()); banDuration = `${Math.floor(timeRemaining / 60000)}minutes and${Math.floor((timeRemaining % 60000) / 1000)} seconds`; }
     const form = new MessageFormData()
-        .title("§aConfirm Desban")
+        .title("§aConfirm Unban")
         .body(`§7Do you want to unban§c${bannedPlayer.name}§7?\n\n§7Banned by:§e${bannedBy}\n§7Reason: §c${reason}\n§7Remaining duration: §f${banDuration}`)
         .button1("§cCancel")
         .button2("§aUnban");
