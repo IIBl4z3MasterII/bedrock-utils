@@ -471,6 +471,86 @@ Shows a tooltip on hover.
 
 ---
 
+## 10. Entity Rendering in Server Forms (`live_horse_renderer`)
+
+Real pattern from **Humillatio** pack (`resource_packs/Humillatio/ui/pet_screen.json` + `behavior_packs/Humillatio/scripts/main.js`).
+
+### 10.1 RP — Custom renderer + collection panel
+```json
+"custom_render": {
+    "type": "custom",
+    "renderer": "live_horse_renderer",
+    "size": [1, 1],
+    "offset": [0, 45],
+    "property_bag": { "#multiply": 0.01 },
+    "bindings": [
+        { "binding_name": "#form_button_text", "binding_type": "collection", "binding_collection_name": "form_buttons" },
+        { "binding_name": "#form_button_texture", "binding_name_override": "#raw_id", "binding_type": "collection", "binding_collection_name": "form_buttons" },
+        { "binding_type": "view", "source_property_name": "((#form_button_text - 'cb:') * #multiply)", "target_property_name": "#size_binding_x" },
+        { "binding_type": "view", "source_property_name": "#raw_id", "target_property_name": "#entity_id" }
+    ]
+}
+```
+
+Referenced from a button via `collection_panel` + `collection_index`:
+```json
+"pet_image@pet_shop.get_button_data": {
+    "$data_index_selected": 1,
+    "$control_name": "@pet_shop.custom_render"
+}
+```
+
+```json
+"get_button_data": {
+    "type": "collection_panel",
+    "$data_index_selected|default": 0,
+    "$collection_name|default": "form_buttons",
+    "collection_name": "$collection_name",
+    "controls": [{
+        "button_data_to_show_content_dynamicaly_oh_yea_bro": {
+            "type": "panel",
+            "collection_index": "$data_index_selected",
+            "controls": [{ "custom_data_anchor_up_to_me_love$control_name": {} }]
+        }
+    }]
+}
+```
+
+### 10.2 BP — Spawn entity + `cb:` protocol (`scripts/main.js`)
+```js
+class PreviewEntity {
+    static _map = new Map();
+    static spawn(player, entityTypeId) {
+        this.kill(player);
+        const dim = player.dimension;
+        const loc = player.location;
+        const spawnLoc = { x: loc.x, y: 56, z: loc.z };
+        const entity = dim.spawnEntity(entityTypeId, spawnLoc);
+        entity.addTag("pets_ui_preview");
+        this._map.set(player.id, entity);
+        return entity;
+    }
+    static kill(player) { /* remove tagged entity */ }
+}
+```
+
+Form button sends scale + entity UUID:
+```js
+const entity = PreviewEntity.spawn(player, selected.entity) ?? -1;
+const { x, y } = entity.getAABB().extent;
+form.button(`cb:${20 / Math.max(x, y)}`, `${entity.id}`);
+```
+
+### 10.3 Protocolo BP→RP
+| Campo | Valor | Uso en RP |
+|-------|-------|-----------|
+| Button **text** | `cb:<scale>` | `#form_button_text` → extrae escala `(#text - 'cb:') * 0.01` |
+| Button **texture** | `<entity UUID>` | `#form_button_texture` → `#raw_id` → `#entity_id` del renderer |
+
+El `live_horse_renderer` recibe `#entity_id` (UUID) y `#size_binding_x` (escala) y renderiza la entidad spawneada en vivo dentro del form.
+
+---
+
 ## 11. Per-component checklist
 
 | Component | Essential props | Useful defaults |
