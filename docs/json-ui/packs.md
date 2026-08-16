@@ -37,13 +37,13 @@
 
 ---
 
-## 2. `RPPandoraH` — `a0+tXtMv4LY=` (world `Pandora`)
+## 2. `RPBl4z3Forms` — `a0+tXtMv4LY=` (world `Pandora`)
 
-**Location**: `minecraftWorlds\a0+tXtMv4LY=\resource_packs\RPPandoraH\ui\`
+**Location**: `minecraftWorlds\a0+tXtMv4LY=\resource_packs\RPBl4z3Forms\ui\`
 
 **Structure**: **`bl4z3_forms`** framework (`.cui` / Collapse-UI v4.1 + `pandora_form`/`pandora_common`) + legacy per-service forms.
 
-> **Names in this doc**: the pack's full framework (`.cui` theme, `$cuigv:*`, and the `pandora_*` primitives) is documented as **`bl4z3_forms`**. "Pandora / RPPandoraH" is only used as the origin pack.
+> **Names in this doc**: the pack's full framework (`.cui` theme, `$cuigv:*`, and the `pandora_*` primitives) is documented as **`bl4z3_forms`**. "Pandora" is only used as the origin world.
 
 **Key files**:
 - `_ui_defs.json` — 66 entries (⚠ includes redundant vanilla overrides)

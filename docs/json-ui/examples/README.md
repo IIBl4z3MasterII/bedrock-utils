@@ -1,6 +1,6 @@
 # JSON Fragments — Bedrock Utils → JSON UI
 
-> **Focused and annotated** fragments, extracted from the real packs (`[Scoreboar]`, `RPPandoraH`, `UltimateSu`). These are not the full files: only the part that demonstrates each pattern, with `//_N_...` keys explaining each block.
+> **Focused and annotated** fragments, extracted from the real packs (`[Scoreboar]`, `RPBl4z3Forms`, `UltimateSu`). These are not the full files: only the part that demonstrates each pattern, with `//_N_...` keys explaining each block.
 >
 > **Validation**: all pass `JSON.parse` (Node.js) — the annotated `//_1_...` keys are normal JSON keys, not comments.
 

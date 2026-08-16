@@ -81,7 +81,7 @@ Practical knowledge base for developing JSON UI interfaces in Minecraft Bedrock,
 | World | Pack(s) | Main contribution |
 |---|---|---|
 | `yUyl6PzY1xA=` | `[Scoreboar]` (RP+BP) | Search bar, tooltips, HUD/title/actionbar, scoreboard, loading anim, full server_form |
-| `a0+tXtMv4LY=` | `RPPandoraH` + `BPPandoraH` | **bl4z3_forms** framework (`.cui` Collapse-UI v4.1 + `pandora_form`/`pandora_common`), server_form router, grids, sidebar, gradients, paperdoll |
+| `a0+tXtMv4LY=` | `RPBl4z3Forms` + `BPBl4z3Forms` | **bl4z3_forms** framework (`.cui` Collapse-UI v4.1 + `pandora_form`/`pandora_common`), server_form router, grids, sidebar, gradients, paperdoll |
 | `2C159eIMLJo=` | `UltimateSu` | Vanilla container overrides (chest/ender/shulker/barrel), player renderer in chest, ui_template_tabs |
 | `jt+WZgXoAQA=` | `rp invsee`, `[Scoreboar]`, `RP`, `Bl4z3Entit` | invsee, pocket_containers |
 | `Geq7734AhFM=` | `[RP]WayMar` + `[BP]WayMar` | Pause screen + waypoint forms, 67KB common primitives |
