@@ -42,8 +42,10 @@ bedrock-utils/
 │   └── shop-ui/
 │       ├── bp/
 │       └── rp/
-└── assets/                     # Static resources (glyph textures, etc.)
-    └── glyphs/
+├── assets/                     # Static resources (glyph textures, etc.)
+│   └── glyphs/
+└── docs/                       # Knowledge base and documentation
+    └── json-ui/                # JSON UI reference (fundamentals, layout, components, patterns, packs)
 ```
 
 **`helpers/` vs `systems/`:** a helper is a class with methods that you
@@ -63,6 +65,7 @@ review theREADMEof each one).
 | ⚙️ **systems** | Complete gameplay systems (6 modules: ban-system, death-custom-msg, drops-in-inventory, mob-stacker, custom-commands, world-manager) | [→ systems](systems/README.md) |
 | 📦 **addons** | Complete and installable addons (BP+RP) | [→ addons](addons/README.md) |
 | 🖼️ **assets** | Static resources (textures, glyphs) | [→ assets](assets/README.md) |
+| 📖 **docs** | Knowledge base: JSON UI reference for Bedrock (fundamentals, layout, components, full screens, advanced patterns, pack analysis, JSON fragments) | [→ docs](docs/README.md) |
 
 ---
 
