@@ -1,4 +1,174 @@
-# 🪨 Bedrock Utils
+<div align="center">
+
+# 🪨 IIBl4z3MasterII
+
+### Minecraft Bedrock Developer · JavaScript · Script API · JSON UI
+
+<p>
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=700&lines=Building+Minecraft+Bedrock+Add-ons;Script+API+%7C+JavaScript+%7C+JSON+UI;Systems%2C+UI+and+gameplay+development;Turning+ideas+into+working+Bedrock+projects." alt="Typing SVG" />
+</p>
+
+<p>
+  <a href="https://github.com/IIBl4z3MasterII">
+    <img src="https://img.shields.io/badge/GitHub-IIBl4z3MasterII-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="https://bl4z3community.neocities.org/">
+    <img src="https://img.shields.io/badge/Website-Bl4z3Community-58A6FF?style=for-the-badge&logo=googlechrome&logoColor=white" />
+  </a>
+  <a href="https://www.curseforge.com/members/iibl4z3master/projects">
+    <img src="https://img.shields.io/badge/CurseForge-Projects-F16436?style=for-the-badge&logo=curseforge&logoColor=white" />
+  </a>
+  <a href="https://discord.gg/kBNHNxXbMM">
+    <img src="https://img.shields.io/badge/Discord-Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+  </a>
+</p>
+
+<p>
+  <img src="https://komarev.com/ghpvc/?username=IIBl4z3MasterII&label=Profile%20Views&color=58A6FF&style=flat-square" />
+  <img src="https://img.shields.io/github/followers/IIBl4z3MasterII?label=Followers&style=flat-square&color=58A6FF" />
+</p>
+
+</div>
+
+---
+
+# 👨‍💻 About Me
+
+I'm **IIBl4z3MasterII**, a developer focused on creating systems, tools and add-ons for **Minecraft Bedrock Edition**.
+
+My main area of development is the **Minecraft Bedrock Script API**, where I work with JavaScript to build gameplay systems, reusable utilities, custom commands, UI systems and complete add-ons.
+
+- 🪨 **Minecraft Bedrock Developer**
+- ⚙️ **Script API Developer**
+- 🎨 **JSON UI Developer**
+- 🧩 Building reusable systems and utilities
+- 📦 Creating complete Behavior Pack + Resource Pack add-ons
+- 🧠 Interested in clean, modular and reusable code
+- 🔧 Developing tools that can be integrated into different projects
+- 📚 Continuously studying software development and new Bedrock APIs
+
+> **I don't just make add-ons — I build reusable systems around the Bedrock ecosystem.**
+
+---
+
+# 🧰 Tech Stack
+
+## 🎮 Minecraft Bedrock
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Minecraft%20Bedrock-1.20.70%2B-62B47A?style=for-the-badge&logo=minecraft&logoColor=white" />
+  <img src="https://img.shields.io/badge/Script%20API-Stable-2D2D2D?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/JSON%20UI-Development-9B59B6?style=for-the-badge" />
+</p>
+
+## 💻 Languages
+
+<p align="left">
+  <img src="https://skillicons.dev/icons?i=js,java,html,css,json" />
+</p>
+
+## ⚙️ Minecraft APIs
+
+<p align="left">
+  <img src="https://img.shields.io/badge/@minecraft/server-2.6.0-4CAF50?style=flat-square" />
+  <img src="https://img.shields.io/badge/@minecraft/server--ui-2.0.0-9C27B0?style=flat-square" />
+</p>
+
+## 🗄️ Databases & Data
+
+<p align="left">
+  <img src="https://skillicons.dev/icons?i=postgres,mysql" />
+  <img src="https://img.shields.io/badge/Dynamic%20Properties-Bedrock-58A6FF?style=flat-square" />
+</p>
+
+## 🔧 Development Tools
+
+<p align="left">
+  <img src="https://skillicons.dev/icons?i=git,github,vscode,idea,maven" />
+</p>
+
+---
+
+# 🧩 What I Build
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### ⚙️ Gameplay Systems
+
+Systems designed to handle complete gameplay functionality.
+
+- 🔨 Custom commands
+- 💀 Custom death systems
+- 🚫 Ban systems
+- 📦 Inventory systems
+- 🧟 Mob stacking
+- 🌎 World management
+- 🎁 Custom drops
+- 💾 Data persistence
+
+</td>
+
+<td width="50%" valign="top">
+
+### 🧰 Developer Utilities
+
+Reusable modules designed to be integrated into other projects.
+
+- 📍 Region utilities
+- ⏱️ Cooldowns
+- 🎯 Raycasting
+- 📦 Inventory helpers
+- ✨ Particle helpers
+- 🛡️ Armor detection
+- 🧪 Enchantment utilities
+- 🖥️ UI templates
+
+</td>
+</tr>
+
+<tr>
+<td width="50%" valign="top">
+
+### 🎨 JSON UI
+
+Working with Minecraft Bedrock's UI system.
+
+- Custom interfaces
+- UI layouts
+- UI components
+- HUD modifications
+- JSON UI patterns
+- UI pack analysis
+- Reusable UI fragments
+
+</td>
+
+<td width="50%" valign="top">
+
+### 📦 Complete Add-ons
+
+Complete projects combining Behavior Packs and Resource Packs.
+
+- Behavior Packs
+- Resource Packs
+- Custom systems
+- Custom UI
+- Textures & glyphs
+- Script API integration
+
+</td>
+</tr>
+</table>
+
+---
+
+# 🚀 Featured Project
+
+## 🪨 Bedrock Utils
+
+A collection of reusable **Minecraft Bedrock Script API** utilities, gameplay systems, complete add-ons and technical documentation.
 
 ![version](https://img.shields.io/badge/version-0.0.1-blue?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-green?style=flat-square)
@@ -6,16 +176,12 @@
 ![language](https://img.shields.io/badge/language-JavaScript-yellow?style=flat-square)
 ![api](https://img.shields.io/badge/@minecraft%2Fserver-2.6.0-purple?style=flat-square)
 
-> Collection of scripts, systems and resources to develop add-ons in **Minecraft Bedrock Edition** withJavaScript(Script API Stable).
-> Each module is self-contained, documented and ready to integrate into your project.
+### Repository structure
 
----
-
-## 📁 Repository architecture
-
-```
+```text
 bedrock-utils/
-├── helpers/                    # Atomic and reusable classes (no business logic of their own)
+│
+├── helpers/          # Reusable and atomic utilities
 │   ├── chat-moderation/
 │   ├── cooldown/
 │   ├── coordinates/
@@ -29,116 +195,166 @@ bedrock-utils/
 │   ├── rtp-helper/
 │   ├── template-ui/
 │   ├── timer/
-│   └── index.js                # Re-exports everything above in a single import
-├── systems/                    # Full systems: event listeners + persistence + gameplay logic
+│   └── index.js
+│
+├── systems/          # Complete gameplay systems
 │   ├── ban-system/
 │   ├── death-custom-msg/
 │   ├── drops-in-inventory/
 │   ├── mob-stacker/
 │   ├── custom-commands/
 │   ├── world-manager/
-│   └── index.js                # Re-exports the public API of each system
-├── addons/                     # Complete, installable addons (BP + RP), not just source code
+│   └── index.js
+│
+├── addons/           # Complete installable add-ons
 │   └── shop-ui/
 │       ├── bp/
 │       └── rp/
-├── assets/                     # Static resources (glyph textures, etc.)
+│
+├── assets/           # Static assets
 │   └── glyphs/
-└── docs/                       # Knowledge base and documentation
-    └── json-ui/                # JSON UI reference (fundamentals, layout, components, patterns, packs)
+│
+└── docs/             # Bedrock technical documentation
+    └── json-ui/
 ```
 
-**`helpers/` vs `systems/`:** a helper is a class with methods that you
-you call when you need it (without opinion on your game logic); a
-system listens to world events on its own and has logic
-complete gameplay (some self-register when imported, others
-expose an `initialize...()` function to bootstrap explicitly —
-review theREADMEof each one).
-
----
-
-## 🗂️ Available modules
-
-| Module | Description | Docs |
-|---|---|---|
-| 🧩 **helpers** | Atomic and reusable classes (13 modules: chat-moderation, cooldown, coordinates, enchant-helper, inventory-helper, lore-durability, particle-helper, raycaster, region, rtp-helper, template-ui, armor-set-detector, timer) | [→ helpers](helpers/README.md) |
-| ⚙️ **systems** | Complete gameplay systems (6 modules: ban-system, death-custom-msg, drops-in-inventory, mob-stacker, custom-commands, world-manager) | [→ systems](systems/README.md) |
-| 📦 **addons** | Complete and installable addons (BP+RP) | [→ addons](addons/README.md) |
-| 🖼️ **assets** | Static resources (textures, glyphs) | [→ assets](assets/README.md) |
-| 📖 **docs** | Knowledge base: JSON UI reference for Bedrock (fundamentals, layout, components, full screens, advanced patterns, pack analysis, JSON fragments) | [→ docs](docs/README.md) |
-
----
-
-## ⚙️ Technologies
-
-| Tech | Version |
-|---|---|
-| Minecraft Bedrock Edition | `1.20.70+` |
-| `@minecraft/server` | `2.6.0` |
-| `@minecraft/server-ui` | `2.0.0` |
-| Language |JavaScript(ESM) |
-
----
-
-## 🔄 General flow
-
-```
-Minecraft event (playerSpawn, entityDie, blockBreak...)
-        │
-        ▼
-   Corresponding system (systems/ban-system, systems/mob-stacker...)
-        │
-        ├──► helpers/ (Region, Cooldown, InventoryHelper...) as reusable pieces
-        ├──► Dynamic Properties / VaultDB / WorldManager (persistence)
-        └──► UI Forms (ActionFormData / ModalFormData / TemplateUI / JSON UI)
-```
-
-Each `system` listens to its own events and is independent of each other.
-The `helpers` do not depend on any `system` — you can use them alone in
-any project without dragging the rest of the repo.
-
----
-
-## 🚀 Quick use
+### Installation
 
 ```bash
 git clone https://github.com/IIBl4z3MasterII/bedrock-utils.git
 ```
 
-Import a point module:
+Example:
 
 ```js
 import { Region } from "./helpers/region/index.js";
 import { CooldownManager } from "./helpers/cooldown/index.js";
 ```
 
-Or a whole group at once, using the aggregator index:
+Or import multiple utilities through the aggregator:
 
 ```js
-import { Region, CooldownManager, Timer } from "./helpers/index.js";
-import { worldManager, mobStackerManager } from "./systems/index.js";
+import {
+    Region,
+    CooldownManager,
+    Timer
+} from "./helpers/index.js";
 ```
 
-For the shop addon (`addons/shop-ui`), it is not imported — it is installed
-as behavior pack + resource pack. See your
-[README](addons/shop-ui/README.md).
+🔗 **[View Bedrock Utils →](https://github.com/IIBl4z3MasterII/bedrock-utils)**
 
 ---
 
-## 👤 Author
+# 📚 Current Focus
 
-**IIBl4z3MasterII** — API Script Developer andJSONUI for Minecraft Bedrock.
-
-| | |
-|---|---|
-| 🌐 Site | [bl4z3community.neocities.org](https://bl4z3community.neocities.org/) |
-   | 📁 Portfolio | [See portfolio](https://bl4z3community.neocities.org/portafolio/) |
-| 📦CurseForge| [iibl4z3master](https://www.curseforge.com/members/iibl4z3master/projects) |
-| ▶️YouTube| [@bl4z3master](https://www.youtube.com/@bl4z3master) |
-| 💬 Discord | [Join](https://discord.gg/kBNHNxXbMM) |
-
-If you use any system from this repo in your project, please **mention the original creator**.
+```text
+Minecraft Bedrock
+      │
+      ├── Script API
+      │     ├── JavaScript
+      │     ├── Events
+      │     ├── Systems
+      │     └── Dynamic Properties
+      │
+      ├── JSON UI
+      │     ├── Layouts
+      │     ├── Components
+      │     ├── HUD
+      │     └── Advanced UI systems
+      │
+      ├── Add-on Development
+      │     ├── Behavior Packs
+      │     ├── Resource Packs
+      │     ├── Custom Content
+      │     └── Pack Integration
+      │
+      └── Software Development
+            ├── Java
+            ├── JavaScript
+            ├── Databases
+            └── Web Development
+```
 
 ---
 
-<sub>Personal project • Not affiliated with Mojang or Microsoft</sub>
+# 📊 GitHub
+
+<div align="center">
+
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=IIBl4z3MasterII&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true" />
+
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=IIBl4z3MasterII&layout=compact&langs_count=8&theme=tokyonight&hide_border=true" />
+
+</div>
+
+<br>
+
+<div align="center">
+
+<img src="https://streak-stats.demolab.com?user=IIBl4z3MasterII&theme=tokyonight&hide_border=true" />
+
+</div>
+
+---
+
+# 🌐 Find Me
+
+<div align="center">
+
+<a href="https://bl4z3community.neocities.org/">
+  <img src="https://img.shields.io/badge/Website-Bl4z3%20Community-58A6FF?style=for-the-badge&logo=googlechrome&logoColor=white" />
+</a>
+
+<a href="https://bl4z3community.neocities.org/portafolio/">
+  <img src="https://img.shields.io/badge/Portfolio-View%20Projects-111827?style=for-the-badge&logo=github&logoColor=white" />
+</a>
+
+<a href="https://www.curseforge.com/members/iibl4z3master/projects">
+  <img src="https://img.shields.io/badge/CurseForge-Projects-F16436?style=for-the-badge&logo=curseforge&logoColor=white" />
+</a>
+
+<a href="https://www.youtube.com/@bl4z3master">
+  <img src="https://img.shields.io/badge/YouTube-%40bl4z3master-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
+</a>
+
+<a href="https://discord.gg/kBNHNxXbMM">
+  <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+</a>
+
+</div>
+
+---
+
+# 💼 Open for Commissions
+
+I also develop **custom Minecraft Bedrock projects** and systems.
+
+```text
+Custom Add-ons
+      ↓
+Script API Systems
+      ↓
+JSON UI
+      ↓
+Behavior Packs + Resource Packs
+      ↓
+Custom Integrations
+```
+
+For commissions, collaborations or technical projects, contact me through **Discord**.
+
+---
+
+<div align="center">
+
+### 🪨 Building systems for Bedrock, one module at a time.
+
+<br>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,50:161B22,100:58A6FF&height=120&section=footer"/>
+
+</div>
+
+<sub>
+Personal developer profile • Minecraft Bedrock community projects • Not affiliated with Mojang or Microsoft.
+</sub>
