@@ -281,19 +281,36 @@ Minecraft Bedrock
 
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=IIBl4z3MasterII&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true" />
+<a href="https://github.com/IIBl4z3MasterII/bedrock-utils">
+  <img src="https://img.shields.io/github/stars/IIBl4z3MasterII/bedrock-utils?style=for-the-badge&logo=github&color=58A6FF&labelColor=0D1117" />
+  <img src="https://img.shields.io/github/last-commit/IIBl4z3MasterII/bedrock-utils?style=for-the-badge&logo=git&color=9B59B6&labelColor=0D1117" />
+  <img src="https://img.shields.io/github/commit-activity/m/IIBl4z3MasterII/bedrock-utils?style=for-the-badge&color=4CAF50&labelColor=0D1117" />
+  <img src="https://img.shields.io/github/languages/top/IIBl4z3MasterII/bedrock-utils?style=for-the-badge&color=F7DF1E&labelColor=0D1117" />
+</a>
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=IIBl4z3MasterII&layout=compact&langs_count=8&theme=tokyonight&hide_border=true" />
+<br><br>
+
+<kbd>
+  <img src="https://streak-stats.demolab.com?user=IIBl4z3MasterII&theme=tokyonight&hide_border=true&background=0D1117" alt="GitHub streak" />
+</kbd>
 
 </div>
 
 <br>
 
-<div align="center">
-
-<img src="https://streak-stats.demolab.com?user=IIBl4z3MasterII&theme=tokyonight&hide_border=true" />
-
-</div>
+```mermaid
+journey
+  title Mi flujo de desarrollo Bedrock
+  section Idea
+    Diseñar el sistema: 4: Yo
+    Definir módulos reutilizables: 5: Yo
+  section Build
+    Script API + JavaScript: 5: Yo
+    JSON UI + Resource Pack: 4: Yo
+  section Release
+    Documentar en Bedrock Utils: 4: Yo
+    Publicar en CurseForge: 5: Yo, Comunidad
+```
 
 ---
 
